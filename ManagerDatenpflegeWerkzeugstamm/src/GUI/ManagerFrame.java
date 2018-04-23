@@ -114,8 +114,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +133,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Frame_DataMaintenance_Segment myDMSegment = new Frame_DataMaintenance_Segment();
         myDMSegment.setTitle("Daten-Pflege Tabelle: Segment");
+        myDMSegment.setLocation(245, 0);
         myDMSegment.setVisible(true);
     }//GEN-LAST:event_btn_open_dataMaintenance_segmentActionPerformed
 
