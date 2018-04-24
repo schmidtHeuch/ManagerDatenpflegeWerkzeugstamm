@@ -337,6 +337,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Duplizieren"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_duplicateActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

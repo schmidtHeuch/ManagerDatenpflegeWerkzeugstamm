@@ -14,6 +14,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -43,22 +44,28 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     DefaultTableModel myTableModel;           
     DB_ConnectionManager MY_DBCM;
     String [] NewDataSet = new String [2];
+    String Old_Key;
+    String Old_Value2;
+    int OldSelection;
     
-    private void do_preBuild() {
-        
+    private void do_preBuild() {        
         
     }
     private void do_postBuild() {
         
         jPanel_buttonsForEdit.setBorder(BorderFactory.createTitledBorder("Bearbeitung"));
-//        jTable_dbData.getSelectionModel().addListSelectionListener (new ListSelectionListener() {
-//            private void valueChanged(ListSelectionEvent ev) {
-//                myTableModel = (DefaultTableModel) jTable_dbData.getModel();
-//                int myRow = jTable_dbData.getSelectedRow();
-//                jTextField_key.setText( myTableModel.getValueAt(myRow, 0).toString().trim());
-//                jTextField_value2.setText( myTableModel.getValueAt(myRow, 1).toString().trim());
-//            }
-//        });
+        
+        jTable_dbData.getSelectionModel().addListSelectionListener ((ListSelectionEvent ev) -> {
+            jTable_dbData.setRowSelectionAllowed(true);
+            myTableModel = (DefaultTableModel) jTable_dbData.getModel();
+            int myRow = jTable_dbData.getSelectedRow();
+            jTextField_key.setText( myTableModel.getValueAt(myRow, 0).toString().trim());
+            jTextField_value2.setText( myTableModel.getValueAt(myRow, 1).toString().trim());
+            btn_edit.setEnabled(true);
+            btn_duplicate.setEnabled(true);
+            btn_delete.setEnabled(true);
+        });
+
         get_DBTableData();
         
     }
@@ -249,6 +256,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         });
 
         btn_duplicate.setText("Duplizieren");
+        btn_duplicate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_duplicateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_buttonsForEditLayout = new javax.swing.GroupLayout(jPanel_buttonsForEdit);
         jPanel_buttonsForEdit.setLayout(jPanel_buttonsForEditLayout);
@@ -371,6 +383,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 //            MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
+//            String myTempSQL = "CREATE TABLE #tempSegment FROM DiafBDE.dbo.T_Segment";
+//            myStatement
             String mySQL = "SELECT * FROM DiafBDE.dbo.T_Segment"; //ORDER BY T_Segment.pKey_KP"; // WHERE tma_abt='Technik'";
             ResultSet myResultSet = myStatement.executeQuery(mySQL);
             int myColumns = myResultSet.getMetaData().getColumnCount();
@@ -429,8 +443,15 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
         // TODO add your handling code here:
-        set_textFieldsEnabled(); 
+        set_textFieldsEnabled(true); 
+        Old_Key = jTextField_key.getText();
+        Old_Value2 = jTextField_value2.getText();
+        jTextField_key.setText("");
+        jTextField_value2.setText("");
         btn_new.setEnabled(false);
+        btn_edit.setEnabled(false);
+        btn_duplicate.setEnabled(false);
+        btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
         btn_cancel.setEnabled(true);       
     }//GEN-LAST:event_btn_newActionPerformed
@@ -438,7 +459,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void jTextField_keyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_keyKeyTyped
         // TODO add your handling code here:
 //            if (jTextField_key.getText().matches("[0-9]")) {
-            if (jTextField_key.getText().matches("[0-9]")) {
+            if (!jTextField_key.getText().matches("[0-9]")) {
                 JOptionPane.showMessageDialog(null,"Bitte nur Ziffern von 0 bis 9 eingeben.");
 //                evt.setKeyChar(KeyEvent.VK_BACK_SPACE);
             }
@@ -473,9 +494,16 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
         // TODO add your handling code here:
-        //something        
+        //something   
+        jTextField_key.setText(Old_Key);
+        jTextField_value2.setText(Old_Value2);   
         set_textFieldsDisabled(); 
-        btn_new.setEnabled(true); 
+        btn_new.setEnabled(true);
+        if (!Old_Key.equals("")) {
+            btn_edit.setEnabled(true);
+            btn_duplicate.setEnabled(true);
+            btn_delete.setEnabled(true);
+        }
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);  
     }//GEN-LAST:event_btn_cancelActionPerformed
@@ -492,12 +520,29 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
+        Old_Key = jTextField_key.getText();
+        Old_Value2 = jTextField_value2.getText();
+        set_textFieldsEnabled(false);
         btn_new.setEnabled(false);
+        btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
         btn_cancel.setEnabled(true);
     }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
+        // TODO add your handling code here:
+        Old_Key = jTextField_key.getText();
+        Old_Value2 = jTextField_value2.getText();
+        set_textFieldsEnabled(true);
+        btn_new.setEnabled(false);
+        btn_edit.setEnabled(false);
+        btn_duplicate.setEnabled(false);
+        btn_delete.setEnabled(false);
+        btn_accept.setEnabled(true);
+        btn_cancel.setEnabled(true);
+    }//GEN-LAST:event_btn_duplicateActionPerformed
 
     private void set_buttonsDisabled(JButton aButton) {
         
@@ -507,9 +552,9 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         
     }
     
-    private void set_textFieldsEnabled() {
+    private void set_textFieldsEnabled(boolean aBoolean) {
         
-        jTextField_key.setEnabled(true);
+        jTextField_key.setEnabled(aBoolean);
         jTextField_value2.setEnabled(true);
         
     }
@@ -524,15 +569,13 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void do_insertDataSet_intoDB() {        
         try
         {
-            MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
+           // MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
             if (MY_DBCM.isConnnected()) 
             {            
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
             myStatement.executeQuery("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Segmenthöhe)" 
-                    + "VALUES (" + jTextField_key.getText() + ", '" + jTextField_value2.getText() +"')");
-            
-            
+                    + "VALUES (" + jTextField_key.getText() + ", '" + jTextField_value2.getText() +"')"); 
             
             }            
             lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
@@ -558,6 +601,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         NewDataSet [1] = jTextField_value2.getText();
         
         myTableModel.addRow(NewDataSet);
+    }
+    private boolean test_isDataSetInDB() {
+        boolean myAnswer = false;
+        for (int myRow = 1; myRow <= jTable_dbData.getRowCount(); myRow ++) {
+            if (myTableModel.getValueAt(myRow, 1).equals(jTextField_key.getText()))
+                myAnswer = true;
+            else {
+                myAnswer = false;
+            }
+        }
+        return myAnswer;
     }
     /**
      * @param args the command line arguments
