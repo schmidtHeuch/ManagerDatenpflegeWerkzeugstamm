@@ -6,22 +6,15 @@
 package GUI;
 //import DBTools.DBTools;
 import DBTools.DB_ConnectionManager;
-import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.Document;
-import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -52,9 +45,6 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     int OldSelection;
     String DataSet_Mode;
     
-    private void do_preBuild() {        
-        
-    }
     private void do_postBuild() {
         
         jPanel_buttonsForEdit.setBorder(BorderFactory.createTitledBorder("Bearbeitung"));
@@ -449,8 +439,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         DataSet_Mode = "new";
         set_textFieldsEnabled(true); 
 //        jTable_dbData.clearSelection();
-        Old_Key = jFormattedTextField_key.getText();
-        Old_Value2 = jFormattedTextField_value2.getText();
+        set_oldValues();
         set_textFieldsEmpty();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
@@ -549,8 +538,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
         // TODO add your handling code here:
         //something   
-        jFormattedTextField_key.setText(Old_Key);
-        jFormattedTextField_value2.setText(Old_Value2);   
+        get_oldValues();   
         set_textFieldsDisabled(); 
         btn_new.setEnabled(true);
         if (!Old_Key.equals("")) {
@@ -575,8 +563,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "edit";
-        Old_Key = jFormattedTextField_key.getText();
-        Old_Value2 = jFormattedTextField_value2.getText();
+        set_oldValues();
         set_textFieldsEnabled(false);
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
@@ -589,8 +576,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "duplicate";
-        Old_Key = jFormattedTextField_key.getText();
-        Old_Value2 = jFormattedTextField_value2.getText();
+        set_oldValues();
         set_textFieldsEnabled(true);
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
@@ -604,6 +590,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jFormattedTextField_key.setText("");
         jFormattedTextField_value2.setText("");        
     }
+    
+    private void set_oldValues() {        
+        Old_Key = jFormattedTextField_key.getText();
+        Old_Value2 = jFormattedTextField_value2.getText();
+    }
+    
+    private void get_oldValues() {         
+        jFormattedTextField_key.setText(Old_Key);
+        jFormattedTextField_value2.setText(Old_Value2);  
+    }
+    
     private void set_buttonsDisabled(JButton aButton) {
         
     }
