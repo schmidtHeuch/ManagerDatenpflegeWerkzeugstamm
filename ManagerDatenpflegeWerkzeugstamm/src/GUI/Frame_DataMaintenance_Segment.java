@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.BorderFactory;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,19 +44,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     String DataSet_Mode;
     
     private void do_postBuild() {
-        
-        jPanel_buttonsForEdit.setBorder(BorderFactory.createTitledBorder("Bearbeitung"));
-        
-        jTable_dbData.getSelectionModel().addListSelectionListener ((ListSelectionEvent ev) -> {
-            jTable_dbData.setRowSelectionAllowed(true);
-            int myRow = jTable_dbData.getSelectedRow();
-            jFormattedTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
-            jFormattedTextField_value2.setText(myTableModel.getValueAt(myRow, 1).toString().trim());
-            btn_edit.setEnabled(true);
-            btn_duplicate.setEnabled(true);
-            btn_delete.setEnabled(true);  
-        });
-        
+                
         getDBConnection();
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
@@ -97,6 +83,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         btn_duplicate = new javax.swing.JButton();
         jFormattedTextField_key = new javax.swing.JFormattedTextField();
         jFormattedTextField_value2 = new javax.swing.JFormattedTextField();
+        jTextField_key = new javax.swing.JTextField();
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
@@ -121,7 +108,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Segment-Name (Key)", "Segmenthöhe"
+                "Segment-ID (Key)", "Segmenthöhe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -135,6 +122,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTable_dbData.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable_dbData.setShowVerticalLines(false);
         jTable_dbData.getTableHeader().setReorderingAllowed(false);
+        jTable_dbData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable_dbDataMousePressed(evt);
+            }
+        });
         jTable_dbData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTable_dbDataKeyPressed(evt);
@@ -205,6 +197,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel_buttonsForEdit.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+
         btn_new.setText("Neu");
         btn_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +245,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField_key.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_key.setToolTipText("Nummerisch (eindeutiger Bezeichner eines Segments)");
         jFormattedTextField_key.setEnabled(false);
 
         jFormattedTextField_value2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
@@ -265,27 +259,28 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_key)
-                            .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(lbl_value2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jFormattedTextField_value2)))
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
                         .addComponent(btn_accept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_cancel))
                     .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addComponent(btn_new)
+                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_key)
+                            .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
+                                .addComponent(btn_new)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_edit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_duplicate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_delete)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_edit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_duplicate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_delete)))
+                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextField_value2)
+                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
+                                .addComponent(lbl_value2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTextField_key))))
                 .addContainerGap())
         );
         jPanel_buttonsForEditLayout.setVerticalGroup(
@@ -304,7 +299,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                     .addComponent(btn_new)
                     .addComponent(btn_edit)
                     .addComponent(btn_delete)
-                    .addComponent(btn_duplicate))
+                    .addComponent(btn_duplicate)
+                    .addComponent(jTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_accept)
@@ -353,7 +349,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 .addComponent(jPanel_table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_buttonsForEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -438,7 +434,6 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         // TODO add your handling code here:
         DataSet_Mode = "new";
         set_textFieldsEnabled(true); 
-//        jTable_dbData.clearSelection();
         set_oldValues();
         set_textFieldsEmpty();
         btn_new.setEnabled(false);
@@ -451,17 +446,26 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void jTable_dbDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_dbDataKeyPressed
         // TODO add your handling code here:
-        if (myTableModel.getRowCount() >= 1) {
-            jFormattedTextField_key.setText(myTableModel.getValueAt(myTableModel.getRowCount(), 1).toString());
-            jFormattedTextField_value2.setText(myTableModel.getValueAt(myTableModel.getRowCount(), 2).toString());
+        if (myTableModel.getRowCount() > 0) {
+            set_valuesIntoTextFields();
         }
     }//GEN-LAST:event_jTable_dbDataKeyPressed
 
+    private void set_valuesIntoTextFields() {
+        
+        OldSelection = jTable_dbData.getSelectedRow();
+        if(OldSelection != -1) {
+            jTable_dbData.setRowSelectionAllowed(true);
+            jTextField_key.setText(myTableModel.getValueAt(OldSelection, 0).toString().trim());
+            jFormattedTextField_value2.setText(myTableModel.getValueAt(OldSelection, 1).toString().trim());
+            btn_edit.setEnabled(true);
+            btn_duplicate.setEnabled(true);
+            btn_delete.setEnabled(true); 
+        }        
+    }
     private void btn_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acceptActionPerformed
         // TODO add your handling code here:
-        //something
-//        do_insertDataSet_intoTable();
-        if (jFormattedTextField_key.getText().isEmpty()) {
+        if (jTextField_key.getText().isEmpty()) {
             
             JOptionPane.showMessageDialog(null,
                     "Der Datensatz ist leer. Erfassen Sie Daten oder klicken auf Abbrechen.",
@@ -470,17 +474,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             return;
         }
         else {
-            boolean myAnswer = test_isDataSetInDB(jFormattedTextField_key.getText());
+            boolean myAnswer = test_isDataSetInDB(jTextField_key.getText().trim());
             
             if (myAnswer == true) {
                 if (DataSet_Mode.equals("new")) {
                     JOptionPane.showMessageDialog(null,
-                        "Es existiert schon ein Datensatz mit diesem Key (Segment-Name).",
+                        "Es existiert schon ein Datensatz mit diesem Key (Segment-ID).",
                         "Fehler",
                         JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (DataSet_Mode.equals("edit")  && !Old_Value2.equals(jFormattedTextField_value2.getText())) {
+                if (DataSet_Mode.equals("edit")  && !Old_Value2.equals(jFormattedTextField_value2.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -517,27 +521,28 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "delete";
-        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jFormattedTextField_key.getText()) == true) {
+        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jTextField_key.getText().trim()) == true) {
             int myAnswer = JOptionPane.showConfirmDialog(null,
-                    "Soll der Datensatz >>Segment-Name: " + jFormattedTextField_key.getText() + "<< wirklich gelöscht werden?",
+                    "Soll der Datensatz >>Segment-ID: " + jTextField_key.getText().trim() + "<< wirklich gelöscht werden?",
                     "Datensatz löschen?",
                     JOptionPane.YES_NO_OPTION);   
             if (myAnswer == 1) {
                 return;
             }
             else {
-                do_deleteDataSet_inDB();         
+                do_deleteDataSet_inDB();   
+                if (OldSelection > -1) {
+                    myTableModel.removeRow(OldSelection);
+                }
+                set_textFieldsEmpty();
+                set_textFieldsDisabled();
+                lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));         
             }
-        }   
-        set_textFieldsEmpty();
-        set_textFieldsDisabled();
-//        get_DBTableData();            
-        lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
+        }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
         // TODO add your handling code here:
-        //something   
         get_oldValues();   
         set_textFieldsDisabled(); 
         btn_new.setEnabled(true);
@@ -586,18 +591,25 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         btn_cancel.setEnabled(true);
     }//GEN-LAST:event_btn_duplicateActionPerformed
 
+    private void jTable_dbDataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_dbDataMousePressed
+        // TODO add your handling code here:
+        if (myTableModel.getRowCount() > 0) {
+            set_valuesIntoTextFields();
+        }
+    }//GEN-LAST:event_jTable_dbDataMousePressed
+
     private void set_textFieldsEmpty() {
-        jFormattedTextField_key.setText("");
+        jTextField_key.setText("");
         jFormattedTextField_value2.setText("");        
     }
     
     private void set_oldValues() {        
-        Old_Key = jFormattedTextField_key.getText();
-        Old_Value2 = jFormattedTextField_value2.getText();
+        Old_Key = jTextField_key.getText().trim();
+        Old_Value2 = jFormattedTextField_value2.getText().trim();
     }
     
     private void get_oldValues() {         
-        jFormattedTextField_key.setText(Old_Key);
+        jTextField_key.setText(Old_Key);
         jFormattedTextField_value2.setText(Old_Value2);  
     }
     
@@ -611,13 +623,16 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     
     private void set_textFieldsEnabled(boolean aBoolean) {
         
-        jFormattedTextField_key.setEnabled(aBoolean);
-        jFormattedTextField_value2.setEnabled(true);        
+        jTextField_key.setEnabled(aBoolean);
+        jFormattedTextField_value2.setEnabled(true);      
+//        jFormattedTextField_key.setFocusTraversalPolicy(new DefaultFocusTraversalPolicy());
+//        jFormattedTextField_key.setFocusCycleRoot(true);  
+//        jFormattedTextField_key.s
     }
     
     private void set_textFieldsDisabled() {
         
-        jFormattedTextField_key.setEnabled(false);
+        jTextField_key.setEnabled(false);
         jFormattedTextField_value2.setEnabled(false);        
     }
     
@@ -628,11 +643,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
             if (MY_DBCM.isConnnected()) 
             {    
-//            float myValue2 = Float.parseFloat(jFormattedTextField_value2.getText().trim());
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Segmenthöhe)" 
-                    + "VALUES (" + ((Number)jFormattedTextField_key.getValue()).intValue() + ", '" + ((Number) jFormattedTextField_value2.getValue()).floatValue() +"')");             
+                    + "VALUES (" + jTextField_key.getText().trim() + ", " 
+                    + ((Number) jFormattedTextField_value2.getValue()).floatValue() +")");                
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -659,7 +674,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Segment SET Segmenthöhe = " + jFormattedTextField_value2.getText().trim() +
-                    " WHERE pKey_KP = " + jFormattedTextField_key.getText() + "");             
+                    " WHERE pKey_KP = " + jTextField_key.getText().trim() + "");             
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -685,7 +700,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 //            float myValue2 = Float.parseFloat(jFormattedTextField_value2.getText().trim());
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Segment WHERE pKey_KP = " + jFormattedTextField_key.getText() + "");             
+            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Segment WHERE pKey_KP = " + jTextField_key.getText().trim() + "");             
             }   
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -701,22 +716,21 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         }         
     }
     
-    private void do_insertDataSet_intoTable() {
-        myTableModel = (DefaultTableModel) jTable_dbData.getModel();
-        
-        NewDataSet [0] = jFormattedTextField_key.getText();        
-        NewDataSet [1] = jFormattedTextField_value2.getText();
-        
-        myTableModel.addRow(NewDataSet);
-    }
+//    private void do_insertDataSet_intoTable() {
+//        myTableModel = (DefaultTableModel) jTable_dbData.getModel();
+//        
+//        NewDataSet [0] = jFormattedTextField_key.getText();        
+//        NewDataSet [1] = jFormattedTextField_value2.getText();
+//        
+//        myTableModel.addRow(NewDataSet);
+//    }
     
     private boolean test_isDataSetInDB(String aString) {
         boolean myAnswer = false;
         for (int myRow = 0; myRow < jTable_dbData.getRowCount(); ++myRow ) {
-//            System.out.println(myTableModel.getValueAt(myRow, 0));
-//            System.out.println(aString);
-//            System.out.println(jTable_dbData.getRowCount());
-            if (myTableModel.getValueAt(myRow, 0).equals(aString))
+            System.out.println(">>" + myTableModel.getValueAt(myRow, 0).toString() + "<<");
+            System.out.println(">>" + aString + "<<");
+            if (myTableModel.getValueAt(myRow, 0).toString().trim().equals(aString))
                 myAnswer = true;           
         }
         return myAnswer;
@@ -772,6 +786,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_table;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JTable jTable_dbData;
+    private javax.swing.JTextField jTextField_key;
     private javax.swing.JTextField jTextField_searchValue1;
     private javax.swing.JTextField jTextField_searchValue2;
     private javax.swing.JLabel lbl_key;
