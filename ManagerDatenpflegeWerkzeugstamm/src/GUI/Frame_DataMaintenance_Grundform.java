@@ -14,13 +14,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.BoundedRangeModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Dimension;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 /**
  *
@@ -43,75 +48,77 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     boolean myAnswerIfConnected;
     Connection myConnection;
     DefaultTableModel myTableModel; 
-    TableRowSorter mySorter;          
+    TableRowSorter<DefaultTableModel> mySorter;          
     DB_ConnectionManager MY_DBCM;
-    String Old_Key_GrundForm;
-    String Old_DescriptionValue;
-    String Old_LengthValue;
-    String Old_WidthValue;
-    String Old_PropertyValue;
+    String Old_Key_Grundform;
+    String Old_Länge;
+    String Old_Breite;
+    String Old_Unterbauhöhe;
+    String Old_L1;
+    String Old_L2;
+    String Old_L3;
+    String Old_L4;
+    String Old_L5;
+    String Old_L6;
+    String Old_L7;
+    String Old_L8;
+    String Old_L9;
+    String Old_L10;
+    String Old_L11;
+    String Old_L12;
+    String Old_L13;
+    String Old_L14;
+    String Old_Distanzplatte;
+    String Old_Grundplatte;
+    String Old_Druckplatte;
+    String Old_Kühlplatte;
+    String Old_DruckrahmenStahl;
+    String Old_DruckrahmenAlu;
+    String Old_SegmentrahmenStahl;
+    String Old_SegmentrahmenAlu;
+    String Old_Bemerkungen;
+    String Old_AchsenFürVorstempel;
+    String Old_AbmessungenTascheDruckplatteX;
+    String Old_AbmessungenTascheDruckplatteY;
+    String Old_GFVerschraubung;
+    String Old_Stück;
+    String Old_F33;
+    String Old_F34;
+    String Old_F35;
     int OldSelection;
-    String DataSet_Mode;
+    String DataSet_Mode;    
 
     private void do_preBuild() {
-        
+              
         getDBConnection();
+        JTableHeader myHeader = jTable_dbData.getTableHeader(); //.setSize(20, label.getText().length());       
+        DefaultTableCellRenderer myRenderer = (DefaultTableCellRenderer)myHeader.getDefaultRenderer();
+        myRenderer.setPreferredSize(new Dimension(0,50));
+        
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
         lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));     
-        createRowSorter(myTableModel);       
+        createRowSorter(myTableModel);
+
+        final BoundedRangeModel scrollModel = jScrollPane_dbData.getHorizontalScrollBar().getModel();
+        jScrollPane_editData.getHorizontalScrollBar().setModel(scrollModel);
+                
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
-        mySorter = new TableRowSorter(aModel);
+        mySorter = new TableRowSorter<>(aModel);
         jTable_dbData.setRowSorter(mySorter);
     }
     
     public void search() {
-        String searchTerm = jTextField_searchValue1.getText();
+        String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
     private void do_postBuild() {
                 
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
-        });   
-        
-        DefaultTableCellRenderer myRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(  
-        JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-        JLabel label;  
-        if(!(value instanceof JLabel)) {  
-            label = new JLabel((String)value);  
-        } else {  
-           label = (JLabel) value;  
-        }  
-        label.setOpaque(true);  
-        label.setFont(table.getFont());  
-        label.setForeground(table.getForeground());  
-        label.setBackground(table.getBackground());
-
-        if(isSelected) {  
-            label.setBackground(table.getSelectionBackground());  
-            label.setForeground(table.getSelectionForeground());  
-        }
-
-        if(column == 1) {  
-            label.setHorizontalAlignment(JLabel.LEFT);  
-        }
-        else { 
-            label.setHorizontalAlignment(JLabel.RIGHT);          
-        }
-
-        return label;  
-        } 
-        
-    };
-        JLabel label = new JLabel();
-        myRenderer.getTableCellRendererComponent(jTable_dbData, label, true, true, jTable_dbData.getSelectedRow(), 1);
-        jTable_dbData.setDefaultRenderer(Object.class, myRenderer);
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,7 +130,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_table = new javax.swing.JPanel();
-        jTextField_searchValue1 = new javax.swing.JTextField();
+        jTextField_searchValue = new javax.swing.JTextField();
         btn_deleteSearchValue1 = new javax.swing.JButton();
         jScrollPane_dbData = new javax.swing.JScrollPane();
         jTable_dbData = new javax.swing.JTable();
@@ -131,26 +138,89 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         lbl_rowCount = new javax.swing.JLabel();
         btn_getCurrentDBData = new javax.swing.JButton();
         lbl_tableName = new javax.swing.JLabel();
-        jPanel_buttonsForEdit = new javax.swing.JPanel();
+        jPanel_footer = new javax.swing.JPanel();
+        btn_close = new javax.swing.JButton();
+        jScrollPane_editData = new javax.swing.JScrollPane();
+        jPanel_editData = new javax.swing.JPanel();
+        jPanel_editLabels = new javax.swing.JPanel();
+        lbl_key = new javax.swing.JLabel();
+        lbl_Länge = new javax.swing.JLabel();
+        lbl_Breite = new javax.swing.JLabel();
+        lbl_Unterbauhöhe = new javax.swing.JLabel();
+        lbl_L1 = new javax.swing.JLabel();
+        lbl_L2 = new javax.swing.JLabel();
+        lbl_L3 = new javax.swing.JLabel();
+        lbl_L4 = new javax.swing.JLabel();
+        lbl_L5 = new javax.swing.JLabel();
+        lbl_L6 = new javax.swing.JLabel();
+        lbl_L7 = new javax.swing.JLabel();
+        lbl_L8 = new javax.swing.JLabel();
+        lbl_L9 = new javax.swing.JLabel();
+        lbl_L10 = new javax.swing.JLabel();
+        lbl_L11 = new javax.swing.JLabel();
+        lbl_L12 = new javax.swing.JLabel();
+        lbl_L13 = new javax.swing.JLabel();
+        lbl_L14 = new javax.swing.JLabel();
+        lbl_Distanzplatte = new javax.swing.JLabel();
+        lbl_Grundplatte = new javax.swing.JLabel();
+        lbl_Druckplatte = new javax.swing.JLabel();
+        lbl_Kühlplatte = new javax.swing.JLabel();
+        lbl_DruckrahmenStahl = new javax.swing.JLabel();
+        lbl_DruckrahmenAlu = new javax.swing.JLabel();
+        lbl_SegmentrahmenStahl = new javax.swing.JLabel();
+        lbl_SegmentrahmenAlu = new javax.swing.JLabel();
+        lbl_Bemerkungen = new javax.swing.JLabel();
+        lbl_AchsenFürVorstempel = new javax.swing.JLabel();
+        lbl_AbmessungenTascheDruckplatteX = new javax.swing.JLabel();
+        lbl_AbmessungenTascheDruckplatteY = new javax.swing.JLabel();
+        lbl_GFVerschraubung = new javax.swing.JLabel();
+        lbl_Stück = new javax.swing.JLabel();
+        lbl_F33 = new javax.swing.JLabel();
+        lbl_F34 = new javax.swing.JLabel();
+        lbl_F35 = new javax.swing.JLabel();
+        jPanel_editTextFields = new javax.swing.JPanel();
+        jTextField_key = new javax.swing.JTextField();
+        jFormattedTextField_Länge = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Breite = new javax.swing.JFormattedTextField();
+        jTextField_Unterbauhöhe = new javax.swing.JTextField();
+        jFormattedTextField_L1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L2 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L3 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L4 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L5 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L6 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L7 = new javax.swing.JFormattedTextField();
+        jFormattedTextField_L8 = new javax.swing.JFormattedTextField();
+        jTextField_L9 = new javax.swing.JTextField();
+        jTextField_L10 = new javax.swing.JTextField();
+        jTextField_L11 = new javax.swing.JTextField();
+        jTextField_L12 = new javax.swing.JTextField();
+        jTextField_L13 = new javax.swing.JTextField();
+        jTextField_L14 = new javax.swing.JTextField();
+        jFormattedTextField_Distanzplatte = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Grundplatte = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Druckplatte = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Kühlplatte = new javax.swing.JFormattedTextField();
+        jFormattedTextField_DruckrahmenStahl = new javax.swing.JFormattedTextField();
+        jFormattedTextField_DruckrahmenAlu = new javax.swing.JFormattedTextField();
+        jFormattedTextField_SegmentrahmenStahl = new javax.swing.JFormattedTextField();
+        jFormattedTextField_SegmentrahmenAlu = new javax.swing.JFormattedTextField();
+        jTextField_Bemerkungen = new javax.swing.JTextField();
+        jTextField_AchsenFürVorstempel = new javax.swing.JTextField();
+        jFormattedTextField_AbmessungenTascheDruckplatteX = new javax.swing.JFormattedTextField();
+        jFormattedTextField_AbmessungenTascheDruckplatteY = new javax.swing.JFormattedTextField();
+        jTextField_GFVerschraubung = new javax.swing.JTextField();
+        jFormattedTextField_Stück = new javax.swing.JFormattedTextField();
+        jTextField_F33 = new javax.swing.JTextField();
+        jTextField_F34 = new javax.swing.JTextField();
+        jTextField_F35 = new javax.swing.JTextField();
+        jPanel_editButtons = new javax.swing.JPanel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
         btn_accept = new javax.swing.JButton();
-        lbl_key = new javax.swing.JLabel();
-        lbl_valueDescription = new javax.swing.JLabel();
         btn_cancel = new javax.swing.JButton();
         btn_duplicate = new javax.swing.JButton();
-        jFormattedTextField_key = new javax.swing.JFormattedTextField();
-        jFormattedTextField_valueDescription = new javax.swing.JFormattedTextField();
-        jFormattedTextField_valueLength = new javax.swing.JFormattedTextField();
-        lbl_valueLength = new javax.swing.JLabel();
-        jFormattedTextField_valueWidth = new javax.swing.JFormattedTextField();
-        lbl_valueWidth = new javax.swing.JLabel();
-        jFormattedTextField_propertyValue = new javax.swing.JFormattedTextField();
-        lbl_valueProperty = new javax.swing.JLabel();
-        jFormattedTextField_propertyDescription = new javax.swing.JTextField();
-        jPanel_footer = new javax.swing.JPanel();
-        btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -159,9 +229,9 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
         });
 
-        jTextField_searchValue1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_searchValue1KeyReleased(evt);
+                jTextField_searchValueKeyReleased(evt);
             }
         });
 
@@ -172,26 +242,74 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane_dbData.setToolTipText("");
+
         jTable_dbData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Grundform", "Abmessungen Länge", "Abmessungen Breite", "Unterbauhöhe", "L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10", "L11", "L12", "L13", "L14", "Distanzplatte", "Grundplatte", "Druckplatte", "Kühlplatte", "Druckrahmen Stahl", "Druckrahmen Alu", "Segmentrahmen Stahl", "Segmentrahmen Alu", "Bemerkungen", "Achsen für Vorstempel", "Abmessungen Tasche Druckplatte x", "Abmessungen Tasche Druckplatte y", "GF Verschraubung", "Stück", "F33", "F34", "F35"
+                "Grundform", "<html>Abmessungen<br> Länge</html>", "<html>Abmessungen<br> Breite</html>", "<html>Unterbau-<br>höhe</html>", "L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10", "L11", "L12", "L13", "L14", "<html>Distanz-<br>platte</html>", "<html>Grund-<br>platte</html>", "<html>Druck-<br>platte</html>", "<html>Kühl-<br>platte</html>", "<html>Druck-<br>rahmen<br>Stahl</html>", "<html>Druck-<br>rahmen<br>Alu</html>", "<html>Segment-<br>rahmen<br>Stahl</html>", "<html>Segment-<br>rahmen<br>Alu</html>", "Bemerkungen", "<html>Achsen für<br>Vorstempel</html>", "<html>Abmessungen Tasche<br> Druckplatte x</html>", "<html>Abmessungen Tasche<br> Druckplatte y</html>", "<html>GF<br> Verschraubung</html>", "Stück", "F33", "F34", "F35"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable_dbData.setRowHeight(20);
+        jTable_dbData.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable_dbData.setAutoscrolls(false);
+        jTable_dbData.setRowHeight(30);
         jTable_dbData.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable_dbData.getTableHeader().setReorderingAllowed(false);
         jScrollPane_dbData.setViewportView(jTable_dbData);
+        if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
+            jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(90);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(7).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(8).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(9).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(10).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(11).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(12).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(13).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(14).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(15).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(16).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(17).setPreferredWidth(40);
+            jTable_dbData.getColumnModel().getColumn(18).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(19).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(20).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(21).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(22).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(23).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(24).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(25).setPreferredWidth(60);
+            jTable_dbData.getColumnModel().getColumn(26).setPreferredWidth(395);
+            jTable_dbData.getColumnModel().getColumn(27).setPreferredWidth(140);
+            jTable_dbData.getColumnModel().getColumn(28).setPreferredWidth(140);
+            jTable_dbData.getColumnModel().getColumn(29).setPreferredWidth(140);
+            jTable_dbData.getColumnModel().getColumn(30).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(31).setPreferredWidth(50);
+            jTable_dbData.getColumnModel().getColumn(32).setPreferredWidth(50);
+            jTable_dbData.getColumnModel().getColumn(33).setPreferredWidth(50);
+            jTable_dbData.getColumnModel().getColumn(34).setPreferredWidth(50);
+        }
 
         lbl_search1.setText("Suchen");
 
@@ -218,7 +336,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl_search1)
@@ -242,7 +360,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                         .addComponent(lbl_search1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_searchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -250,11 +368,457 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 1733, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel_buttonsForEdit.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        btn_close.setText("Schließen");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
+        jPanel_footer.setLayout(jPanel_footerLayout);
+        jPanel_footerLayout.setHorizontalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_close)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_footerLayout.setVerticalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_close)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        jPanel_editData.setPreferredSize(new java.awt.Dimension(2520, 130));
+
+        jPanel_editLabels.setPreferredSize(new java.awt.Dimension(2520, 20));
+        jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        lbl_key.setText("Grundform");
+        lbl_key.setToolTipText("Grundform (Key)");
+        lbl_key.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_key.setPreferredSize(new java.awt.Dimension(80, 16));
+        jPanel_editLabels.add(lbl_key);
+
+        lbl_Länge.setText("Länge");
+        lbl_Länge.setToolTipText("<html>Abmessungen<br> Länge</html>");
+        lbl_Länge.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Länge.setPreferredSize(new java.awt.Dimension(90, 14));
+        jPanel_editLabels.add(lbl_Länge);
+
+        lbl_Breite.setText("Breite");
+        lbl_Breite.setToolTipText("<html>Abmessungen<br> Breite</html>");
+        lbl_Breite.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Breite.setPreferredSize(new java.awt.Dimension(90, 14));
+        jPanel_editLabels.add(lbl_Breite);
+
+        lbl_Unterbauhöhe.setText("Unterbauhöhe");
+        lbl_Unterbauhöhe.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Unterbauhöhe.setPreferredSize(new java.awt.Dimension(100, 14));
+        jPanel_editLabels.add(lbl_Unterbauhöhe);
+
+        lbl_L1.setText("L1");
+        lbl_L1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L1.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L1);
+
+        lbl_L2.setText("L2");
+        lbl_L2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L2.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L2);
+
+        lbl_L3.setText("L3");
+        lbl_L3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L3.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L3);
+
+        lbl_L4.setText("L4");
+        lbl_L4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L4.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L4);
+
+        lbl_L5.setText("L5");
+        lbl_L5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L5.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L5);
+
+        lbl_L6.setText("L6");
+        lbl_L6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L6.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L6);
+
+        lbl_L7.setText("L7");
+        lbl_L7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L7.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L7);
+
+        lbl_L8.setText("L8");
+        lbl_L8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L8.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L8);
+
+        lbl_L9.setText("L9");
+        lbl_L9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L9.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L9);
+
+        lbl_L10.setText("L10");
+        lbl_L10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L10.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L10);
+
+        lbl_L11.setText("L11");
+        lbl_L11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L11.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L11);
+
+        lbl_L12.setText("L12");
+        lbl_L12.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L12.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L12);
+
+        lbl_L13.setText("L13");
+        lbl_L13.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L13.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L13);
+
+        lbl_L14.setText("L14");
+        lbl_L14.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_L14.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel_editLabels.add(lbl_L14);
+
+        lbl_Distanzplatte.setText("Distanzplatte");
+        lbl_Distanzplatte.setToolTipText("Distanzplatte");
+        lbl_Distanzplatte.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Distanzplatte.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_Distanzplatte);
+
+        lbl_Grundplatte.setText("Grundplatte");
+        lbl_Grundplatte.setToolTipText("Grundplatte");
+        lbl_Grundplatte.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Grundplatte.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_Grundplatte);
+
+        lbl_Druckplatte.setText("Druckplatte");
+        lbl_Druckplatte.setToolTipText("Druckplatte");
+        lbl_Druckplatte.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Druckplatte.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_Druckplatte);
+
+        lbl_Kühlplatte.setText("Kühlplatte");
+        lbl_Kühlplatte.setToolTipText("Kühlplatte");
+        lbl_Kühlplatte.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Kühlplatte.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_Kühlplatte);
+
+        lbl_DruckrahmenStahl.setText("DR Stahl");
+        lbl_DruckrahmenStahl.setToolTipText("<html>Druck-<br>rahmen<br>Stahl</html>");
+        lbl_DruckrahmenStahl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_DruckrahmenStahl.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_DruckrahmenStahl);
+
+        lbl_DruckrahmenAlu.setText("DR Alu");
+        lbl_DruckrahmenAlu.setToolTipText("<html>Druck-<br>rahmen<br>Alu</html>");
+        lbl_DruckrahmenAlu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_DruckrahmenAlu.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_DruckrahmenAlu);
+
+        lbl_SegmentrahmenStahl.setText("SR Stahl");
+        lbl_SegmentrahmenStahl.setToolTipText("<html>Segment-<br>rahmen<br>Stahl</html>");
+        lbl_SegmentrahmenStahl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_SegmentrahmenStahl.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_SegmentrahmenStahl);
+
+        lbl_SegmentrahmenAlu.setText("SR Alu");
+        lbl_SegmentrahmenAlu.setToolTipText("<html>Segment-<br>rahmen<br>Alu</html>");
+        lbl_SegmentrahmenAlu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_SegmentrahmenAlu.setPreferredSize(new java.awt.Dimension(60, 14));
+        jPanel_editLabels.add(lbl_SegmentrahmenAlu);
+
+        lbl_Bemerkungen.setText("Bemerkungen");
+        lbl_Bemerkungen.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Bemerkungen.setPreferredSize(new java.awt.Dimension(395, 14));
+        jPanel_editLabels.add(lbl_Bemerkungen);
+
+        lbl_AchsenFürVorstempel.setText("Achsen für Vorstempel");
+        lbl_AchsenFürVorstempel.setToolTipText("<html>Achsen für<br>Vorstempel</html>");
+        lbl_AchsenFürVorstempel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_AchsenFürVorstempel.setPreferredSize(new java.awt.Dimension(140, 14));
+        jPanel_editLabels.add(lbl_AchsenFürVorstempel);
+
+        lbl_AbmessungenTascheDruckplatteX.setText("Abmessungen Tasche DP x");
+        lbl_AbmessungenTascheDruckplatteX.setToolTipText("<html>Abmessungen Tasche<br> Druckplatte x</html>");
+        lbl_AbmessungenTascheDruckplatteX.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_AbmessungenTascheDruckplatteX.setPreferredSize(new java.awt.Dimension(140, 14));
+        jPanel_editLabels.add(lbl_AbmessungenTascheDruckplatteX);
+
+        lbl_AbmessungenTascheDruckplatteY.setText("Abmessungen Tasche DP y");
+        lbl_AbmessungenTascheDruckplatteY.setToolTipText("<html>Abmessungen Tasche<br> Druckplatte y</html>");
+        lbl_AbmessungenTascheDruckplatteY.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_AbmessungenTascheDruckplatteY.setPreferredSize(new java.awt.Dimension(140, 14));
+        jPanel_editLabels.add(lbl_AbmessungenTascheDruckplatteY);
+
+        lbl_GFVerschraubung.setText("GF Verschraubung");
+        lbl_GFVerschraubung.setToolTipText("<html>Grundform<br> Verschraubung</html>");
+        lbl_GFVerschraubung.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_GFVerschraubung.setPreferredSize(new java.awt.Dimension(100, 14));
+        jPanel_editLabels.add(lbl_GFVerschraubung);
+
+        lbl_Stück.setText("Stück");
+        lbl_Stück.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_Stück.setPreferredSize(new java.awt.Dimension(50, 14));
+        jPanel_editLabels.add(lbl_Stück);
+
+        lbl_F33.setText("F33");
+        lbl_F33.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_F33.setPreferredSize(new java.awt.Dimension(50, 14));
+        jPanel_editLabels.add(lbl_F33);
+
+        lbl_F34.setText("F34");
+        lbl_F34.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_F34.setPreferredSize(new java.awt.Dimension(50, 14));
+        jPanel_editLabels.add(lbl_F34);
+
+        lbl_F35.setText("F35");
+        lbl_F35.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        lbl_F35.setPreferredSize(new java.awt.Dimension(50, 14));
+        jPanel_editLabels.add(lbl_F35);
+
+        jPanel_editTextFields.setMinimumSize(new java.awt.Dimension(390, 30));
+        jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(2520, 20));
+        jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
+
+        jTextField_key.setToolTipText("Grundform (Key)");
+        jTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_key.setEnabled(false);
+        jTextField_key.setPreferredSize(new java.awt.Dimension(80, 20));
+        jPanel_editTextFields.add(jTextField_key);
+
+        jFormattedTextField_Länge.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Länge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Länge.setToolTipText("<html>Abmessungen<br> Länge</html>");
+        jFormattedTextField_Länge.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Länge.setEnabled(false);
+        jFormattedTextField_Länge.setPreferredSize(new java.awt.Dimension(90, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Länge);
+
+        jFormattedTextField_Breite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Breite.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Breite.setToolTipText("<html>Abmessungen<br> Breite</html>");
+        jFormattedTextField_Breite.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Breite.setEnabled(false);
+        jFormattedTextField_Breite.setPreferredSize(new java.awt.Dimension(90, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Breite);
+
+        jTextField_Unterbauhöhe.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_Unterbauhöhe.setEnabled(false);
+        jTextField_Unterbauhöhe.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel_editTextFields.add(jTextField_Unterbauhöhe);
+
+        jFormattedTextField_L1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L1.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L1.setEnabled(false);
+        jFormattedTextField_L1.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L1);
+
+        jFormattedTextField_L2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L2.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L2.setEnabled(false);
+        jFormattedTextField_L2.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L2);
+
+        jFormattedTextField_L3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L3.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L3.setEnabled(false);
+        jFormattedTextField_L3.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L3);
+
+        jFormattedTextField_L4.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L4.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L4.setEnabled(false);
+        jFormattedTextField_L4.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L4);
+
+        jFormattedTextField_L5.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L5.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L5.setEnabled(false);
+        jFormattedTextField_L5.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L5);
+
+        jFormattedTextField_L6.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L6.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L6.setEnabled(false);
+        jFormattedTextField_L6.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L6);
+
+        jFormattedTextField_L7.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L7.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L7.setEnabled(false);
+        jFormattedTextField_L7.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L7);
+
+        jFormattedTextField_L8.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_L8.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_L8.setEnabled(false);
+        jFormattedTextField_L8.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jFormattedTextField_L8);
+
+        jTextField_L9.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L9.setEnabled(false);
+        jTextField_L9.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L9);
+
+        jTextField_L10.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L10.setEnabled(false);
+        jTextField_L10.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L10);
+
+        jTextField_L11.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L11.setEnabled(false);
+        jTextField_L11.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L11);
+
+        jTextField_L12.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L12.setEnabled(false);
+        jTextField_L12.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L12);
+
+        jTextField_L13.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L13.setEnabled(false);
+        jTextField_L13.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L13);
+
+        jTextField_L14.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_L14.setEnabled(false);
+        jTextField_L14.setPreferredSize(new java.awt.Dimension(40, 20));
+        jPanel_editTextFields.add(jTextField_L14);
+
+        jFormattedTextField_Distanzplatte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Distanzplatte.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Distanzplatte.setToolTipText("Distanzplatte");
+        jFormattedTextField_Distanzplatte.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Distanzplatte.setEnabled(false);
+        jFormattedTextField_Distanzplatte.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Distanzplatte);
+
+        jFormattedTextField_Grundplatte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Grundplatte.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Grundplatte.setToolTipText("Grundplatte");
+        jFormattedTextField_Grundplatte.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Grundplatte.setEnabled(false);
+        jFormattedTextField_Grundplatte.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Grundplatte);
+
+        jFormattedTextField_Druckplatte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Druckplatte.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Druckplatte.setToolTipText("Druckplatte");
+        jFormattedTextField_Druckplatte.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Druckplatte.setEnabled(false);
+        jFormattedTextField_Druckplatte.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Druckplatte);
+
+        jFormattedTextField_Kühlplatte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Kühlplatte.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Kühlplatte.setToolTipText("Kühlplatte");
+        jFormattedTextField_Kühlplatte.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Kühlplatte.setEnabled(false);
+        jFormattedTextField_Kühlplatte.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Kühlplatte);
+
+        jFormattedTextField_DruckrahmenStahl.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_DruckrahmenStahl.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_DruckrahmenStahl.setToolTipText("<html>Druck-<br>rahmen<br>Stahl</html>");
+        jFormattedTextField_DruckrahmenStahl.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_DruckrahmenStahl.setEnabled(false);
+        jFormattedTextField_DruckrahmenStahl.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_DruckrahmenStahl);
+
+        jFormattedTextField_DruckrahmenAlu.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_DruckrahmenAlu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_DruckrahmenAlu.setToolTipText("<html>Druck-<br>rahmen<br>Alu</html>");
+        jFormattedTextField_DruckrahmenAlu.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_DruckrahmenAlu.setEnabled(false);
+        jFormattedTextField_DruckrahmenAlu.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_DruckrahmenAlu);
+
+        jFormattedTextField_SegmentrahmenStahl.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_SegmentrahmenStahl.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_SegmentrahmenStahl.setToolTipText("<html>Segment-<br>rahmen<br>Stahl</html>");
+        jFormattedTextField_SegmentrahmenStahl.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_SegmentrahmenStahl.setEnabled(false);
+        jFormattedTextField_SegmentrahmenStahl.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_SegmentrahmenStahl);
+
+        jFormattedTextField_SegmentrahmenAlu.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_SegmentrahmenAlu.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_SegmentrahmenAlu.setToolTipText("<html>Segment-<br>rahmen<br>Alu</html>");
+        jFormattedTextField_SegmentrahmenAlu.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_SegmentrahmenAlu.setEnabled(false);
+        jFormattedTextField_SegmentrahmenAlu.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel_editTextFields.add(jFormattedTextField_SegmentrahmenAlu);
+
+        jTextField_Bemerkungen.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_Bemerkungen.setEnabled(false);
+        jTextField_Bemerkungen.setPreferredSize(new java.awt.Dimension(395, 20));
+        jPanel_editTextFields.add(jTextField_Bemerkungen);
+
+        jTextField_AchsenFürVorstempel.setToolTipText("<html>Achsen für<br>Vorstempel</html>");
+        jTextField_AchsenFürVorstempel.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_AchsenFürVorstempel.setEnabled(false);
+        jTextField_AchsenFürVorstempel.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel_editTextFields.add(jTextField_AchsenFürVorstempel);
+
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setToolTipText("<html>Abmessungen Tasche<br> Druckplatte x</html>");
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setEnabled(false);
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel_editTextFields.add(jFormattedTextField_AbmessungenTascheDruckplatteX);
+
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setToolTipText("<html>Abmessungen Tasche<br> Druckplatte y</html>");
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setEnabled(false);
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel_editTextFields.add(jFormattedTextField_AbmessungenTascheDruckplatteY);
+
+        jTextField_GFVerschraubung.setToolTipText("<html>Grundform<br> Verschraubung</html>");
+        jTextField_GFVerschraubung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_GFVerschraubung.setEnabled(false);
+        jTextField_GFVerschraubung.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel_editTextFields.add(jTextField_GFVerschraubung);
+
+        jFormattedTextField_Stück.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_Stück.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Stück.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Stück.setEnabled(false);
+        jFormattedTextField_Stück.setPreferredSize(new java.awt.Dimension(50, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Stück);
+
+        jTextField_F33.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_F33.setEnabled(false);
+        jTextField_F33.setPreferredSize(new java.awt.Dimension(50, 20));
+        jPanel_editTextFields.add(jTextField_F33);
+
+        jTextField_F34.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_F34.setEnabled(false);
+        jTextField_F34.setPreferredSize(new java.awt.Dimension(50, 20));
+        jPanel_editTextFields.add(jTextField_F34);
+
+        jTextField_F35.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_F35.setEnabled(false);
+        jTextField_F35.setPreferredSize(new java.awt.Dimension(50, 20));
+        jPanel_editTextFields.add(jTextField_F35);
 
         btn_new.setText("Neu");
         btn_new.addActionListener(new java.awt.event.ActionListener() {
@@ -284,10 +848,6 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
         });
 
-        lbl_key.setText("Stanzblech-ID (Key)");
-
-        lbl_valueDescription.setText("Stanzblech-Bezeichnung");
-
         btn_cancel.setText("Abbrechen");
         btn_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,157 +862,67 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField_key.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFormattedTextField_key.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_key.setEnabled(false);
-
-        jFormattedTextField_valueDescription.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jFormattedTextField_valueDescription.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_valueDescription.setEnabled(false);
-
-        jFormattedTextField_valueLength.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField_valueLength.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_valueLength.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_valueLength.setEnabled(false);
-
-        lbl_valueLength.setText("Länge");
-
-        jFormattedTextField_valueWidth.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField_valueWidth.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_valueWidth.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_valueWidth.setEnabled(false);
-
-        lbl_valueWidth.setText("Breite");
-
-        jFormattedTextField_propertyValue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFormattedTextField_propertyValue.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_propertyValue.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_propertyValue.setEnabled(false);
-
-        lbl_valueProperty.setText("Eigenschaft");
-
-        jFormattedTextField_propertyDescription.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_propertyDescription.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_propertyDescription.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel_buttonsForEditLayout = new javax.swing.GroupLayout(jPanel_buttonsForEdit);
-        jPanel_buttonsForEdit.setLayout(jPanel_buttonsForEditLayout);
-        jPanel_buttonsForEditLayout.setHorizontalGroup(
-            jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_editButtonsLayout = new javax.swing.GroupLayout(jPanel_editButtons);
+        jPanel_editButtons.setLayout(jPanel_editButtonsLayout);
+        jPanel_editButtonsLayout.setHorizontalGroup(
+            jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_editButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_key, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_editButtonsLayout.createSequentialGroup()
+                        .addComponent(btn_accept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(lbl_valueDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 342, Short.MAX_VALUE))
-                            .addComponent(jFormattedTextField_valueDescription))
+                        .addComponent(btn_cancel))
+                    .addGroup(jPanel_editButtonsLayout.createSequentialGroup()
+                        .addComponent(btn_new)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_duplicate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_valueProperty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(jFormattedTextField_propertyValue, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField_propertyDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(btn_accept)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_cancel))
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(btn_new)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_edit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_duplicate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_delete)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btn_delete)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
-        jPanel_buttonsForEditLayout.setVerticalGroup(
-            jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbl_valueWidth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_valueProperty)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jFormattedTextField_propertyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFormattedTextField_propertyDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                    .addComponent(lbl_valueDescription)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextField_valueDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                    .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbl_key)
-                                        .addComponent(lbl_valueLength))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jFormattedTextField_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel_editButtonsLayout.setVerticalGroup(
+            jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_editButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_new)
                     .addComponent(btn_edit)
                     .addComponent(btn_delete)
                     .addComponent(btn_duplicate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_accept)
                     .addComponent(btn_cancel))
-                .addContainerGap())
-        );
-
-        btn_close.setText("Schließen");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
-        jPanel_footer.setLayout(jPanel_footerLayout);
-        jPanel_footerLayout.setHorizontalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_close)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel_footerLayout.setVerticalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_close)
-                .addContainerGap(13, Short.MAX_VALUE))
+
+        javax.swing.GroupLayout jPanel_editDataLayout = new javax.swing.GroupLayout(jPanel_editData);
+        jPanel_editData.setLayout(jPanel_editDataLayout);
+        jPanel_editDataLayout.setHorizontalGroup(
+            jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_editDataLayout.createSequentialGroup()
+                .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_editDataLayout.createSequentialGroup()
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+        jPanel_editDataLayout.setVerticalGroup(
+            jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
+        );
+
+        jScrollPane_editData.setViewportView(jPanel_editData);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -460,9 +930,9 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_buttonsForEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane_editData)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -470,8 +940,8 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttonsForEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -485,7 +955,6 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                     "Der Verbindungs-Aufbau zur Datenbank ist gescheitert. Bitte wenden Sie sich an den Entwickler.",
                     "Fehler",
                     JOptionPane.ERROR_MESSAGE);
-            return;
         }        
     }
     
@@ -501,6 +970,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             String mySQL = "SELECT * FROM DiafBDE.dbo.T_Grundform"; // ORDER BY T_Segment.pKey_KP"; // WHERE tma_abt='Technik'";
             ResultSet myResultSet = myStatement.executeQuery(mySQL);            
             int myColumns = myResultSet.getMetaData().getColumnCount();
+                                      
             myTableModel = (DefaultTableModel) jTable_dbData.getModel();
             int allOldRows = myTableModel.getRowCount();
             if (allOldRows > 0) {
@@ -519,7 +989,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
             if (!myResultSet.next()) {
                 
-                return;
+//                return;
             } 
         }
         catch (SQLException myException )
@@ -538,14 +1008,14 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         }
     }
     
-    private void jTextField_searchValue1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValue1KeyReleased
+    private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
-    }//GEN-LAST:event_jTextField_searchValue1KeyReleased
+    }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
     private void btn_deleteSearchValue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValue1ActionPerformed
         // TODO add your handling code here:
-        jTextField_searchValue1.setText("");
+        jTextField_searchValue.setText("");
         search();
     }//GEN-LAST:event_btn_deleteSearchValue1ActionPerformed
 
@@ -566,7 +1036,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         set_textFieldsEnabled(true);
         set_oldValues();
         set_textFieldsEmpty();
-        jFormattedTextField_key.requestFocus();
+        jTextField_key.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -579,29 +1049,182 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         
         OldSelection = jTable_dbData.getSelectedRow();
         if(OldSelection != -1) {
-            String tempString;
+            String tempString;            
+            int myRow = jTable_dbData.convertRowIndexToModel(OldSelection);
             
-            tempString = myTableModel.getValueAt(OldSelection, 0).toString();
-            jFormattedTextField_key.setValue(Integer.parseInt(tempString));
-                        
-            tempString = myTableModel.getValueAt(OldSelection, 1).toString();
-            jFormattedTextField_valueDescription.setValue(tempString);
+            tempString = myTableModel.getValueAt(myRow, 0).toString();
+            jTextField_key.setText(tempString); 
             
-            tempString = myTableModel.getValueAt(OldSelection, 2).toString();
-            jFormattedTextField_valueLength.setValue(Float.parseFloat(tempString));
-            
-            tempString = myTableModel.getValueAt(OldSelection, 3).toString();
-            jFormattedTextField_valueWidth.setValue(Float.parseFloat(tempString));
-            
-            tempString = myTableModel.getValueAt(OldSelection, 4).toString();
-            jFormattedTextField_propertyValue.setValue(Integer.parseInt(tempString));
-            
-            if (myTableModel.getValueAt(OldSelection, 4).toString().equals("1")) {
-                jFormattedTextField_propertyDescription.setText("hart");
+            if (myTableModel.getValueAt(myRow, 1) != null){
+                tempString = myTableModel.getValueAt(myRow, 1).toString();
+                jFormattedTextField_Länge.setValue(Float.parseFloat(tempString));
             }
-            if (myTableModel.getValueAt(OldSelection, 4).toString().equals("2")) {
-                jFormattedTextField_propertyDescription.setText("weich");
+            else {jFormattedTextField_Länge.setText("");}
+            if (myTableModel.getValueAt(myRow, 2) != null){
+                tempString = myTableModel.getValueAt(myRow, 2).toString();
+                jFormattedTextField_Breite.setValue(Float.parseFloat(tempString));
             }
+            else {jFormattedTextField_Breite.setText("");}           
+            if (myTableModel.getValueAt(myRow, 3) != null){
+                tempString = myTableModel.getValueAt(myRow, 3).toString();
+                jTextField_Unterbauhöhe.setText(tempString);
+            }
+            else {jTextField_Unterbauhöhe.setText("");}
+            if (myTableModel.getValueAt(myRow, 4) != null){
+                tempString = myTableModel.getValueAt(myRow, 4).toString();
+                jFormattedTextField_L1.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L1.setText("");}
+            if (myTableModel.getValueAt(myRow, 5) != null){
+                tempString = myTableModel.getValueAt(myRow, 5).toString();
+                jFormattedTextField_L2.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L2.setText("");}
+            if (myTableModel.getValueAt(myRow, 6) != null){
+                tempString = myTableModel.getValueAt(myRow, 6).toString();
+                jFormattedTextField_L3.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L3.setText("");}
+            if (myTableModel.getValueAt(myRow, 7) != null){
+                tempString = myTableModel.getValueAt(myRow, 7).toString();
+                jFormattedTextField_L4.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L4.setText("");}
+            if (myTableModel.getValueAt(myRow, 8) != null){
+                tempString = myTableModel.getValueAt(myRow, 8).toString();
+                jFormattedTextField_L5.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L5.setText("");}
+            if (myTableModel.getValueAt(myRow, 9) != null){
+                tempString = myTableModel.getValueAt(myRow, 9).toString();
+                jFormattedTextField_L6.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L6.setText("");}
+            if (myTableModel.getValueAt(myRow, 10) != null){
+                tempString = myTableModel.getValueAt(myRow, 10).toString();
+                jFormattedTextField_L7.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L7.setText("");}
+            if (myTableModel.getValueAt(myRow, 11) != null){
+                tempString = myTableModel.getValueAt(myRow, 11).toString();
+                jFormattedTextField_L8.setValue(Float.parseFloat(tempString));
+            }
+            else {jFormattedTextField_L8.setText("");}
+            if (myTableModel.getValueAt(myRow, 12) != null){
+                tempString = myTableModel.getValueAt(myRow, 12).toString();
+                jTextField_L9.setText(tempString);
+            }
+            else {jTextField_L9.setText("");}
+            if (myTableModel.getValueAt(myRow, 13) != null){
+                tempString = myTableModel.getValueAt(myRow, 13).toString();
+                jTextField_L10.setText(tempString);
+            }
+            else {jTextField_L10.setText("");}
+            if (myTableModel.getValueAt(myRow, 14) != null){
+                tempString = myTableModel.getValueAt(myRow, 14).toString();
+                jTextField_L11.setText(tempString);
+            }
+            else {jTextField_L11.setText("");}
+            if (myTableModel.getValueAt(myRow, 15) != null){
+                tempString = myTableModel.getValueAt(myRow, 15).toString();
+                jTextField_L12.setText(tempString);
+            }
+            else {jTextField_L12.setText("");}
+            if (myTableModel.getValueAt(myRow, 16) != null){
+                tempString = myTableModel.getValueAt(myRow, 16).toString();
+                jTextField_L13.setText(tempString);
+            }
+            else {jTextField_L13.setText("");}
+            if (myTableModel.getValueAt(myRow, 17) != null){
+                tempString = myTableModel.getValueAt(myRow, 17).toString();
+                jTextField_L14.setText(tempString);
+            }
+            else {jTextField_L14.setText("");}           
+            if (myTableModel.getValueAt(myRow, 18) != null){
+                tempString = myTableModel.getValueAt(myRow, 18).toString();
+                jFormattedTextField_Distanzplatte.setText(tempString);
+            }
+            else {jFormattedTextField_Distanzplatte.setText("");}
+            if (myTableModel.getValueAt(myRow, 19) != null){
+                tempString = myTableModel.getValueAt(myRow, 19).toString();
+                jFormattedTextField_Grundplatte.setText(tempString);
+            }
+            else {jFormattedTextField_Grundplatte.setText("");}
+            if (myTableModel.getValueAt(myRow, 20) != null){
+                tempString = myTableModel.getValueAt(myRow, 20).toString();
+                jFormattedTextField_Druckplatte.setText(tempString);
+            }
+            else {jFormattedTextField_Druckplatte.setText("");}
+            if (myTableModel.getValueAt(myRow, 21) != null){
+                tempString = myTableModel.getValueAt(myRow, 21).toString();
+                jFormattedTextField_Kühlplatte.setText(tempString);
+            }
+            else {jFormattedTextField_Kühlplatte.setText("");}
+            if (myTableModel.getValueAt(myRow, 22) != null){
+                tempString = myTableModel.getValueAt(myRow, 22).toString();
+                jFormattedTextField_DruckrahmenStahl.setText(tempString);
+            }
+            else {jFormattedTextField_DruckrahmenStahl.setText("");}
+            if (myTableModel.getValueAt(myRow, 23) != null){
+                tempString = myTableModel.getValueAt(myRow, 23).toString();
+                jFormattedTextField_DruckrahmenAlu.setText(tempString);
+            }
+            else {jFormattedTextField_DruckrahmenAlu.setText("");}
+            if (myTableModel.getValueAt(myRow, 24) != null){
+                tempString = myTableModel.getValueAt(myRow, 24).toString();
+                jFormattedTextField_SegmentrahmenStahl.setText(tempString);
+            }
+            else {jFormattedTextField_SegmentrahmenStahl.setText("");}
+            if (myTableModel.getValueAt(myRow, 25) != null){
+                tempString = myTableModel.getValueAt(myRow, 25).toString();
+                jFormattedTextField_SegmentrahmenAlu.setText(tempString);
+            }
+            else {jFormattedTextField_SegmentrahmenAlu.setText("");}
+            if (myTableModel.getValueAt(myRow, 26) != null){
+                tempString = myTableModel.getValueAt(myRow, 26).toString();
+                jTextField_Bemerkungen.setText(tempString);
+            }
+            else {jTextField_Bemerkungen.setText("");}
+            if (myTableModel.getValueAt(myRow, 27) != null){
+                tempString = myTableModel.getValueAt(myRow, 27).toString();
+                jTextField_AchsenFürVorstempel.setText(tempString);
+            }
+            else {jTextField_AchsenFürVorstempel.setText("");}
+            if (myTableModel.getValueAt(myRow, 28) != null){
+                tempString = myTableModel.getValueAt(myRow, 28).toString();
+                jFormattedTextField_AbmessungenTascheDruckplatteX.setText(tempString);
+            }
+            else {jFormattedTextField_AbmessungenTascheDruckplatteX.setText("");}
+            if (myTableModel.getValueAt(myRow, 29) != null){
+                tempString = myTableModel.getValueAt(myRow, 29).toString();
+                jFormattedTextField_AbmessungenTascheDruckplatteY.setText(tempString);
+            }
+            else {jFormattedTextField_AbmessungenTascheDruckplatteY.setText("");}
+            if (myTableModel.getValueAt(myRow, 30) != null){
+                tempString = myTableModel.getValueAt(myRow, 30).toString();
+                jTextField_GFVerschraubung.setText(tempString);
+            }
+            else {jTextField_GFVerschraubung.setText("");}
+            if (myTableModel.getValueAt(myRow, 31) != null){
+                tempString = myTableModel.getValueAt(myRow, 31).toString();
+                jFormattedTextField_Stück.setText(tempString);
+            }
+            else {jFormattedTextField_Stück.setText("");}
+            if (myTableModel.getValueAt(myRow, 32) != null){
+                tempString = myTableModel.getValueAt(myRow, 32).toString();
+                jTextField_F33.setText(tempString);
+            }
+            else {jTextField_F33.setText("");}
+            if (myTableModel.getValueAt(myRow, 33) != null){
+                tempString = myTableModel.getValueAt(myRow, 33).toString();
+                jTextField_F34.setText(tempString);
+            }
+            else {jTextField_F34.setText("");}
+            if (myTableModel.getValueAt(myRow, 34) != null){
+                tempString = myTableModel.getValueAt(myRow, 34).toString();
+                jTextField_F35.setText(tempString);
+            }
+            else {jTextField_F35.setText("");}
             
             btn_edit.setEnabled(true);
             btn_duplicate.setEnabled(true);
@@ -614,7 +1237,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         DataSet_Mode = "edit";
         set_oldValues();
         set_textFieldsEnabled(false);
-        jFormattedTextField_valueDescription.requestFocus();
+        jFormattedTextField_L1.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -626,13 +1249,13 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "delete";
-        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jFormattedTextField_key.getText().trim()) == true) {
+        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jTextField_key.getText().trim()) == true) {
             int myAnswer = JOptionPane.showConfirmDialog(null,
-                "Soll der Datensatz Stanzblech-ID (Key): \n\n >> " + jFormattedTextField_key.getText().trim() + " << \n\n wirklich gelöscht werden?",
+                "Soll der Datensatz Stanzblech-ID (Key): \n\n >> " + jTextField_key.getText().trim() + " << \n\n wirklich gelöscht werden?",
                 "Datensatz löschen?",
                 JOptionPane.YES_NO_OPTION);
             if (myAnswer == 1) {
-                return;
+//                return;
             }
             else {
                 do_deleteDataSet_inDB();
@@ -651,31 +1274,59 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
 
     private void btn_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acceptActionPerformed
         // TODO add your handling code here:
-        if (jFormattedTextField_key.getText().isEmpty() || jFormattedTextField_valueDescription.getText().isEmpty()
-            || jFormattedTextField_valueLength.getText().isEmpty() || jFormattedTextField_valueWidth.getText().isEmpty()
-            || jFormattedTextField_propertyValue.getText().isEmpty()) {
+        if (jTextField_key.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null,
                 "Der Datensatz ist teilweise leer. Erfassen Sie Daten oder klicken Sie auf Abbrechen.",
                 "Fehler",
                 JOptionPane.ERROR_MESSAGE);
-            return;
+//            return;
         }
         else {
-            boolean myAnswer = test_isDataSetInDB(jFormattedTextField_key.getText().trim());
+            boolean myAnswer = test_isDataSetInDB(jTextField_key.getText().trim());
 
             if (myAnswer == true) {
                 if (DataSet_Mode.equals("new")) {
                     JOptionPane.showMessageDialog(null,
-                        "Es existiert schon ein Datensatz mit diesem Key: \n\n >> " + jFormattedTextField_key.getText().trim() + " <<.",
+                        "Es existiert schon ein Datensatz mit diesem Key: \n\n >> " + jTextField_key.getText().trim() + " <<.",
                         "Fehler",
                         JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (DataSet_Mode.equals("edit")  && !Old_DescriptionValue.equals(jFormattedTextField_valueDescription.getText().trim())
-                    || !Old_LengthValue.equals(jFormattedTextField_valueLength.getText().trim())
-                    || !Old_WidthValue.equals(jFormattedTextField_valueWidth.getText().trim())
-                    || !Old_PropertyValue.equals(jFormattedTextField_propertyValue.getText().trim())) {
+                if (DataSet_Mode.equals("edit")  && !Old_Länge.equals(jFormattedTextField_Länge.getText().trim())
+                    || !Old_Breite.equals(jFormattedTextField_Breite.getText().trim())
+                    || !Old_Unterbauhöhe.equals(jTextField_Unterbauhöhe.getText().trim())
+                    || !Old_L1.equals(jFormattedTextField_L1.getText().trim())
+                    || !Old_L2.equals(jFormattedTextField_L2.getText().trim())
+                    || !Old_L3.equals(jFormattedTextField_L3.getText().trim())
+                    || !Old_L4.equals(jFormattedTextField_L4.getText().trim())
+                    || !Old_L5.equals(jFormattedTextField_L5.getText().trim())
+                    || !Old_L6.equals(jFormattedTextField_L6.getText().trim())
+                    || !Old_L7.equals(jFormattedTextField_L7.getText().trim())
+                    || !Old_L8.equals(jFormattedTextField_L8.getText().trim())
+                    || !Old_L9.equals(jTextField_L9.getText().trim())
+                    || !Old_L10.equals(jTextField_L10.getText().trim())
+                    || !Old_L11.equals(jTextField_L11.getText().trim())
+                    || !Old_L12.equals(jTextField_L12.getText().trim())
+                    || !Old_L13.equals(jTextField_L13.getText().trim())
+                    || !Old_L14.equals(jTextField_L14.getText().trim()) 
+                    || !Old_Distanzplatte.equals(jFormattedTextField_Distanzplatte.getText().trim())
+                    || !Old_Grundplatte.equals(jFormattedTextField_Grundplatte.getText().trim())
+                    || !Old_Druckplatte.equals(jFormattedTextField_Druckplatte.getText().trim())
+                    || !Old_Kühlplatte.equals(jFormattedTextField_Kühlplatte.getText().trim())
+                    || !Old_DruckrahmenStahl.equals(jFormattedTextField_DruckrahmenStahl.getText().trim())
+                    || !Old_DruckrahmenAlu.equals(jFormattedTextField_DruckrahmenAlu.getText().trim())
+                    || !Old_SegmentrahmenStahl.equals(jFormattedTextField_SegmentrahmenStahl.getText().trim())
+                    || !Old_SegmentrahmenAlu.equals(jFormattedTextField_SegmentrahmenAlu.getText().trim())
+                    || !Old_Bemerkungen.equals(jTextField_Bemerkungen.getText().trim())
+                    || !Old_AchsenFürVorstempel.equals(jTextField_AchsenFürVorstempel.getText().trim())
+                    || !Old_AbmessungenTascheDruckplatteX.equals(jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim())
+                    || !Old_AbmessungenTascheDruckplatteY.equals(jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim())
+                    || !Old_GFVerschraubung.equals(jTextField_GFVerschraubung.getText().trim())
+                    || !Old_Stück.equals(jFormattedTextField_Stück.getText().trim())
+                    || !Old_F33.equals(jTextField_F33.getText().trim())
+                    || !Old_F34.equals(jTextField_F34.getText().trim())
+                    || !Old_F35.equals(jTextField_F35.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -715,7 +1366,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         get_oldValues();
         set_textFieldsDisabled();
         btn_new.setEnabled(true);
-        if (!Old_Key_GrundForm.equals("")) {
+        if (!Old_Key_Grundform.equals("")) {
             btn_edit.setEnabled(true);
             btn_duplicate.setEnabled(true);
             btn_delete.setEnabled(true);
@@ -729,7 +1380,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         DataSet_Mode = "duplicate";
         set_oldValues();
         set_textFieldsEnabled(true);
-        jFormattedTextField_key.requestFocus();
+        jTextField_key.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -762,16 +1413,126 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             {   
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Bezeichnung, Länge, Breite, Eigenschaft)" 
-                    + "VALUES ('" + ((Number)jFormattedTextField_key.getValue()).intValue() + "', '" 
-                    + jFormattedTextField_valueDescription.getText().trim() + "', '" 
-                    + ((Number) jFormattedTextField_valueLength.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_valueWidth.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_propertyValue.getValue()).intValue() +"')");             
+//            String insertCommand
+
+//        -------------------------------------------------
+        System.out.println("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Abmessungen_Länge, Abmessungen_Breite, Unterbauhöhe, L1, L2, L3, "
+                    + "L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, Distanzplatte, Grundplatte, Druckplatte, Kühlplatte, Druckrahmen_Stahl, "
+                    + "Druckrahmen_Alu, Segmentrahmen_Stahl, Segmentrahmen_Alu, Bemerkungen, Achsen_für_Vorstempel, Abmessungen_Tasche_Druckplatte_x, "
+                    + "Abmessungen_Tasche_Druckplatte_y, GF_Verschraubung, Stück, F33, F34, F35)" 
+                    + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
+                    + jFormattedTextField_Länge.getText().trim() + "', '" 
+                    + jFormattedTextField_Breite.getText().trim() + "', '" 
+                    + jTextField_Unterbauhöhe.getText().trim() + "', '" 
+                    + jFormattedTextField_L1.getText().trim() + "', '" 
+                    + jFormattedTextField_L2.getText().trim() + "', '" 
+                    + jFormattedTextField_L3.getText().trim() + "', '" 
+                    + jFormattedTextField_L4.getText().trim() + "', '" 
+                    + jFormattedTextField_L5.getText().trim() + "', '" 
+                    + jFormattedTextField_L6.getText().trim() + "', '" 
+                    + jFormattedTextField_L7.getText().trim() + "', '" 
+                    + jFormattedTextField_L8.getText().trim() + "', '" 
+                    + jTextField_L9.getText().trim() + "', '" 
+                    + jTextField_L10.getText().trim() + "', '" 
+                    + jTextField_L11.getText().trim() + "', '" 
+                    + jTextField_L12.getText().trim() + "', '" 
+                    + jTextField_L13.getText().trim() + "', '" 
+                    + jTextField_L14.getText().trim() + "', '" 
+                    + jFormattedTextField_Distanzplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Grundplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Druckplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Kühlplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_DruckrahmenStahl.getText().trim() + "', '" 
+                    + jFormattedTextField_DruckrahmenAlu.getText().trim() + "', '" 
+                    + jFormattedTextField_SegmentrahmenStahl.getText().trim() + "', '" 
+                    + jFormattedTextField_SegmentrahmenAlu.getText().trim() + "', '" 
+                    + jTextField_Bemerkungen.getText().trim() + "', '" 
+                    + jTextField_AchsenFürVorstempel.getText().trim() + "', '" 
+                    + jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim() + "', '" 
+                    + jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim() + "', '" 
+                    + jTextField_GFVerschraubung.getText().trim() + "', '" 
+                    + jFormattedTextField_Stück.getText().trim() + "', '" 
+                    + jTextField_F33.getText().trim() + "', '" 
+                    + jTextField_F34.getText().trim() + "', '" 
+                    + jTextField_F35.getText().trim() + "')");
+//        --------------------------------------------
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Abmessungen_Länge, Abmessungen_Breite, Unterbauhöhe, L1, L2, L3, "
+                    + "L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, Distanzplatte, Grundplatte, Druckplatte, Kühlplatte, Druckrahmen_Stahl, "
+                    + "Druckrahmen_Alu, Segmentrahmen_Stahl, Segmentrahmen_Alu, Bemerkungen, Achsen_für_Vorstempel, Abmessungen_Tasche_Druckplatte_x, "
+                    + "Abmessungen_Tasche_Druckplatte_y, GF_Verschraubung, Stück, F33, F34, F35)" 
+                    + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
+                    
+                     
+                    + jFormattedTextField_Länge.getText().trim() + "', '" 
+                    + jFormattedTextField_Breite.getText().trim() + "', '" 
+                    + jTextField_Unterbauhöhe.getText().trim() + "', '" 
+                    + jFormattedTextField_L1.getText().trim() + "', '" 
+                    + jFormattedTextField_L2.getText().trim() + "', '" 
+                    + jFormattedTextField_L3.getText().trim() + "', '" 
+                    + jFormattedTextField_L4.getText().trim() + "', '" 
+                    + jFormattedTextField_L5.getText().trim() + "', '" 
+                    + jFormattedTextField_L6.getText().trim() + "', '" 
+                    + jFormattedTextField_L7.getText().trim() + "', '" 
+                    + jFormattedTextField_L8.getText().trim() + "', '" 
+                    + jTextField_L9.getText().trim() + "', '" 
+                    + jTextField_L10.getText().trim() + "', '" 
+                    + jTextField_L11.getText().trim() + "', '" 
+                    + jTextField_L12.getText().trim() + "', '" 
+                    + jTextField_L13.getText().trim() + "', '" 
+                    + jTextField_L14.getText().trim() + "', '" 
+                    + jFormattedTextField_Distanzplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Grundplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Druckplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_Kühlplatte.getText().trim() + "', '" 
+                    + jFormattedTextField_DruckrahmenStahl.getText().trim() + "', '" 
+                    + jFormattedTextField_DruckrahmenAlu.getText().trim() + "', '" 
+                    + jFormattedTextField_SegmentrahmenStahl.getText().trim() + "', '" 
+                    + jFormattedTextField_SegmentrahmenAlu.getText().trim() + "', '" 
+                    + jTextField_Bemerkungen.getText().trim() + "', '" 
+                    + jTextField_AchsenFürVorstempel.getText().trim() + "', '" 
+                    + jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim() + "', '" 
+                    + jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim() + "', '" 
+                    + jTextField_GFVerschraubung.getText().trim() + "', '" 
+                    + jFormattedTextField_Stück.getText().trim() + "', '" 
+//                    + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Breite.getValue()).floatValue() + "', '" 
+//                    + jTextField_Unterbauhöhe.getText().trim() + "', '" 
+//                    + ((Number) jFormattedTextField_L1.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L2.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L3.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L4.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L5.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L6.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L7.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_L8.getValue()).floatValue() + "', '" 
+//                    + jTextField_L9.getText().trim() + "', '" 
+//                    + jTextField_L10.getText().trim() + "', '" 
+//                    + jTextField_L11.getText().trim() + "', '" 
+//                    + jTextField_L12.getText().trim() + "', '" 
+//                    + jTextField_L13.getText().trim() + "', '" 
+//                    + jTextField_L14.getText().trim() + "', '" 
+//                    + ((Number) jFormattedTextField_Distanzplatte.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Grundplatte.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Druckplatte.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Kühlplatte.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_DruckrahmenStahl.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_DruckrahmenAlu.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_SegmentrahmenStahl.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_SegmentrahmenAlu.getValue()).floatValue() + "', '" 
+//                    + jTextField_Bemerkungen.getText().trim() + "', '" 
+//                    + jTextField_AchsenFürVorstempel.getText().trim() + "', '" 
+//                    + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteX.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteY.getValue()).floatValue() + "', '" 
+//                    + jTextField_GFVerschraubung.getText().trim() + "', '" 
+//                    + ((Number) jFormattedTextField_Stück.getValue()).intValue() + "', '" 
+                    + jTextField_F33.getText().trim() + "', '" 
+                    + jTextField_F34.getText().trim() + "', '" 
+                    + jTextField_F35.getText().trim() + "')");             
             } 
         }
-        catch (/*ClassNotFoundException |*/ SQLException myException )
+        catch (/*ClassNotFoundException |*/NullPointerException | SQLException myException )
         {
+            myException.printStackTrace();
         }
         finally {
             try {
@@ -791,11 +1552,41 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundform SET Bezeichnung = '" + jFormattedTextField_valueDescription.getText().trim() + 
-                    "', Länge = '" + ((Number) jFormattedTextField_valueLength.getValue()).floatValue() + 
-                    "', Breite = '" + ((Number) jFormattedTextField_valueWidth.getValue()).floatValue() +
-                    "', Eigenschaft = '" + ((Number) jFormattedTextField_propertyValue.getValue()).intValue() +
-                    "' WHERE Grundform = '" + jFormattedTextField_key.getValue() + "'");             
+            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundform SET Abmessungen_Länge = '" + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + 
+                    "', Abmessungen_Breite = '" + ((Number) jFormattedTextField_Breite.getValue()).floatValue() +
+                    "', Unterbauhöhe = '" + jTextField_Unterbauhöhe.getText().trim() +
+                    "', L1 = '" + ((Number) jFormattedTextField_L1.getValue()).floatValue() +
+                    "', L2 = '" + ((Number) jFormattedTextField_L2.getValue()).floatValue() +
+                    "', L3 = '" + ((Number) jFormattedTextField_L3.getValue()).floatValue() +
+                    "', L4 = '" + ((Number) jFormattedTextField_L4.getValue()).floatValue() +
+                    "', L5 = '" + ((Number) jFormattedTextField_L5.getValue()).floatValue() +
+                    "', L6 = '" + ((Number) jFormattedTextField_L6.getValue()).floatValue() +
+                    "', L7 = '" + ((Number) jFormattedTextField_L7.getValue()).floatValue() +
+                    "', L8 = '" + ((Number) jFormattedTextField_L8.getValue()).floatValue() +
+                    "', L9 = '" + jTextField_L9.getText().trim() +
+                    "', L10 = '" + jTextField_L10.getText().trim() +
+                    "', L11 = '" + jTextField_L11.getText().trim() +
+                    "', L12 = '" + jTextField_L12.getText().trim() +
+                    "', L13 = '" + jTextField_L13.getText().trim() +
+                    "', L14 = '" + jTextField_L14.getText().trim() +
+                    "', Distanzplatte = '" + ((Number) jFormattedTextField_Distanzplatte.getValue()).floatValue() +
+                    "', Grundplatte = '" + ((Number) jFormattedTextField_Grundplatte.getValue()).floatValue() +
+                    "', Druckplatte = '" + ((Number) jFormattedTextField_Druckplatte.getValue()).floatValue() +
+                    "', Kühlplatte = '" + ((Number) jFormattedTextField_Kühlplatte.getValue()).floatValue() +
+                    "', Druckrahmen_Stahl = '" + ((Number) jFormattedTextField_DruckrahmenStahl.getValue()).floatValue() +
+                    "', Druckrahmen_Alu = '" + ((Number) jFormattedTextField_DruckrahmenAlu.getValue()).floatValue() +
+                    "', Segmentrahmen_Stahl = '" + ((Number) jFormattedTextField_SegmentrahmenStahl.getValue()).floatValue() +
+                    "', Segmentrahmen_Alu = '" + ((Number) jFormattedTextField_SegmentrahmenAlu.getValue()).floatValue() +
+                    "', Bemerkungen = '" + jTextField_Bemerkungen.getText().trim() +
+                    "', Achsen_für_Vorstempel = '" + jTextField_AchsenFürVorstempel.getText().trim() +
+                    "', Abmessungen_Tasche_Druckplatte_x = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteX.getValue()).floatValue() +
+                    "', Abmessungen_Tasche_Druckplatte_y = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteY.getValue()).floatValue() +
+                    "', GF_Verschraubung = '" + jTextField_GFVerschraubung.getText().trim() +
+                    "', Stück = '" + ((Number) jFormattedTextField_Stück.getValue()).intValue() +
+                    "', F33 = '" + jTextField_F33.getText().trim() +
+                    "', F34 = '" + jTextField_F34.getText().trim() +
+                    "', F35 = '" + jTextField_F35.getText().trim() +
+                    "' WHERE Grundform = '" + jTextField_key.getText() + "'");             
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException ) {
@@ -819,7 +1610,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Grundform WHERE Grundform = '" + jFormattedTextField_key.getText() + "'");             
+            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Grundform WHERE Grundform = '" + jTextField_key.getText() + "'");             
             }   
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -845,44 +1636,140 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     }
     
     private void set_textFieldsEmpty() {
-        jFormattedTextField_key.setText("");
-        jFormattedTextField_valueDescription.setText("");
-        jFormattedTextField_valueLength.setText("");
-        jFormattedTextField_valueWidth.setText("");
-        jFormattedTextField_propertyValue.setText(""); 
-        jFormattedTextField_propertyDescription.setText("");        
+        jTextField_key.setText("");
+        jFormattedTextField_Länge.setText("");
+        jFormattedTextField_Breite.setText("");
+        jTextField_Unterbauhöhe.setText("");
+        jFormattedTextField_L1.setText("");
+        jFormattedTextField_L2.setText("");
+        jFormattedTextField_L3.setText("");
+        jFormattedTextField_L4.setText("");
+        jFormattedTextField_L5.setText("");
+        jFormattedTextField_L6.setText("");
+        jFormattedTextField_L7.setText("");
+        jFormattedTextField_L8.setText("");
+        jTextField_L9.setText("");
+        jTextField_L10.setText("");
+        jTextField_L11.setText("");
+        jTextField_L12.setText("");
+        jTextField_L13.setText("");
+        jTextField_L14.setText("");
+        jFormattedTextField_Distanzplatte.setText("");
+        jFormattedTextField_Grundplatte.setText("");
+        jFormattedTextField_Druckplatte.setText("");
+        jFormattedTextField_Kühlplatte.setText("");
+        jFormattedTextField_DruckrahmenStahl.setText("");
+        jFormattedTextField_DruckrahmenAlu.setText("");
+        jFormattedTextField_SegmentrahmenStahl.setText("");
+        jFormattedTextField_SegmentrahmenAlu.setText("");
+        jTextField_Bemerkungen.setText("");
+        jTextField_AchsenFürVorstempel.setText("");
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setText("");
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setText("");
+        jTextField_GFVerschraubung.setText("");
+        jFormattedTextField_Stück.setText("");
+        jTextField_F33.setText("");
+        jTextField_F34.setText("");
+        jTextField_F35.setText("");
     }
     
     private void set_oldValues() {        
-        Old_Key_GrundForm = jFormattedTextField_key.getText().trim();
-        Old_DescriptionValue = jFormattedTextField_valueDescription.getText().trim();
-        Old_LengthValue = jFormattedTextField_valueLength.getText().trim();
-        Old_WidthValue = jFormattedTextField_valueWidth.getText().trim();
-        Old_PropertyValue = jFormattedTextField_propertyValue.getText().trim();
+        Old_Key_Grundform = jTextField_key.getText().trim();
+        Old_Länge = jFormattedTextField_Länge.getText().trim();
+        Old_Breite = jFormattedTextField_Breite.getText().trim();
+        Old_Unterbauhöhe = jTextField_Unterbauhöhe.getText().trim();
+        Old_L1 = jFormattedTextField_L1.getText().trim();
+        Old_L2 = jFormattedTextField_L2.getText().trim();
+        Old_L3 = jFormattedTextField_L3.getText().trim();
+        Old_L4 = jFormattedTextField_L4.getText().trim();
+        Old_L5 = jFormattedTextField_L5.getText().trim();
+        Old_L6 = jFormattedTextField_L6.getText().trim();
+        Old_L7 = jFormattedTextField_L7.getText().trim();
+        Old_L8 = jFormattedTextField_L8.getText().trim();
+        Old_L9 = jTextField_L9.getText().trim();
+        Old_L10 = jTextField_L10.getText().trim();
+        Old_L11 = jTextField_L11.getText().trim();
+        Old_L12 = jTextField_L12.getText().trim();
+        Old_L13 = jTextField_L13.getText().trim();
+        Old_L14 = jTextField_L14.getText().trim();
+        Old_Distanzplatte = jFormattedTextField_Distanzplatte.getText().trim();
+        Old_Grundplatte = jFormattedTextField_Grundplatte.getText().trim();
+        Old_Druckplatte = jFormattedTextField_Druckplatte.getText().trim();
+        Old_Kühlplatte = jFormattedTextField_Kühlplatte.getText().trim();
+        Old_DruckrahmenStahl = jFormattedTextField_DruckrahmenStahl.getText().trim();
+        Old_DruckrahmenAlu = jFormattedTextField_DruckrahmenAlu.getText().trim();
+        Old_SegmentrahmenStahl = jFormattedTextField_SegmentrahmenStahl.getText().trim();
+        Old_SegmentrahmenAlu = jFormattedTextField_SegmentrahmenAlu.getText().trim(); 
+        Old_Bemerkungen = jTextField_Bemerkungen.getText().trim();     
+        Old_AchsenFürVorstempel = jTextField_AchsenFürVorstempel.getText().trim();     
+        Old_AbmessungenTascheDruckplatteX = jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim();     
+        Old_AbmessungenTascheDruckplatteY = jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim();     
+        Old_GFVerschraubung = jTextField_GFVerschraubung.getText().trim();     
+        Old_Stück = jFormattedTextField_Stück.getText().trim();     
+        Old_F33 = jTextField_F33.getText().trim();     
+        Old_F34 = jTextField_F34.getText().trim();     
+        Old_F35 = jTextField_F35.getText().trim();   
     }
     
     private void get_oldValues() {         
-        jFormattedTextField_key.setText(Old_Key_GrundForm);
-        jFormattedTextField_valueDescription.setText(Old_DescriptionValue); 
-        jFormattedTextField_valueLength.setText(Old_LengthValue); 
-        jFormattedTextField_valueWidth.setText(Old_WidthValue); 
-        jFormattedTextField_propertyValue.setText(Old_PropertyValue);   
+        jTextField_key.setText(Old_Key_Grundform);
+        jFormattedTextField_Länge.setText(Old_Länge); 
+        jFormattedTextField_Breite.setText(Old_Breite); 
+        jTextField_Unterbauhöhe.setText(Old_Unterbauhöhe); 
+        jFormattedTextField_L1.setText(Old_L1);  
+        jFormattedTextField_L2.setText(Old_L2);  
+        jFormattedTextField_L3.setText(Old_L3);  
+        jFormattedTextField_L4.setText(Old_L4);  
+        jFormattedTextField_L5.setText(Old_L5);  
+        jFormattedTextField_L6.setText(Old_L6);  
+        jFormattedTextField_L7.setText(Old_L7);  
+        jFormattedTextField_L8.setText(Old_L8);  
+        jTextField_L9.setText(Old_L9);  
+        jTextField_L10.setText(Old_L10);  
+        jTextField_L11.setText(Old_L11);  
+        jTextField_L12.setText(Old_L12);  
+        jTextField_L13.setText(Old_L13);  
+        jTextField_L14.setText(Old_L14);  
+        jFormattedTextField_Distanzplatte.setText(Old_Distanzplatte);  
+        jFormattedTextField_Grundplatte.setText(Old_Grundplatte);  
+        jFormattedTextField_Druckplatte.setText(Old_Druckplatte);  
+        jFormattedTextField_Kühlplatte.setText(Old_Kühlplatte);  
+        jFormattedTextField_DruckrahmenStahl.setText(Old_DruckrahmenStahl);  
+        jFormattedTextField_DruckrahmenAlu.setText(Old_DruckrahmenAlu);  
+        jFormattedTextField_SegmentrahmenStahl.setText(Old_SegmentrahmenStahl);  
+        jFormattedTextField_SegmentrahmenAlu.setText(Old_SegmentrahmenAlu);  
+        jTextField_Bemerkungen.setText(Old_Bemerkungen);  
+        jTextField_AchsenFürVorstempel.setText(Old_AchsenFürVorstempel);  
+        jFormattedTextField_AbmessungenTascheDruckplatteX.setText(Old_AbmessungenTascheDruckplatteX);  
+        jFormattedTextField_AbmessungenTascheDruckplatteY.setText(Old_AbmessungenTascheDruckplatteY);  
+        jTextField_GFVerschraubung.setText(Old_GFVerschraubung);  
+        jFormattedTextField_Stück.setText(Old_Stück);  
+        jTextField_F33.setText(Old_F33);  
+        jTextField_F34.setText(Old_F34);  
+        jTextField_F35.setText(Old_F35); 
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {
         
-        jFormattedTextField_key.setEnabled(aBoolean);
-        jFormattedTextField_valueDescription.setEnabled(true); 
-        jFormattedTextField_valueLength.setEnabled(true); 
-        jFormattedTextField_valueWidth.setEnabled(true); 
+        for (int i=1; i < jPanel_editTextFields.getComponentCount(); i++) {
+            jPanel_editTextFields.getComponent(i).setEnabled(true);
+        }
+        jTextField_key.setEnabled(aBoolean);
+//        jFormattedTextField_Länge.setEnabled(true); 
+//        jFormattedTextField_Breite.setEnabled(true);
+//        jFormattedTextField_L1.setEnabled(true); 
     }
     
     private void set_textFieldsDisabled() {
-        
-        jFormattedTextField_key.setEnabled(false);
-        jFormattedTextField_valueDescription.setEnabled(false);
-        jFormattedTextField_valueLength.setEnabled(false); 
-        jFormattedTextField_valueWidth.setEnabled(false);      
+                
+        for (int i=1; i < jPanel_editTextFields.getComponentCount(); i++) {
+            jPanel_editTextFields.getComponent(i).setEnabled(false);
+        }
+//        jTextField_key.setEnabled(false);
+//        jFormattedTextField_L1.setEnabled(false);
+//        jFormattedTextField_Länge.setEnabled(false); 
+//        jFormattedTextField_Breite.setEnabled(false);
+//        jFormattedTextField_L1.setEnabled(false);      
     }
     /**
      * @param args the command line arguments
@@ -927,25 +1814,88 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
-    private javax.swing.JFormattedTextField jFormattedTextField_key;
-    private javax.swing.JTextField jFormattedTextField_propertyDescription;
-    private javax.swing.JFormattedTextField jFormattedTextField_propertyValue;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueDescription;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueLength;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueWidth;
-    private javax.swing.JPanel jPanel_buttonsForEdit;
+    private javax.swing.JFormattedTextField jFormattedTextField_AbmessungenTascheDruckplatteX;
+    private javax.swing.JFormattedTextField jFormattedTextField_AbmessungenTascheDruckplatteY;
+    private javax.swing.JFormattedTextField jFormattedTextField_Breite;
+    private javax.swing.JFormattedTextField jFormattedTextField_Distanzplatte;
+    private javax.swing.JFormattedTextField jFormattedTextField_Druckplatte;
+    private javax.swing.JFormattedTextField jFormattedTextField_DruckrahmenAlu;
+    private javax.swing.JFormattedTextField jFormattedTextField_DruckrahmenStahl;
+    private javax.swing.JFormattedTextField jFormattedTextField_Grundplatte;
+    private javax.swing.JFormattedTextField jFormattedTextField_Kühlplatte;
+    private javax.swing.JFormattedTextField jFormattedTextField_L1;
+    private javax.swing.JFormattedTextField jFormattedTextField_L2;
+    private javax.swing.JFormattedTextField jFormattedTextField_L3;
+    private javax.swing.JFormattedTextField jFormattedTextField_L4;
+    private javax.swing.JFormattedTextField jFormattedTextField_L5;
+    private javax.swing.JFormattedTextField jFormattedTextField_L6;
+    private javax.swing.JFormattedTextField jFormattedTextField_L7;
+    private javax.swing.JFormattedTextField jFormattedTextField_L8;
+    private javax.swing.JFormattedTextField jFormattedTextField_Länge;
+    private javax.swing.JFormattedTextField jFormattedTextField_SegmentrahmenAlu;
+    private javax.swing.JFormattedTextField jFormattedTextField_SegmentrahmenStahl;
+    private javax.swing.JFormattedTextField jFormattedTextField_Stück;
+    private javax.swing.JPanel jPanel_editButtons;
+    private javax.swing.JPanel jPanel_editData;
+    private javax.swing.JPanel jPanel_editLabels;
+    private javax.swing.JPanel jPanel_editTextFields;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_table;
     private javax.swing.JScrollPane jScrollPane_dbData;
+    private javax.swing.JScrollPane jScrollPane_editData;
     private javax.swing.JTable jTable_dbData;
-    private javax.swing.JTextField jTextField_searchValue1;
+    private javax.swing.JTextField jTextField_AchsenFürVorstempel;
+    private javax.swing.JTextField jTextField_Bemerkungen;
+    private javax.swing.JTextField jTextField_F33;
+    private javax.swing.JTextField jTextField_F34;
+    private javax.swing.JTextField jTextField_F35;
+    private javax.swing.JTextField jTextField_GFVerschraubung;
+    private javax.swing.JTextField jTextField_L10;
+    private javax.swing.JTextField jTextField_L11;
+    private javax.swing.JTextField jTextField_L12;
+    private javax.swing.JTextField jTextField_L13;
+    private javax.swing.JTextField jTextField_L14;
+    private javax.swing.JTextField jTextField_L9;
+    private javax.swing.JTextField jTextField_Unterbauhöhe;
+    private javax.swing.JTextField jTextField_key;
+    private javax.swing.JTextField jTextField_searchValue;
+    private javax.swing.JLabel lbl_AbmessungenTascheDruckplatteX;
+    private javax.swing.JLabel lbl_AbmessungenTascheDruckplatteY;
+    private javax.swing.JLabel lbl_AchsenFürVorstempel;
+    private javax.swing.JLabel lbl_Bemerkungen;
+    private javax.swing.JLabel lbl_Breite;
+    private javax.swing.JLabel lbl_Distanzplatte;
+    private javax.swing.JLabel lbl_Druckplatte;
+    private javax.swing.JLabel lbl_DruckrahmenAlu;
+    private javax.swing.JLabel lbl_DruckrahmenStahl;
+    private javax.swing.JLabel lbl_F33;
+    private javax.swing.JLabel lbl_F34;
+    private javax.swing.JLabel lbl_F35;
+    private javax.swing.JLabel lbl_GFVerschraubung;
+    private javax.swing.JLabel lbl_Grundplatte;
+    private javax.swing.JLabel lbl_Kühlplatte;
+    private javax.swing.JLabel lbl_L1;
+    private javax.swing.JLabel lbl_L10;
+    private javax.swing.JLabel lbl_L11;
+    private javax.swing.JLabel lbl_L12;
+    private javax.swing.JLabel lbl_L13;
+    private javax.swing.JLabel lbl_L14;
+    private javax.swing.JLabel lbl_L2;
+    private javax.swing.JLabel lbl_L3;
+    private javax.swing.JLabel lbl_L4;
+    private javax.swing.JLabel lbl_L5;
+    private javax.swing.JLabel lbl_L6;
+    private javax.swing.JLabel lbl_L7;
+    private javax.swing.JLabel lbl_L8;
+    private javax.swing.JLabel lbl_L9;
+    private javax.swing.JLabel lbl_Länge;
+    private javax.swing.JLabel lbl_SegmentrahmenAlu;
+    private javax.swing.JLabel lbl_SegmentrahmenStahl;
+    private javax.swing.JLabel lbl_Stück;
+    private javax.swing.JLabel lbl_Unterbauhöhe;
     private javax.swing.JLabel lbl_key;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
     private javax.swing.JLabel lbl_tableName;
-    private javax.swing.JLabel lbl_valueDescription;
-    private javax.swing.JLabel lbl_valueLength;
-    private javax.swing.JLabel lbl_valueProperty;
-    private javax.swing.JLabel lbl_valueWidth;
     // End of variables declaration//GEN-END:variables
 }
