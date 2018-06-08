@@ -42,7 +42,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     TableRowSorter<DefaultTableModel> mySorter;
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
-    String Old_Segmenthöhe;
+    String Old_Plattenstärke;
     int OldSelection;
     String DataSet_Mode;
     
@@ -93,10 +93,10 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jPanel_editData = new javax.swing.JPanel();
         jPanel_editLabels = new javax.swing.JPanel();
         lbl_value1 = new javax.swing.JLabel();
-        lbl_Segmenthöhe = new javax.swing.JLabel();
+        lbl_Plattenstärke = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
-        jFormattedTextField_Segmenthöhe = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Plattenstärke = new javax.swing.JFormattedTextField();
         jPanel_editButtons = new javax.swing.JPanel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
@@ -132,7 +132,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "KP Artikel-Nr. (Key)", "Segmenthöhe"
+                "KP Artikel-Nr. (Key)", "Plattenstärke"
             }
         ) {
             Class[] types = new Class [] {
@@ -229,8 +229,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         lbl_value1.setPreferredSize(new java.awt.Dimension(274, 16));
         jPanel_editLabels.add(lbl_value1);
 
-        lbl_Segmenthöhe.setText("Segmenthöhe");
-        jPanel_editLabels.add(lbl_Segmenthöhe);
+        lbl_Plattenstärke.setText("Plattenstärke");
+        jPanel_editLabels.add(lbl_Plattenstärke);
 
         jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(801, 22));
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
@@ -241,12 +241,12 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTextField_key.setPreferredSize(new java.awt.Dimension(274, 20));
         jPanel_editTextFields.add(jTextField_key);
 
-        jFormattedTextField_Segmenthöhe.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField_Segmenthöhe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_Segmenthöhe.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_Segmenthöhe.setEnabled(false);
-        jFormattedTextField_Segmenthöhe.setPreferredSize(new java.awt.Dimension(497, 20));
-        jPanel_editTextFields.add(jFormattedTextField_Segmenthöhe);
+        jFormattedTextField_Plattenstärke.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Plattenstärke.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Plattenstärke.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Plattenstärke.setEnabled(false);
+        jFormattedTextField_Plattenstärke.setPreferredSize(new java.awt.Dimension(497, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Plattenstärke);
 
         jPanel_editButtons.setPreferredSize(new java.awt.Dimension(370, 74));
 
@@ -499,7 +499,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 jTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
 
                 tempString = myTableModel.getValueAt(myRow, 1).toString();
-                jFormattedTextField_Segmenthöhe.setValue(Float.parseFloat(tempString));
+                jFormattedTextField_Plattenstärke.setValue(Float.parseFloat(tempString));
                 btn_edit.setEnabled(true);
                 btn_duplicate.setEnabled(true);
                 btn_delete.setEnabled(true); 
@@ -527,7 +527,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-                if (DataSet_Mode.equals("edit")  && !Old_Segmenthöhe.equals(jFormattedTextField_Segmenthöhe.getText().trim())) {                    
+                if (DataSet_Mode.equals("edit")  && !Old_Plattenstärke.equals(jFormattedTextField_Plattenstärke.getText().trim())) {                    
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -626,7 +626,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         DataSet_Mode = "edit";
         set_oldValues();
         set_textFieldsEnabled(false);
-        jFormattedTextField_Segmenthöhe.requestFocus();
+        jFormattedTextField_Plattenstärke.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -656,17 +656,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
-        jFormattedTextField_Segmenthöhe.setText("");        
+        jFormattedTextField_Plattenstärke.setText("");        
     }
     
     private void set_oldValues() {        
         Old_Key = jTextField_key.getText().trim();
-        Old_Segmenthöhe = jFormattedTextField_Segmenthöhe.getText().trim();
+        Old_Plattenstärke = jFormattedTextField_Plattenstärke.getText().trim();
     }
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
-        jFormattedTextField_Segmenthöhe.setText(Old_Segmenthöhe);  
+        jFormattedTextField_Plattenstärke.setText(Old_Plattenstärke);  
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {
@@ -676,13 +676,13 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         }
         jTextField_key.setEnabled(aBoolean);
         
-        jFormattedTextField_Segmenthöhe.setEnabled(true);   
+        jFormattedTextField_Plattenstärke.setEnabled(true);   
     }
     
     private void set_textFieldsDisabled() {
         
         jTextField_key.setEnabled(false);
-        jFormattedTextField_Segmenthöhe.setEnabled(false);        
+        jFormattedTextField_Plattenstärke.setEnabled(false);        
     }
     
     private void do_insertDataSet_intoDB() {        
@@ -695,9 +695,9 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             {    
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Segmenthöhe)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Plattenstärke)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
-                    + jFormattedTextField_Segmenthöhe.getText().trim() +"')");  
+                    + jFormattedTextField_Plattenstärke.getText().trim() +"')");  
 //                    + ((Number) jFormattedTextField_Segmenthöhe.getValue()).floatValue() +"')");               
             } 
         }
@@ -723,7 +723,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             {   
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Segment SET Segmenthöhe = '" + jFormattedTextField_Segmenthöhe.getText().trim() +
+            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Segment SET Plattenstärke = '" + jFormattedTextField_Plattenstärke.getText().trim() +
                     "' WHERE pKey_KP = '" + jTextField_key.getText() + "'");             
             } 
         }
@@ -816,7 +816,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
-    private javax.swing.JFormattedTextField jFormattedTextField_Segmenthöhe;
+    private javax.swing.JFormattedTextField jFormattedTextField_Plattenstärke;
     private javax.swing.JPanel jPanel_editButtons;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
@@ -827,7 +827,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JTable jTable_dbData;
     private javax.swing.JTextField jTextField_key;
     private javax.swing.JTextField jTextField_searchValue;
-    private javax.swing.JLabel lbl_Segmenthöhe;
+    private javax.swing.JLabel lbl_Plattenstärke;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
     private javax.swing.JLabel lbl_tableName;

@@ -136,7 +136,7 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="0">
                     <Column editable="false" title="KP Artikel-Nr. (Key)" type="java.lang.String"/>
-                    <Column editable="false" title="Segmenth&#xf6;he" type="java.lang.Long"/>
+                    <Column editable="false" title="Plattenst&#xe4;rke" type="java.lang.Long"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -247,9 +247,9 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_Segmenth&#xf6;he">
+            <Component class="javax.swing.JLabel" name="lbl_Plattenst&#xe4;rke">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Segmenth&#xf6;he"/>
+                <Property name="text" type="java.lang.String" value="Plattenst&#xe4;rke"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -279,7 +279,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField_Segmenth&#xf6;he">
+            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField_Plattenst&#xe4;rke">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format subtype="0" type="0"/>
