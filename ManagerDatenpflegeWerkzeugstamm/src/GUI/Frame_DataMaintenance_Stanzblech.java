@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package GUI;
-//import DBTools.DBTools;
+
 import DBTools.DB_ConnectionManager;
+//import managerdatenpflegewerkzeugstamm.CustomTableCellRenderer;
+
 import java.awt.Point;
 import java.awt.MouseInfo;
 import java.sql.Connection;
@@ -14,8 +16,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -27,7 +30,6 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
      * Creates new form Frame_DataMaintenance_Segment
      */
     public Frame_DataMaintenance_Stanzblech() {
-//        do_preBuild();
         initComponents();
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -38,38 +40,91 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     
     boolean myAnswerIfConnected;
     Connection myConnection;
-    DefaultTableModel myTableModel;           
+    DefaultTableModel myTableModel; 
+    TableRowSorter<DefaultTableModel> mySorter;          
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
-    String Old_ValueDescription;
-    String Old_ValueLength;
-    String Old_ValueWidth;
-    String Old_ValueProperty;
+    String Old_Bezeichnung;
+    String Old_Länge;
+    String Old_Breite;
+    String Old_Eigenschaft;
     int OldSelection;
     String DataSet_Mode;
     
-    private void do_postBuild() {
-        
-//        jPanel_buttonsForEdit.setBorder(BorderFactory.createTitledBorder("Bearbeitung"));
-        
-//        jTable_dbData.getSelectionModel().addListSelectionListener ((ListSelectionEvent ev) -> {
-//            jTable_dbData.setRowSelectionAllowed(true);
-//            int myRow = jTable_dbData.getSelectedRow();
-//            jFormattedTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
-//            jFormattedTextField_valueDescription.setText(myTableModel.getValueAt(myRow, 1).toString().trim());
-//            jFormattedTextField_valueLength.setText(myTableModel.getValueAt(myRow, 2).toString().trim());
-//            jFormattedTextField_valueWidth.setText(myTableModel.getValueAt(myRow, 3).toString().trim());
-//            jFormattedTextField_valueProperty.setText(myTableModel.getValueAt(myRow, 4).toString().trim());
-//            btn_edit.setEnabled(true);
-//            btn_duplicate.setEnabled(true);
-//            btn_delete.setEnabled(true);  
-//        });
+    private void do_preBuild() {
         
         getDBConnection();
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
-        lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));     
+        createRowSorter(myTableModel);       
+    }
+    
+    private void createRowSorter(DefaultTableModel aModel) {
+        mySorter = new TableRowSorter<>(aModel);
+        jTable_dbData.setRowSorter(mySorter);
+    }
+    
+    public void search() {
+        String searchTerm = jTextField_searchValue.getText();
+        mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
+    }
+    
+    private void do_postBuild() {
+                
+        jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            set_valuesIntoTextFields();
+        });   
         
+//        DefaultTableCellRenderer myRenderer = new DefaultTableCellRenderer() {
+//        @Override
+//        public Component getTableCellRendererComponent(  
+//        JTable aTable, Object value, boolean isSelected, boolean hasFocus, int aRow, int aColumn) {
+//
+////        JLabel label;  
+////        if(!(value instanceof JLabel)) {  
+////            label = new JLabel((String)value);  
+////        } else {  
+////           label = (JLabel) value;  
+////        }  
+//        setOpaque(true);  
+//        setFont(aTable.getFont());  
+//        setForeground(aTable.getForeground());  
+//        setBackground(aTable.getBackground());
+//
+//        if(isSelected) {  
+//            setBackground(aTable.getSelectionBackground());  
+//            setForeground(aTable.getSelectionForeground());  
+//        }
+//        setText(value.toString());
+//        int rightRow = aTable.convertRowIndexToModel(aRow);
+//        int rightColumn = aTable.convertColumnIndexToModel(aColumn);
+//        
+//        if (rightColumn == 1 || rightColumn == 2) { 
+//            setHorizontalAlignment(SwingConstants.LEFT);
+//        }
+////        if (rightColumn == 2) { 
+////            setHorizontalAlignment(SwingConstants.LEFT);
+////        }
+//        else { 
+//            setHorizontalAlignment(SwingConstants.RIGHT);
+//        }
+//        return this;  
+//        }         
+//    };
+//        JLabel label = new JLabel();
+//        label.setHorizontalAlignment(SwingConstants.LEFT);
+//        myRenderer.getTableCellRendererComponent(jTable_dbData, label, true, true,1 ,1 );
+//        myRenderer.getTableCellRendererComponent(jTable_dbData, label, true, true,1 ,2 );
+//        jTable_dbData.setDefaultRenderer(Object.class, myRenderer);
+//        myRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+//        jTable_dbData.getColumnModel().getColumn(4).setCellRenderer(myRenderer);
+//        jTable_dbData.getColumnModel().getColumn(0).setCellRenderer(myRenderer);
+//        jTable_dbData.setDefaultRenderer(Object.class, myRenderer);
+//        for (int aColumn = 1; aColumn < myTableModel.getColumnCount(); aColumn++) {
+//            myRenderer.getTableCellRendererComponent(jTable_dbData, label, true, true, 1, aColumn);
+//            jTable_dbData.setDefaultRenderer(Object.class, myRenderer);
+//        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,7 +136,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_table = new javax.swing.JPanel();
-        jTextField_searchValue1 = new javax.swing.JTextField();
+        jTextField_searchValue = new javax.swing.JTextField();
         btn_deleteSearchValue1 = new javax.swing.JButton();
         jScrollPane_dbData = new javax.swing.JScrollPane();
         jTable_dbData = new javax.swing.JTable();
@@ -89,24 +144,27 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         lbl_rowCount = new javax.swing.JLabel();
         btn_getCurrentDBData = new javax.swing.JButton();
         lbl_tableName = new javax.swing.JLabel();
-        jPanel_buttonsForEdit = new javax.swing.JPanel();
+        jPanel_editData = new javax.swing.JPanel();
+        jPanel_editLabels = new javax.swing.JPanel();
+        lbl_key = new javax.swing.JLabel();
+        lbl_Bezeichnung = new javax.swing.JLabel();
+        lbl_Länge = new javax.swing.JLabel();
+        lbl_Breite = new javax.swing.JLabel();
+        lbl_Eigenschaft = new javax.swing.JLabel();
+        btn_openDialog_Materialtyp = new javax.swing.JButton();
+        jPanel_editTextFields = new javax.swing.JPanel();
+        jTextField_key = new javax.swing.JTextField();
+        jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Länge = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Breite = new javax.swing.JFormattedTextField();
+        jFormattedTextField_Eigenschaft = new javax.swing.JFormattedTextField();
+        jFormattedTextField_EigenschaftDescription = new javax.swing.JTextField();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
         btn_accept = new javax.swing.JButton();
-        lbl_key = new javax.swing.JLabel();
-        lbl_valueDescription = new javax.swing.JLabel();
         btn_cancel = new javax.swing.JButton();
         btn_duplicate = new javax.swing.JButton();
-        jFormattedTextField_key = new javax.swing.JFormattedTextField();
-        jFormattedTextField_valueDescription = new javax.swing.JFormattedTextField();
-        jFormattedTextField_valueLength = new javax.swing.JFormattedTextField();
-        lbl_valueLength = new javax.swing.JLabel();
-        jFormattedTextField_valueWidth = new javax.swing.JFormattedTextField();
-        lbl_valueWidth = new javax.swing.JLabel();
-        jFormattedTextField_valueProperty = new javax.swing.JFormattedTextField();
-        lbl_valueProperty = new javax.swing.JLabel();
-        btn_openDialog_Materialtyp = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
@@ -114,6 +172,12 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_searchValueKeyReleased(evt);
             }
         });
 
@@ -129,12 +193,19 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Stanzblech-ID (Key)", "Stanzblech-Bezeichnung", "Länge", "Breite", "Eigenschaft"
+                "Stanzblech-ID (Key)", "Stanzblech-Bezeichnung", "Länge", "Breite", "Eigenschaft", "Bezeichnung"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -142,19 +213,16 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         });
         jTable_dbData.setRowHeight(20);
         jTable_dbData.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTable_dbData.setShowVerticalLines(false);
         jTable_dbData.getTableHeader().setReorderingAllowed(false);
-        jTable_dbData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTable_dbDataMousePressed(evt);
-            }
-        });
-        jTable_dbData.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_dbDataKeyPressed(evt);
-            }
-        });
         jScrollPane_dbData.setViewportView(jTable_dbData);
+        if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
+            jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(204);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(96);
+            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(96);
+            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(96);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(96);
+        }
 
         lbl_search1.setText("Suchen");
 
@@ -174,14 +242,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_table.setLayout(jPanel_tableLayout);
         jPanel_tableLayout.setHorizontalGroup(
             jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_tableLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane_dbData)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
+                .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
+                    .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl_search1)
@@ -205,7 +273,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                         .addComponent(lbl_search1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_searchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -213,11 +281,84 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel_buttonsForEdit.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+
+        jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        lbl_key.setText("Stanzblech-ID (Key)");
+        lbl_key.setPreferredSize(new java.awt.Dimension(120, 14));
+        jPanel_editLabels.add(lbl_key);
+
+        lbl_Bezeichnung.setText("Stanzblech-Bezeichnung");
+        lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(204, 14));
+        jPanel_editLabels.add(lbl_Bezeichnung);
+
+        lbl_Länge.setText("Länge");
+        lbl_Länge.setPreferredSize(new java.awt.Dimension(96, 14));
+        jPanel_editLabels.add(lbl_Länge);
+
+        lbl_Breite.setText("Breite");
+        lbl_Breite.setPreferredSize(new java.awt.Dimension(96, 14));
+        jPanel_editLabels.add(lbl_Breite);
+
+        lbl_Eigenschaft.setText("Eigenschaft");
+        lbl_Eigenschaft.setPreferredSize(new java.awt.Dimension(169, 14));
+        jPanel_editLabels.add(lbl_Eigenschaft);
+
+        btn_openDialog_Materialtyp.setText("...");
+        btn_openDialog_Materialtyp.setEnabled(false);
+        btn_openDialog_Materialtyp.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_openDialog_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_openDialog_MaterialtypActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_openDialog_Materialtyp);
+
+        jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_key.setEnabled(false);
+        jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
+        jPanel_editTextFields.add(jTextField_key);
+
+        jFormattedTextField_Bezeichnung.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField_Bezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Bezeichnung.setEnabled(false);
+        jFormattedTextField_Bezeichnung.setPreferredSize(new java.awt.Dimension(204, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Bezeichnung);
+
+        jFormattedTextField_Länge.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Länge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Länge.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Länge.setEnabled(false);
+        jFormattedTextField_Länge.setPreferredSize(new java.awt.Dimension(96, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Länge);
+
+        jFormattedTextField_Breite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField_Breite.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Breite.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Breite.setEnabled(false);
+        jFormattedTextField_Breite.setPreferredSize(new java.awt.Dimension(96, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Breite);
+
+        jFormattedTextField_Eigenschaft.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_Eigenschaft.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Eigenschaft.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Eigenschaft.setEnabled(false);
+        jFormattedTextField_Eigenschaft.setPreferredSize(new java.awt.Dimension(96, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Eigenschaft);
+
+        jFormattedTextField_EigenschaftDescription.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_EigenschaftDescription.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_EigenschaftDescription.setEnabled(false);
+        jFormattedTextField_EigenschaftDescription.setPreferredSize(new java.awt.Dimension(96, 20));
+        jPanel_editTextFields.add(jFormattedTextField_EigenschaftDescription);
 
         btn_new.setText("Neu");
         btn_new.addActionListener(new java.awt.event.ActionListener() {
@@ -247,10 +388,6 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             }
         });
 
-        lbl_key.setText("Stanzblech-ID (Key)");
-
-        lbl_valueDescription.setText("Stanzblech-Bezeichnung");
-
         btn_cancel.setText("Abbrechen");
         btn_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,125 +402,45 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField_key.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFormattedTextField_key.setEnabled(false);
-
-        jFormattedTextField_valueDescription.setEnabled(false);
-
-        jFormattedTextField_valueLength.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField_valueLength.setEnabled(false);
-
-        lbl_valueLength.setText("Länge");
-
-        jFormattedTextField_valueWidth.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField_valueWidth.setEnabled(false);
-
-        lbl_valueWidth.setText("Breite");
-
-        jFormattedTextField_valueProperty.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFormattedTextField_valueProperty.setEnabled(false);
-
-        lbl_valueProperty.setText("Eigenschaft");
-
-        btn_openDialog_Materialtyp.setText("X");
-        btn_openDialog_Materialtyp.setEnabled(false);
-        btn_openDialog_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_openDialog_MaterialtypActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_buttonsForEditLayout = new javax.swing.GroupLayout(jPanel_buttonsForEdit);
-        jPanel_buttonsForEdit.setLayout(jPanel_buttonsForEditLayout);
-        jPanel_buttonsForEditLayout.setHorizontalGroup(
-            jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_editDataLayout = new javax.swing.GroupLayout(jPanel_editData);
+        jPanel_editData.setLayout(jPanel_editDataLayout);
+        jPanel_editDataLayout.setHorizontalGroup(
+            jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_editDataLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_key, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
+                        .addComponent(btn_accept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(lbl_valueDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jFormattedTextField_valueDescription))
+                        .addComponent(btn_cancel)
+                        .addGap(126, 126, 126))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                        .addComponent(btn_new)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_duplicate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(lbl_valueProperty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_openDialog_Materialtyp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jFormattedTextField_valueProperty, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(btn_accept)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_cancel))
-                            .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addComponent(btn_new)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_edit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_duplicate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_delete)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btn_delete)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel_buttonsForEditLayout.setVerticalGroup(
-            jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbl_valueWidth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField_valueWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createSequentialGroup()
-                                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_valueProperty))
-                                    .addComponent(btn_openDialog_Materialtyp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField_valueProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                    .addComponent(lbl_valueDescription)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextField_valueDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel_buttonsForEditLayout.createSequentialGroup()
-                                    .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbl_key)
-                                        .addComponent(lbl_valueLength))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jFormattedTextField_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jFormattedTextField_valueLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel_editDataLayout.setVerticalGroup(
+            jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_new)
                     .addComponent(btn_edit)
                     .addComponent(btn_delete)
                     .addComponent(btn_duplicate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_buttonsForEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_accept)
                     .addComponent(btn_cancel))
                 .addContainerGap())
@@ -421,7 +478,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_buttonsForEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -429,7 +486,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttonsForEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -444,7 +501,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                     "Der Verbindungs-Aufbau zur Datenbank ist gescheitert. Bitte wenden Sie sich an den Entwickler.",
                     "Fehler",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+//            return;
         }        
     }
    
@@ -457,7 +514,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
 //            String myTempSQL = "CREATE TABLE #tempSegment FROM DiafBDE.dbo.T_Segment";
-            String mySQL = "SELECT * FROM DiafBDE.dbo.T_Stanzblechstamm"; // ORDER BY T_Segment.pKey_KP"; // WHERE tma_abt='Technik'";
+            String mySQL = "SELECT * FROM DiafBDE.dbo.T_Stanzblech"; // ORDER BY T_Segment.pKey_KP"; // WHERE tma_abt='Technik'";
             ResultSet myResultSet = myStatement.executeQuery(mySQL);            
             int myColumns = myResultSet.getMetaData().getColumnCount();
             myTableModel = (DefaultTableModel) jTable_dbData.getModel();
@@ -467,18 +524,26 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             }
             while (myResultSet.next()) {
                   
-                String[] myValue = new String[myColumns];
+                String[] myValue = new String[myColumns + 1];
                 
                 for (int i = 1; i <= myColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
                     myValue[i-1] = myDataSet;
+//                    ---------------------
+                    if (i == 5) {
+                        if (myValue[i-1].equals("1")) {
+                            myValue[i] = "hart";
+                        }
+                        else {myValue[i] = "weich";}
+                    }
+//                    ---------------------
                 }  
                 myTableModel.addRow(myValue); 
             }
             if (!myResultSet.next()) {
                 
-                return;
+//                return;
             } 
         }
         catch (SQLException myException )
@@ -486,18 +551,21 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             System.out.println(myException);
         }
         finally {
-            try {
+            try {                
+                set_textFieldsEmpty(); 
                 if (myConnection != null && !myConnection.isClosed()) {
                     myConnection.close();
                 }
             } catch (SQLException myException) {
                 System.out.println(myException);
             }
-        } 
+        }
     }
     
     private void btn_deleteSearchValue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValue1ActionPerformed
         // TODO add your handling code here:
+        jTextField_searchValue.setText("");
+        search();
     }//GEN-LAST:event_btn_deleteSearchValue1ActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -515,7 +583,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         set_textFieldsEnabled(true); 
         set_oldValues();
         set_textFieldsEmpty();
-        jFormattedTextField_key.requestFocus();
+        jTextField_key.setText("B");
+        jTextField_key.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -525,22 +594,35 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         btn_openDialog_Materialtyp.setEnabled(true); 
     }//GEN-LAST:event_btn_newActionPerformed
 
-    private void jTable_dbDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_dbDataKeyPressed
-        // TODO add your handling code here:
-        if (myTableModel.getRowCount() > 0) {
-            set_valuesIntoTextFields();
-        }
-    }//GEN-LAST:event_jTable_dbDataKeyPressed
-
     private void set_valuesIntoTextFields() {
         
         OldSelection = jTable_dbData.getSelectedRow();
         if(OldSelection != -1) {
-            jFormattedTextField_key.setText(myTableModel.getValueAt(OldSelection, 0).toString().trim());
-            jFormattedTextField_valueDescription.setText(myTableModel.getValueAt(OldSelection, 1).toString().trim());
-            jFormattedTextField_valueLength.setText(myTableModel.getValueAt(OldSelection, 2).toString().trim());
-            jFormattedTextField_valueWidth.setText(myTableModel.getValueAt(OldSelection, 3).toString().trim());
-            jFormattedTextField_valueProperty.setText(myTableModel.getValueAt(OldSelection, 4).toString().trim());
+            String tempString;
+            
+            int myRow = jTable_dbData.convertRowIndexToModel(OldSelection);
+            
+            jTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
+                        
+            tempString = myTableModel.getValueAt(myRow, 1).toString();
+            jFormattedTextField_Bezeichnung.setValue(tempString);
+            
+            tempString = myTableModel.getValueAt(myRow, 2).toString();
+            jFormattedTextField_Länge.setValue(Float.parseFloat(tempString));
+            
+            tempString = myTableModel.getValueAt(myRow, 3).toString();
+            jFormattedTextField_Breite.setValue(Float.parseFloat(tempString));
+            
+            tempString = myTableModel.getValueAt(myRow, 4).toString();
+            jFormattedTextField_Eigenschaft.setValue(Integer.parseInt(tempString));
+            
+            if (myTableModel.getValueAt(myRow, 4).toString().equals("1")) {
+                jFormattedTextField_EigenschaftDescription.setText("hart");
+            }
+            if (myTableModel.getValueAt(myRow, 4).toString().equals("2")) {
+                jFormattedTextField_EigenschaftDescription.setText("weich");
+            }
+            
             btn_edit.setEnabled(true);
             btn_duplicate.setEnabled(true);
             btn_delete.setEnabled(true); 
@@ -549,31 +631,31 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     
     private void btn_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acceptActionPerformed
         // TODO add your handling code here:
-        if (jFormattedTextField_key.getText().isEmpty() || jFormattedTextField_valueDescription.getText().isEmpty()
-                || jFormattedTextField_valueLength.getText().isEmpty() || jFormattedTextField_valueWidth.getText().isEmpty()
-                || jFormattedTextField_valueProperty.getText().isEmpty()) {
+        if (jTextField_key.getText().isEmpty() || jFormattedTextField_Bezeichnung.getText().isEmpty()
+                || jFormattedTextField_Länge.getText().isEmpty() || jFormattedTextField_Breite.getText().isEmpty()
+                || jFormattedTextField_Eigenschaft.getText().isEmpty()) {
             
             JOptionPane.showMessageDialog(null,
-                    "Der Datensatz ist teilweise leer. Erfassen Sie Daten oder klicken auf Abbrechen.",
+                    "Der Datensatz ist teilweise leer. Erfassen Sie Daten oder klicken Sie auf Abbrechen.",
                     "Fehler",
                     JOptionPane.ERROR_MESSAGE);
-            return;
+//            return;
         }
         else {
-            boolean myAnswer = test_isDataSetInDB(jFormattedTextField_key.getText().trim());
+            boolean myAnswer = test_isDataSetInDB(jTextField_key.getText().trim());
             
             if (myAnswer == true) {
                 if (DataSet_Mode.equals("new")) {
                     JOptionPane.showMessageDialog(null,
-                        "Es existiert schon ein Datensatz mit diesem Key: \n\n >> " + jFormattedTextField_key.getText().trim() + " <<.",
+                        "Es existiert schon ein Datensatz mit diesem Key: \n\n >> " + jTextField_key.getText().trim() + " <<.",
                         "Fehler",
                         JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-                if (DataSet_Mode.equals("edit")  && !Old_ValueDescription.equals(jFormattedTextField_valueDescription.getText().trim())
-                        || !Old_ValueLength.equals(jFormattedTextField_valueLength.getText().trim())
-                        || !Old_ValueWidth.equals(jFormattedTextField_valueWidth.getText().trim())
-                        || !Old_ValueProperty.equals(jFormattedTextField_valueProperty.getText().trim())) {
+                if (DataSet_Mode.equals("edit")  && !Old_Bezeichnung.equals(jFormattedTextField_Bezeichnung.getText().trim())
+                        || !Old_Länge.equals(jFormattedTextField_Länge.getText().trim())
+                        || !Old_Breite.equals(jFormattedTextField_Breite.getText().trim())
+                        || !Old_Eigenschaft.equals(jFormattedTextField_Eigenschaft.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -612,21 +694,17 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "delete";
-        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jFormattedTextField_key.getText().trim()) == true) {
+        if (DataSet_Mode.equals("delete") && test_isDataSetInDB(jTextField_key.getText().trim()) == true) {
             int myAnswer = JOptionPane.showConfirmDialog(null,
-                    "Soll der Datensatz Stanzblech-ID (Key): \n\n >> " + jFormattedTextField_key.getText().trim() + " << \n\n wirklich gelöscht werden?",
+                    "Soll der Datensatz Stanzblech-ID (Key): \n\n >> " + jTextField_key.getText().trim() + " << \n\n wirklich gelöscht werden?",
                     "Datensatz löschen?",
                     JOptionPane.YES_NO_OPTION);   
             if (myAnswer == 1) {
-                return;
+//                return;
             }
             else {
                 do_deleteDataSet_inDB();  
                 get_DBTableData();
-//                if (OldSelection > -1) {
-//                    myTableModel.removeRow(OldSelection);
-//                }   
-                set_textFieldsEmpty();
                 set_textFieldsDisabled();
                 btn_new.setEnabled(true);
                 btn_edit.setEnabled(false);
@@ -641,7 +719,6 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
         // TODO add your handling code here:
-        //something   
         get_oldValues();   
         set_textFieldsDisabled(); 
         btn_new.setEnabled(true);
@@ -657,6 +734,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        do_preBuild();
         do_postBuild();
     }//GEN-LAST:event_formWindowOpened
 
@@ -669,7 +747,6 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
-        set_textFieldsEmpty();
     }//GEN-LAST:event_btn_getCurrentDBDataActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
@@ -677,13 +754,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         DataSet_Mode = "edit";
         set_oldValues();
         set_textFieldsEnabled(false);
-        jFormattedTextField_valueDescription.requestFocus();
+        jFormattedTextField_Bezeichnung.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
-        btn_cancel.setEnabled(true);
+        btn_cancel.setEnabled(true);  
+        btn_openDialog_Materialtyp.setEnabled(true);  
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
@@ -691,13 +769,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         DataSet_Mode = "duplicate";
         set_oldValues();
         set_textFieldsEnabled(true);
-        jFormattedTextField_key.requestFocus();
+        jTextField_key.requestFocus();
         btn_new.setEnabled(false);
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
-        btn_cancel.setEnabled(true);
+        btn_cancel.setEnabled(true); 
+        btn_openDialog_Materialtyp.setEnabled(true);  
     }//GEN-LAST:event_btn_duplicateActionPerformed
 
     private void btn_openDialog_MaterialtypActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDialog_MaterialtypActionPerformed
@@ -705,64 +784,63 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         Dialog_DataUse_Materialtyp myDialog = new Dialog_DataUse_Materialtyp(this,true);
         myDialog.setTitle("Materialtyp");
         Point location = MouseInfo.getPointerInfo().getLocation();
-        myDialog.setLocation(location.x, location.y);
+        myDialog.setLocation(location.x + 20 , location.y - 40);
         myDialog.setVisible(true);
+        int resultFromDialog_ID = myDialog.getChoosenMaterialtypID();
+        if (resultFromDialog_ID != 0) {
+            String resultFromDialog_Descriptiong = myDialog.getChoosenMaterialtypDescription().trim();
+            this.jFormattedTextField_Eigenschaft.setValue(resultFromDialog_ID);
+            this.jFormattedTextField_EigenschaftDescription.setText(resultFromDialog_Descriptiong);
+        }
     }//GEN-LAST:event_btn_openDialog_MaterialtypActionPerformed
 
-    private void jTable_dbDataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_dbDataMousePressed
+    private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
-        if (myTableModel.getRowCount() > 0) {
-            set_valuesIntoTextFields();
-        }
-    }//GEN-LAST:event_jTable_dbDataMousePressed
+        search();
+    }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
     private void set_textFieldsEmpty() {
-        jFormattedTextField_key.setText("");
-        jFormattedTextField_valueDescription.setText("");
-        jFormattedTextField_valueLength.setText("");
-        jFormattedTextField_valueWidth.setText("");
-        jFormattedTextField_valueProperty.setText("");        
+        jTextField_key.setText("");
+        jFormattedTextField_Bezeichnung.setText("");
+        jFormattedTextField_Länge.setText("");
+        jFormattedTextField_Breite.setText("");
+        jFormattedTextField_Eigenschaft.setText(""); 
+        jFormattedTextField_EigenschaftDescription.setText("");        
     }
     
     private void set_oldValues() {        
-        Old_Key = jFormattedTextField_key.getText().trim();
-        Old_ValueDescription = jFormattedTextField_valueDescription.getText().trim();
-        Old_ValueLength = jFormattedTextField_valueLength.getText().trim();
-        Old_ValueWidth = jFormattedTextField_valueWidth.getText().trim();
-        Old_ValueProperty = jFormattedTextField_valueProperty.getText().trim();
+        Old_Key = jTextField_key.getText().trim();
+        Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
+        Old_Länge = jFormattedTextField_Länge.getText().trim();
+        Old_Breite = jFormattedTextField_Breite.getText().trim();
+        Old_Eigenschaft = jFormattedTextField_Eigenschaft.getText().trim();
     }
     
     private void get_oldValues() {         
-        jFormattedTextField_key.setText(Old_Key);
-        jFormattedTextField_valueDescription.setText(Old_ValueDescription); 
-        jFormattedTextField_valueLength.setText(Old_ValueLength); 
-        jFormattedTextField_valueWidth.setText(Old_ValueWidth); 
-        jFormattedTextField_valueProperty.setText(Old_ValueProperty);   
-    }
-    private void set_buttonsDisabled(JButton aButton) {
-        
-    }
-    
-    private void set_buttonsEnabled(JButton aButton) {
-        
+        jTextField_key.setText(Old_Key);
+        jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung); 
+        jFormattedTextField_Länge.setText(Old_Länge); 
+        jFormattedTextField_Breite.setText(Old_Breite); 
+        jFormattedTextField_Eigenschaft.setText(Old_Eigenschaft);
+        if (Old_Eigenschaft.isEmpty()) {
+            jFormattedTextField_EigenschaftDescription.setText("");
+        }
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {
         
-        jFormattedTextField_key.setEnabled(aBoolean);
-        jFormattedTextField_valueDescription.setEnabled(true); 
-        jFormattedTextField_valueLength.setEnabled(true); 
-        jFormattedTextField_valueWidth.setEnabled(true); 
-        jFormattedTextField_valueProperty.setEnabled(true);        
+        jTextField_key.setEnabled(aBoolean);
+        jFormattedTextField_Bezeichnung.setEnabled(true); 
+        jFormattedTextField_Länge.setEnabled(true); 
+        jFormattedTextField_Breite.setEnabled(true); 
     }
     
     private void set_textFieldsDisabled() {
         
-        jFormattedTextField_key.setEnabled(false);
-        jFormattedTextField_valueDescription.setEnabled(false);
-        jFormattedTextField_valueLength.setEnabled(false); 
-        jFormattedTextField_valueWidth.setEnabled(false); 
-        jFormattedTextField_valueProperty.setEnabled(false);            
+        jTextField_key.setEnabled(false);
+        jFormattedTextField_Bezeichnung.setEnabled(false);
+        jFormattedTextField_Länge.setEnabled(false); 
+        jFormattedTextField_Breite.setEnabled(false);      
     }
     
     private void do_insertDataSet_intoDB() {        
@@ -774,12 +852,15 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             {   
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblechstamm (pKey_Stanzblech_ID, Bezeichnung, Länge, Breite, Eigenschaft)" 
-                    + "VALUES ('" + ((Number)jFormattedTextField_key.getValue()).intValue() + "', '" 
-                    + jFormattedTextField_valueDescription.getText().trim() + "', '" 
-                    + ((Number) jFormattedTextField_valueLength.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_valueWidth.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_valueProperty.getValue()).intValue() +"')");             
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblech (pKey_B, Bezeichnung, Länge, Breite, Eigenschaft)" 
+                    + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
+                    + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
+                    + jFormattedTextField_Länge.getText().trim() + "', '" 
+                    + jFormattedTextField_Breite.getText().trim() + "', '" 
+                    + jFormattedTextField_Eigenschaft.getText().trim() +"')");
+//                    + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Breite.getValue()).floatValue() + "', '" 
+//                    + ((Number) jFormattedTextField_Eigenschaft.getValue()).intValue() +"')");                
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -801,19 +882,21 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
             MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
             if (MY_DBCM.isConnnected()) 
-            {    
-//            float myValue2 = Float.parseFloat(jFormattedTextField_value2.getText().trim());
+            { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Stanzblechstamm SET Bezeichnung = " + jFormattedTextField_valueDescription.getText().trim() + ", '" 
-                    + ((Number) jFormattedTextField_valueLength.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_valueWidth.getValue()).floatValue() + "', '" 
-                    + ((Number) jFormattedTextField_valueProperty.getValue()).intValue() +
-                    " WHERE pKey_KP = '" + jFormattedTextField_key.getText() + "'");             
+            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Stanzblech SET Bezeichnung = '" + jFormattedTextField_Bezeichnung.getText().trim() + 
+                    "', Länge = '" + jFormattedTextField_Länge.getText().trim() + 
+                    "', Breite = '" + jFormattedTextField_Breite.getText().trim() +
+                    "', Eigenschaft = '" + jFormattedTextField_Eigenschaft.getText().trim() +
+//                    "', Länge = '" + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + 
+//                    "', Breite = '" + ((Number) jFormattedTextField_Breite.getValue()).floatValue() +
+//                    "', Eigenschaft = '" + ((Number) jFormattedTextField_Eigenschaft.getValue()).intValue() +
+                    "' WHERE pKey_B = '" + jTextField_key.getText() + "'");             
             } 
         }
-        catch (/*ClassNotFoundException |*/ SQLException myException )
-        {
+        catch (/*ClassNotFoundException |*/ SQLException myException ) {
+            myException.printStackTrace();
         }
         finally {
             try {
@@ -831,11 +914,10 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
             MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
             if (MY_DBCM.isConnnected()) 
-            {    
-//            float myValue2 = Float.parseFloat(jFormattedTextField_value2.getText().trim());
+            { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Stanzblechstamm WHERE pKey_Stanzblech_ID = '" + jFormattedTextField_key.getText() + "'");             
+            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Stanzblech WHERE pKey_B = '" + jTextField_key.getText() + "'");             
             }   
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -903,24 +985,27 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
     private javax.swing.JButton btn_openDialog_Materialtyp;
-    private javax.swing.JFormattedTextField jFormattedTextField_key;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueDescription;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueLength;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueProperty;
-    private javax.swing.JFormattedTextField jFormattedTextField_valueWidth;
-    private javax.swing.JPanel jPanel_buttonsForEdit;
+    private javax.swing.JFormattedTextField jFormattedTextField_Bezeichnung;
+    private javax.swing.JFormattedTextField jFormattedTextField_Breite;
+    private javax.swing.JFormattedTextField jFormattedTextField_Eigenschaft;
+    private javax.swing.JTextField jFormattedTextField_EigenschaftDescription;
+    private javax.swing.JFormattedTextField jFormattedTextField_Länge;
+    private javax.swing.JPanel jPanel_editData;
+    private javax.swing.JPanel jPanel_editLabels;
+    private javax.swing.JPanel jPanel_editTextFields;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_table;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JTable jTable_dbData;
-    private javax.swing.JTextField jTextField_searchValue1;
+    private javax.swing.JTextField jTextField_key;
+    private javax.swing.JTextField jTextField_searchValue;
+    private javax.swing.JLabel lbl_Bezeichnung;
+    private javax.swing.JLabel lbl_Breite;
+    private javax.swing.JLabel lbl_Eigenschaft;
+    private javax.swing.JLabel lbl_Länge;
     private javax.swing.JLabel lbl_key;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
     private javax.swing.JLabel lbl_tableName;
-    private javax.swing.JLabel lbl_valueDescription;
-    private javax.swing.JLabel lbl_valueLength;
-    private javax.swing.JLabel lbl_valueProperty;
-    private javax.swing.JLabel lbl_valueWidth;
     // End of variables declaration//GEN-END:variables
 }
