@@ -28,6 +28,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
      * Creates new form Frame_DataMaintenance_Segment
      */
     public Frame_DataMaintenance_Segment() {
+        this.Old_Plattenstärke = "";
+        this.Old_Segmenttyp = "";
         initComponents();
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -43,6 +45,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
     String Old_Plattenstärke;
+    String Old_Segmenttyp;
     int OldSelection;
     String DataSet_Mode;
     
@@ -69,7 +72,10 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
-        });        
+        });  
+        jComboBox_Segmenttyp.insertItemAt("",0);
+        jComboBox_Segmenttyp.insertItemAt("Klappenwerkzeug",1);
+        jComboBox_Segmenttyp.setSelectedIndex(-1);
     }
       
     /**
@@ -94,9 +100,12 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jPanel_editLabels = new javax.swing.JPanel();
         lbl_value1 = new javax.swing.JLabel();
         lbl_Plattenstärke = new javax.swing.JLabel();
+        lbl_Segmenttyp = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Plattenstärke = new javax.swing.JFormattedTextField();
+        jComboBox_Segmenttyp = new javax.swing.JComboBox<>();
+        jTextField_Segmenttyp = new javax.swing.JTextField();
         jPanel_editButtons = new javax.swing.JPanel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
@@ -132,14 +141,14 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "KP Artikel-Nr. (Key)", "Plattenstärke"
+                "KP Artikel-Nr. (Key)", "Plattenstärke", "Segmenttyp"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Long.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -155,8 +164,10 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTable_dbData.getTableHeader().setReorderingAllowed(false);
         jScrollPane_dbData.setViewportView(jTable_dbData);
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
-            jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(274);
+            jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(120);
             jTable_dbData.getColumnModel().getColumn(0).setMaxWidth(274);
+            jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(300);
         }
 
         lbl_search1.setText("Suchen");
@@ -181,23 +192,21 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
+                        .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane_dbData)
-                            .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(lbl_tableName)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                            .addComponent(lbl_tableName)
+                            .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addComponent(lbl_search1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_getCurrentDBData)
-                        .addGap(18, 18, 18))))
+                        .addComponent(btn_getCurrentDBData)))
+                .addContainerGap())
         );
         jPanel_tableLayout.setVerticalGroup(
             jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,11 +235,16 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         lbl_value1.setText("KP Artikel-Nr. (Key)");
-        lbl_value1.setPreferredSize(new java.awt.Dimension(274, 16));
+        lbl_value1.setPreferredSize(new java.awt.Dimension(120, 16));
         jPanel_editLabels.add(lbl_value1);
 
         lbl_Plattenstärke.setText("Plattenstärke");
+        lbl_Plattenstärke.setPreferredSize(new java.awt.Dimension(120, 14));
         jPanel_editLabels.add(lbl_Plattenstärke);
+
+        lbl_Segmenttyp.setText("Segmenttyp");
+        lbl_Segmenttyp.setPreferredSize(new java.awt.Dimension(300, 14));
+        jPanel_editLabels.add(lbl_Segmenttyp);
 
         jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(801, 22));
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
@@ -238,15 +252,24 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_key.setEnabled(false);
-        jTextField_key.setPreferredSize(new java.awt.Dimension(274, 20));
+        jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jTextField_key);
 
         jFormattedTextField_Plattenstärke.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Plattenstärke.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Plattenstärke.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Plattenstärke.setEnabled(false);
-        jFormattedTextField_Plattenstärke.setPreferredSize(new java.awt.Dimension(497, 20));
+        jFormattedTextField_Plattenstärke.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Plattenstärke);
+
+        jComboBox_Segmenttyp.setEnabled(false);
+        jComboBox_Segmenttyp.setPreferredSize(new java.awt.Dimension(300, 20));
+        jPanel_editTextFields.add(jComboBox_Segmenttyp);
+
+        jTextField_Segmenttyp.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextField_Segmenttyp.setEnabled(false);
+        jTextField_Segmenttyp.setPreferredSize(new java.awt.Dimension(300, 20));
+        jPanel_editTextFields.add(jTextField_Segmenttyp);
 
         jPanel_editButtons.setPreferredSize(new java.awt.Dimension(370, 74));
 
@@ -332,10 +355,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jPanel_editData.setLayout(jPanel_editDataLayout);
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 1060, Short.MAX_VALUE)
-            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(jPanel_editButtons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_editDataLayout.setVerticalGroup(
@@ -377,12 +401,14 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel_table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -498,8 +524,19 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 int myRow = jTable_dbData.convertRowIndexToModel(OldSelection);
                 jTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
 
+                if (myTableModel.getValueAt(myRow, 1) != null) {
                 tempString = myTableModel.getValueAt(myRow, 1).toString();
                 jFormattedTextField_Plattenstärke.setValue(Float.parseFloat(tempString));
+                }
+                else {jFormattedTextField_Plattenstärke.setValue("");}
+                
+                if (myTableModel.getValueAt(myRow, 2) != null) {
+                    jComboBox_Segmenttyp.setSelectedItem(myTableModel.getValueAt(myRow, 2));
+//                    jTextField_Segmenttyp.setText(myTableModel.getValueAt(myRow, 2).toString().trim());
+                }
+                else {jComboBox_Segmenttyp.setSelectedIndex(-1); /*jTextField_Segmenttyp.setText("");*/}
+                
+                
                 btn_edit.setEnabled(true);
                 btn_duplicate.setEnabled(true);
                 btn_delete.setEnabled(true); 
@@ -527,7 +564,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-                if (DataSet_Mode.equals("edit")  && !Old_Plattenstärke.equals(jFormattedTextField_Plattenstärke.getText().trim())) {                    
+                if (DataSet_Mode.equals("edit") && !Old_Plattenstärke.equals(jFormattedTextField_Plattenstärke.getText().trim())
+                        || !Old_Segmenttyp.equals(jComboBox_Segmenttyp.getSelectedIndex())) {                    
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -546,17 +584,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             btn_new.setEnabled(true); 
             btn_accept.setEnabled(false);
             btn_cancel.setEnabled(false);  
-            if (jTable_dbData.getSelectedRow() > -1) {
-                
-                btn_edit.setEnabled(true);
-                btn_duplicate.setEnabled(true);
-                btn_delete.setEnabled(true);                
-            }
-            else {                
+//            if (jTable_dbData.getSelectedRow() > -1) {
+//                
+//                btn_edit.setEnabled(true);
+//                btn_duplicate.setEnabled(true);
+//                btn_delete.setEnabled(true);                
+//            }
+//            else {                
                 btn_edit.setEnabled(false);
                 btn_duplicate.setEnabled(false);
                 btn_delete.setEnabled(false);
-            } 
+//            } 
             get_DBTableData();
             lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));       
         }
@@ -598,6 +636,12 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             btn_edit.setEnabled(true);
             btn_duplicate.setEnabled(true);
             btn_delete.setEnabled(true);
+        }
+        else {
+            btn_edit.setEnabled(false);
+            btn_duplicate.setEnabled(false);
+            btn_delete.setEnabled(false);
+            
         }
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);  
@@ -656,17 +700,20 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
-        jFormattedTextField_Plattenstärke.setText("");        
+        jFormattedTextField_Plattenstärke.setText(""); 
+        jComboBox_Segmenttyp.setSelectedIndex(0-1);       
     }
     
     private void set_oldValues() {        
         Old_Key = jTextField_key.getText().trim();
         Old_Plattenstärke = jFormattedTextField_Plattenstärke.getText().trim();
+        Old_Segmenttyp = jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex());
     }
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Plattenstärke.setText(Old_Plattenstärke);  
+        jComboBox_Segmenttyp.setSelectedItem(Old_Segmenttyp);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {
@@ -676,13 +723,15 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         }
         jTextField_key.setEnabled(aBoolean);
         
-        jFormattedTextField_Plattenstärke.setEnabled(true);   
+        jFormattedTextField_Plattenstärke.setEnabled(true); 
+        jComboBox_Segmenttyp.setEnabled(true);   
     }
     
     private void set_textFieldsDisabled() {
         
         jTextField_key.setEnabled(false);
-        jFormattedTextField_Plattenstärke.setEnabled(false);        
+        jFormattedTextField_Plattenstärke.setEnabled(false);  
+        jComboBox_Segmenttyp.setEnabled(false);        
     }
     
     private void do_insertDataSet_intoDB() {        
@@ -695,9 +744,10 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             {    
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Plattenstärke)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Plattenstärke, Segmenttyp)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
-                    + jFormattedTextField_Plattenstärke.getText().trim() +"')");  
+                    + jFormattedTextField_Plattenstärke.getText().trim() + "', '" 
+                    + jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex()) +"')");  
 //                    + ((Number) jFormattedTextField_Segmenthöhe.getValue()).floatValue() +"')");               
             } 
         }
@@ -724,6 +774,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Segment SET Plattenstärke = '" + jFormattedTextField_Plattenstärke.getText().trim() +
+                    "', Segmenttyp = '" + jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex()) +
+                    
                     "' WHERE pKey_KP = '" + jTextField_key.getText() + "'");             
             } 
         }
@@ -816,6 +868,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
+    private javax.swing.JComboBox<String> jComboBox_Segmenttyp;
     private javax.swing.JFormattedTextField jFormattedTextField_Plattenstärke;
     private javax.swing.JPanel jPanel_editButtons;
     private javax.swing.JPanel jPanel_editData;
@@ -825,9 +878,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_table;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JTable jTable_dbData;
+    private javax.swing.JTextField jTextField_Segmenttyp;
     private javax.swing.JTextField jTextField_key;
     private javax.swing.JTextField jTextField_searchValue;
     private javax.swing.JLabel lbl_Plattenstärke;
+    private javax.swing.JLabel lbl_Segmenttyp;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
     private javax.swing.JLabel lbl_tableName;
