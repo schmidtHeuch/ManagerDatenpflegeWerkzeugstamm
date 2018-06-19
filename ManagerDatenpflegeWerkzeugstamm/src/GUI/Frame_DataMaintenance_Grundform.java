@@ -1416,45 +1416,45 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
 //            String insertCommand
 
 //        -------------------------------------------------
-        System.out.println("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Abmessungen_Länge, Abmessungen_Breite, Unterbauhöhe, L1, L2, L3, "
-                    + "L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, Distanzplatte, Grundplatte, Druckplatte, Kühlplatte, Druckrahmen_Stahl, "
-                    + "Druckrahmen_Alu, Segmentrahmen_Stahl, Segmentrahmen_Alu, Bemerkungen, Achsen_für_Vorstempel, Abmessungen_Tasche_Druckplatte_x, "
-                    + "Abmessungen_Tasche_Druckplatte_y, GF_Verschraubung, Stück, F33, F34, F35)" 
-                    + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
-                    + jFormattedTextField_Länge.getText().trim() + "', '" 
-                    + jFormattedTextField_Breite.getText().trim() + "', '" 
-                    + jTextField_Unterbauhöhe.getText().trim() + "', '" 
-                    + jFormattedTextField_L1.getText().trim() + "', '" 
-                    + jFormattedTextField_L2.getText().trim() + "', '" 
-                    + jFormattedTextField_L3.getText().trim() + "', '" 
-                    + jFormattedTextField_L4.getText().trim() + "', '" 
-                    + jFormattedTextField_L5.getText().trim() + "', '" 
-                    + jFormattedTextField_L6.getText().trim() + "', '" 
-                    + jFormattedTextField_L7.getText().trim() + "', '" 
-                    + jFormattedTextField_L8.getText().trim() + "', '" 
-                    + jTextField_L9.getText().trim() + "', '" 
-                    + jTextField_L10.getText().trim() + "', '" 
-                    + jTextField_L11.getText().trim() + "', '" 
-                    + jTextField_L12.getText().trim() + "', '" 
-                    + jTextField_L13.getText().trim() + "', '" 
-                    + jTextField_L14.getText().trim() + "', '" 
-                    + jFormattedTextField_Distanzplatte.getText().trim() + "', '" 
-                    + jFormattedTextField_Grundplatte.getText().trim() + "', '" 
-                    + jFormattedTextField_Druckplatte.getText().trim() + "', '" 
-                    + jFormattedTextField_Kühlplatte.getText().trim() + "', '" 
-                    + jFormattedTextField_DruckrahmenStahl.getText().trim() + "', '" 
-                    + jFormattedTextField_DruckrahmenAlu.getText().trim() + "', '" 
-                    + jFormattedTextField_SegmentrahmenStahl.getText().trim() + "', '" 
-                    + jFormattedTextField_SegmentrahmenAlu.getText().trim() + "', '" 
-                    + jTextField_Bemerkungen.getText().trim() + "', '" 
-                    + jTextField_AchsenFürVorstempel.getText().trim() + "', '" 
-                    + jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim() + "', '" 
-                    + jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim() + "', '" 
-                    + jTextField_GFVerschraubung.getText().trim() + "', '" 
-                    + jFormattedTextField_Stück.getText().trim() + "', '" 
-                    + jTextField_F33.getText().trim() + "', '" 
-                    + jTextField_F34.getText().trim() + "', '" 
-                    + jTextField_F35.getText().trim() + "')");
+//        System.out.println("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Abmessungen_Länge, Abmessungen_Breite, Unterbauhöhe, L1, L2, L3, "
+//                    + "L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, Distanzplatte, Grundplatte, Druckplatte, Kühlplatte, Druckrahmen_Stahl, "
+//                    + "Druckrahmen_Alu, Segmentrahmen_Stahl, Segmentrahmen_Alu, Bemerkungen, Achsen_für_Vorstempel, Abmessungen_Tasche_Druckplatte_x, "
+//                    + "Abmessungen_Tasche_Druckplatte_y, GF_Verschraubung, Stück, F33, F34, F35)" 
+//                    + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
+//                    + jFormattedTextField_Länge.getText().trim() + "', '" 
+//                    + jFormattedTextField_Breite.getText().trim() + "', '" 
+//                    + jTextField_Unterbauhöhe.getText().trim() + "', '" 
+//                    + jFormattedTextField_L1.getText().trim() + "', '" 
+//                    + jFormattedTextField_L2.getText().trim() + "', '" 
+//                    + jFormattedTextField_L3.getText().trim() + "', '" 
+//                    + jFormattedTextField_L4.getText().trim() + "', '" 
+//                    + jFormattedTextField_L5.getText().trim() + "', '" 
+//                    + jFormattedTextField_L6.getText().trim() + "', '" 
+//                    + jFormattedTextField_L7.getText().trim() + "', '" 
+//                    + jFormattedTextField_L8.getText().trim() + "', '" 
+//                    + jTextField_L9.getText().trim() + "', '" 
+//                    + jTextField_L10.getText().trim() + "', '" 
+//                    + jTextField_L11.getText().trim() + "', '" 
+//                    + jTextField_L12.getText().trim() + "', '" 
+//                    + jTextField_L13.getText().trim() + "', '" 
+//                    + jTextField_L14.getText().trim() + "', '" 
+//                    + jFormattedTextField_Distanzplatte.getText().trim() + "', '" 
+//                    + jFormattedTextField_Grundplatte.getText().trim() + "', '" 
+//                    + jFormattedTextField_Druckplatte.getText().trim() + "', '" 
+//                    + jFormattedTextField_Kühlplatte.getText().trim() + "', '" 
+//                    + jFormattedTextField_DruckrahmenStahl.getText().trim() + "', '" 
+//                    + jFormattedTextField_DruckrahmenAlu.getText().trim() + "', '" 
+//                    + jFormattedTextField_SegmentrahmenStahl.getText().trim() + "', '" 
+//                    + jFormattedTextField_SegmentrahmenAlu.getText().trim() + "', '" 
+//                    + jTextField_Bemerkungen.getText().trim() + "', '" 
+//                    + jTextField_AchsenFürVorstempel.getText().trim() + "', '" 
+//                    + jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim() + "', '" 
+//                    + jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim() + "', '" 
+//                    + jTextField_GFVerschraubung.getText().trim() + "', '" 
+//                    + jFormattedTextField_Stück.getText().trim() + "', '" 
+//                    + jTextField_F33.getText().trim() + "', '" 
+//                    + jTextField_F34.getText().trim() + "', '" 
+//                    + jTextField_F35.getText().trim() + "')");
 //        --------------------------------------------
             myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Grundform (Grundform, Abmessungen_Länge, Abmessungen_Breite, Unterbauhöhe, L1, L2, L3, "
                     + "L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, Distanzplatte, Grundplatte, Druckplatte, Kühlplatte, Druckrahmen_Stahl, "
@@ -1552,41 +1552,78 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundform SET Abmessungen_Länge = '" + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + 
-                    "', Abmessungen_Breite = '" + ((Number) jFormattedTextField_Breite.getValue()).floatValue() +
+            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundform SET Abmessungen_Länge = '" + jFormattedTextField_Länge.getText().trim() + 
+                    "', Abmessungen_Breite = '" + jFormattedTextField_Breite.getText().trim() +
                     "', Unterbauhöhe = '" + jTextField_Unterbauhöhe.getText().trim() +
-                    "', L1 = '" + ((Number) jFormattedTextField_L1.getValue()).floatValue() +
-                    "', L2 = '" + ((Number) jFormattedTextField_L2.getValue()).floatValue() +
-                    "', L3 = '" + ((Number) jFormattedTextField_L3.getValue()).floatValue() +
-                    "', L4 = '" + ((Number) jFormattedTextField_L4.getValue()).floatValue() +
-                    "', L5 = '" + ((Number) jFormattedTextField_L5.getValue()).floatValue() +
-                    "', L6 = '" + ((Number) jFormattedTextField_L6.getValue()).floatValue() +
-                    "', L7 = '" + ((Number) jFormattedTextField_L7.getValue()).floatValue() +
-                    "', L8 = '" + ((Number) jFormattedTextField_L8.getValue()).floatValue() +
+                    "', L1 = '" + jFormattedTextField_L1.getText().trim() +
+                    "', L2 = '" + jFormattedTextField_L2.getText().trim() +
+                    "', L3 = '" + jFormattedTextField_L3.getText().trim() +
+                    "', L4 = '" + jFormattedTextField_L4.getText().trim() +
+                    "', L5 = '" + jFormattedTextField_L5.getText().trim() +
+                    "', L6 = '" + jFormattedTextField_L6.getText().trim() +
+                    "', L7 = '" + jFormattedTextField_L7.getText().trim() +
+                    "', L8 = '" + jFormattedTextField_L8.getText().trim() +
                     "', L9 = '" + jTextField_L9.getText().trim() +
                     "', L10 = '" + jTextField_L10.getText().trim() +
                     "', L11 = '" + jTextField_L11.getText().trim() +
                     "', L12 = '" + jTextField_L12.getText().trim() +
                     "', L13 = '" + jTextField_L13.getText().trim() +
                     "', L14 = '" + jTextField_L14.getText().trim() +
-                    "', Distanzplatte = '" + ((Number) jFormattedTextField_Distanzplatte.getValue()).floatValue() +
-                    "', Grundplatte = '" + ((Number) jFormattedTextField_Grundplatte.getValue()).floatValue() +
-                    "', Druckplatte = '" + ((Number) jFormattedTextField_Druckplatte.getValue()).floatValue() +
-                    "', Kühlplatte = '" + ((Number) jFormattedTextField_Kühlplatte.getValue()).floatValue() +
-                    "', Druckrahmen_Stahl = '" + ((Number) jFormattedTextField_DruckrahmenStahl.getValue()).floatValue() +
-                    "', Druckrahmen_Alu = '" + ((Number) jFormattedTextField_DruckrahmenAlu.getValue()).floatValue() +
-                    "', Segmentrahmen_Stahl = '" + ((Number) jFormattedTextField_SegmentrahmenStahl.getValue()).floatValue() +
-                    "', Segmentrahmen_Alu = '" + ((Number) jFormattedTextField_SegmentrahmenAlu.getValue()).floatValue() +
+                    "', Distanzplatte = '" + jFormattedTextField_Distanzplatte.getText().trim() +
+                    "', Grundplatte = '" + jFormattedTextField_Grundplatte.getText().trim() +
+                    "', Druckplatte = '" + jFormattedTextField_Druckplatte.getText().trim() +
+                    "', Kühlplatte = '" + jFormattedTextField_Kühlplatte.getText().trim() +
+                    "', Druckrahmen_Stahl = '" + jFormattedTextField_DruckrahmenStahl.getText().trim() +
+                    "', Druckrahmen_Alu = '" + jFormattedTextField_DruckrahmenAlu.getText().trim() +
+                    "', Segmentrahmen_Stahl = '" + jFormattedTextField_SegmentrahmenStahl.getText().trim() +
+                    "', Segmentrahmen_Alu = '" + jFormattedTextField_SegmentrahmenAlu.getText().trim() +
                     "', Bemerkungen = '" + jTextField_Bemerkungen.getText().trim() +
                     "', Achsen_für_Vorstempel = '" + jTextField_AchsenFürVorstempel.getText().trim() +
-                    "', Abmessungen_Tasche_Druckplatte_x = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteX.getValue()).floatValue() +
-                    "', Abmessungen_Tasche_Druckplatte_y = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteY.getValue()).floatValue() +
+                    "', Abmessungen_Tasche_Druckplatte_x = '" + jFormattedTextField_AbmessungenTascheDruckplatteX.getText().trim() +
+                    "', Abmessungen_Tasche_Druckplatte_y = '" + jFormattedTextField_AbmessungenTascheDruckplatteY.getText().trim() +
                     "', GF_Verschraubung = '" + jTextField_GFVerschraubung.getText().trim() +
-                    "', Stück = '" + ((Number) jFormattedTextField_Stück.getValue()).intValue() +
+                    "', Stück = '" + jFormattedTextField_Stück.getText().trim() +
                     "', F33 = '" + jTextField_F33.getText().trim() +
                     "', F34 = '" + jTextField_F34.getText().trim() +
                     "', F35 = '" + jTextField_F35.getText().trim() +
-                    "' WHERE Grundform = '" + jTextField_key.getText() + "'");             
+                    "' WHERE Grundform = '" + jTextField_key.getText() + "'"); 
+
+
+//            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundform SET Abmessungen_Länge = '" + ((Number) jFormattedTextField_Länge.getValue()).floatValue() + 
+//                    "', Abmessungen_Breite = '" + ((Number) jFormattedTextField_Breite.getValue()).floatValue() +
+//                    "', Unterbauhöhe = '" + jTextField_Unterbauhöhe.getText().trim() +
+//                    "', L1 = '" + ((Number) jFormattedTextField_L1.getValue()).floatValue() +
+//                    "', L2 = '" + ((Number) jFormattedTextField_L2.getValue()).floatValue() +
+//                    "', L3 = '" + ((Number) jFormattedTextField_L3.getValue()).floatValue() +
+//                    "', L4 = '" + ((Number) jFormattedTextField_L4.getValue()).floatValue() +
+//                    "', L5 = '" + ((Number) jFormattedTextField_L5.getValue()).floatValue() +
+//                    "', L6 = '" + ((Number) jFormattedTextField_L6.getValue()).floatValue() +
+//                    "', L7 = '" + ((Number) jFormattedTextField_L7.getValue()).floatValue() +
+//                    "', L8 = '" + ((Number) jFormattedTextField_L8.getValue()).floatValue() +
+//                    "', L9 = '" + jTextField_L9.getText().trim() +
+//                    "', L10 = '" + jTextField_L10.getText().trim() +
+//                    "', L11 = '" + jTextField_L11.getText().trim() +
+//                    "', L12 = '" + jTextField_L12.getText().trim() +
+//                    "', L13 = '" + jTextField_L13.getText().trim() +
+//                    "', L14 = '" + jTextField_L14.getText().trim() +
+//                    "', Distanzplatte = '" + ((Number) jFormattedTextField_Distanzplatte.getValue()).floatValue() +
+//                    "', Grundplatte = '" + ((Number) jFormattedTextField_Grundplatte.getValue()).floatValue() +
+//                    "', Druckplatte = '" + ((Number) jFormattedTextField_Druckplatte.getValue()).floatValue() +
+//                    "', Kühlplatte = '" + ((Number) jFormattedTextField_Kühlplatte.getValue()).floatValue() +
+//                    "', Druckrahmen_Stahl = '" + ((Number) jFormattedTextField_DruckrahmenStahl.getValue()).floatValue() +
+//                    "', Druckrahmen_Alu = '" + ((Number) jFormattedTextField_DruckrahmenAlu.getValue()).floatValue() +
+//                    "', Segmentrahmen_Stahl = '" + ((Number) jFormattedTextField_SegmentrahmenStahl.getValue()).floatValue() +
+//                    "', Segmentrahmen_Alu = '" + ((Number) jFormattedTextField_SegmentrahmenAlu.getValue()).floatValue() +
+//                    "', Bemerkungen = '" + jTextField_Bemerkungen.getText().trim() +
+//                    "', Achsen_für_Vorstempel = '" + jTextField_AchsenFürVorstempel.getText().trim() +
+//                    "', Abmessungen_Tasche_Druckplatte_x = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteX.getValue()).floatValue() +
+//                    "', Abmessungen_Tasche_Druckplatte_y = '" + ((Number) jFormattedTextField_AbmessungenTascheDruckplatteY.getValue()).floatValue() +
+//                    "', GF_Verschraubung = '" + jTextField_GFVerschraubung.getText().trim() +
+//                    "', Stück = '" + ((Number) jFormattedTextField_Stück.getValue()).intValue() +
+//                    "', F33 = '" + jTextField_F33.getText().trim() +
+//                    "', F34 = '" + jTextField_F34.getText().trim() +
+//                    "', F35 = '" + jTextField_F35.getText().trim() +
+//                    "' WHERE Grundform = '" + jTextField_key.getText() + "'");             
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException ) {
