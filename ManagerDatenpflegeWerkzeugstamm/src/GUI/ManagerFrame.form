@@ -23,17 +23,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel_main" alignment="0" max="32767" attributes="0"/>
-          <Component id="jPanel_footer" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel_main" max="32767" attributes="0"/>
+          <Component id="jPanel_footer" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel_main" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel_main" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel_footer" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,15 +43,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btn_open_dataMaintenance_werkzeugstamm" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btn_open_dataMaintenance_stanzblech" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btn_open_dataMaintenance_segment" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="204" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jPanel_buttons" alignment="1" pref="204" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -60,37 +60,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="132" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="136" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_open_dataMaintenance_segment" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_open_dataMaintenance_stanzblech" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_open_dataMaintenance_werkzeugstamm" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="jPanel_buttons" pref="754" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_segment">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="1. Segment-Stamm"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_segmentActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_stanzblech">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="2. Stanzblech-Stamm"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_werkzeugstamm">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="3. Werkzeugstamm"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
@@ -103,12 +81,277 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="jTextArea_infoAboutSequence">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Die Pflege der Daten muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist &#xfc;ber die Schaltfl&#xe4;chen ersichtlich."/>
+                <Property name="text" type="java.lang.String" value="Die Pflege der Stammdaten muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist &#xfc;ber die Schaltfl&#xe4;chen ersichtlich."/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
                 <Property name="autoscrolls" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel_buttons">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[244, 519]"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btn_open_dataMaintenance_Grundform" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Stanzbrille" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Stapelung" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Vorstempel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Werkzeugstamm" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Lochwerkzeug" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Niederhalterplatte" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Säulengestell" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Schnitt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Schriftzug" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_STAL" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Stanzblech" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Segment" max="32767" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Materialtyp" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btn_open_dataMaintenance_Ausbrechstempel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btn_open_dataMaintenance_Führungskäfig" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Säulengestell" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Lochwerkzeug" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_STAL" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Materialtyp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Stanzblech" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Niederhalterplatte" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Schnitt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Schriftzug" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Segment" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Stanzbrille" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Stapelung" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Vorstempel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Grundform" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_open_dataMaintenance_Werkzeugstamm" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Ausbrechstempel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_open_dataMaintenance_Führungskäfig" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="576" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Ausbrechstempel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="1. Ausbrechstempel"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_AusbrechstempelActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_F&#xfc;hrungsk&#xe4;fig">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="2. F&#xfc;hrungsk&#xe4;fig"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_F&#xfc;hrungsk&#xe4;figActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_S&#xe4;ulengestell">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="3. S&#xe4;ulengestell"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_S&#xe4;ulengestellActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Lochwerkzeug">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="3.1. Lochwerkzeug"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_LochwerkzeugActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_STAL">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="3.2. STAL"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_STALActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Materialtyp">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="4. Materialtyp"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_MaterialtypActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Stanzblech">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="4.1. Stanzblech"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_StanzblechActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Niederhalterplatte">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="5. Niederhalterplatte"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_NiederhalterplatteActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Schnitt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="6. Schnitt"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_SchnittActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Schriftzug">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="7. Schriftzug"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_SchriftzugActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Segment">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="8. Segment"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_SegmentActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Stanzbrille">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="9. Stanzbrille"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_StanzbrilleActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Stapelung">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="10. Stapelung"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_StapelungActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Vorstempel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="11. Vorstempel"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_VorstempelActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Grundform">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="3. Grundform"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_open_dataMaintenance_GrundformActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Werkzeugstamm">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="3. Werkzeugstamm"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 36]"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -120,7 +363,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_close" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -130,7 +373,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="btn_close" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author schmidtu
@@ -28,36 +30,237 @@ public class ManagerFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_main = new javax.swing.JPanel();
-        btn_open_dataMaintenance_segment = new javax.swing.JButton();
-        btn_open_dataMaintenance_stanzblech = new javax.swing.JButton();
-        btn_open_dataMaintenance_werkzeugstamm = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_infoAboutSequence = new javax.swing.JTextArea();
+        jPanel_buttons = new javax.swing.JPanel();
+        btn_open_dataMaintenance_Ausbrechstempel = new javax.swing.JButton();
+        btn_open_dataMaintenance_Führungskäfig = new javax.swing.JButton();
+        btn_open_dataMaintenance_Säulengestell = new javax.swing.JButton();
+        btn_open_dataMaintenance_Lochwerkzeug = new javax.swing.JButton();
+        btn_open_dataMaintenance_STAL = new javax.swing.JButton();
+        btn_open_dataMaintenance_Materialtyp = new javax.swing.JButton();
+        btn_open_dataMaintenance_Stanzblech = new javax.swing.JButton();
+        btn_open_dataMaintenance_Niederhalterplatte = new javax.swing.JButton();
+        btn_open_dataMaintenance_Schnitt = new javax.swing.JButton();
+        btn_open_dataMaintenance_Schriftzug = new javax.swing.JButton();
+        btn_open_dataMaintenance_Segment = new javax.swing.JButton();
+        btn_open_dataMaintenance_Stanzbrille = new javax.swing.JButton();
+        btn_open_dataMaintenance_Stapelung = new javax.swing.JButton();
+        btn_open_dataMaintenance_Vorstempel = new javax.swing.JButton();
+        btn_open_dataMaintenance_Grundform = new javax.swing.JButton();
+        btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btn_open_dataMaintenance_segment.setText("1. Segment-Stamm");
-        btn_open_dataMaintenance_segment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_open_dataMaintenance_segmentActionPerformed(evt);
-            }
-        });
-
-        btn_open_dataMaintenance_stanzblech.setText("2. Stanzblech-Stamm");
-
-        btn_open_dataMaintenance_werkzeugstamm.setText("3. Werkzeugstamm");
-
         jScrollPane1.setEnabled(false);
 
+        jTextArea_infoAboutSequence.setEditable(false);
         jTextArea_infoAboutSequence.setColumns(20);
         jTextArea_infoAboutSequence.setLineWrap(true);
         jTextArea_infoAboutSequence.setRows(5);
-        jTextArea_infoAboutSequence.setText("Die Pflege der Daten muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
+        jTextArea_infoAboutSequence.setText("Die Pflege der Stammdaten muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
         jTextArea_infoAboutSequence.setWrapStyleWord(true);
         jTextArea_infoAboutSequence.setAutoscrolls(false);
+        jTextArea_infoAboutSequence.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
+
+        jPanel_buttons.setPreferredSize(new java.awt.Dimension(244, 519));
+
+        btn_open_dataMaintenance_Ausbrechstempel.setText("1. Ausbrechstempel");
+        btn_open_dataMaintenance_Ausbrechstempel.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Ausbrechstempel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_AusbrechstempelActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Führungskäfig.setText("2. Führungskäfig");
+        btn_open_dataMaintenance_Führungskäfig.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Führungskäfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_FührungskäfigActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Säulengestell.setText("3. Säulengestell");
+        btn_open_dataMaintenance_Säulengestell.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Säulengestell.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_SäulengestellActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Lochwerkzeug.setText("3.1. Lochwerkzeug");
+        btn_open_dataMaintenance_Lochwerkzeug.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Lochwerkzeug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_LochwerkzeugActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_STAL.setText("3.2. STAL");
+        btn_open_dataMaintenance_STAL.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_STAL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_STALActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Materialtyp.setText("4. Materialtyp");
+        btn_open_dataMaintenance_Materialtyp.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_MaterialtypActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Stanzblech.setText("4.1. Stanzblech");
+        btn_open_dataMaintenance_Stanzblech.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stanzblech.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_StanzblechActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Niederhalterplatte.setText("5. Niederhalterplatte");
+        btn_open_dataMaintenance_Niederhalterplatte.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Niederhalterplatte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_NiederhalterplatteActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Schnitt.setText("6. Schnitt");
+        btn_open_dataMaintenance_Schnitt.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Schnitt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_SchnittActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Schriftzug.setText("7. Schriftzug");
+        btn_open_dataMaintenance_Schriftzug.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Schriftzug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_SchriftzugActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Segment.setText("8. Segment");
+        btn_open_dataMaintenance_Segment.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Segment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_SegmentActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Stanzbrille.setText("9. Stanzbrille");
+        btn_open_dataMaintenance_Stanzbrille.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stanzbrille.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_StanzbrilleActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Stapelung.setText("10. Stapelung");
+        btn_open_dataMaintenance_Stapelung.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stapelung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_StapelungActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Vorstempel.setText("11. Vorstempel");
+        btn_open_dataMaintenance_Vorstempel.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Vorstempel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_VorstempelActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Grundform.setText("3. Grundform");
+        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_GrundformActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Werkzeugstamm.setText("3. Werkzeugstamm");
+        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 36));
+
+        javax.swing.GroupLayout jPanel_buttonsLayout = new javax.swing.GroupLayout(jPanel_buttons);
+        jPanel_buttons.setLayout(jPanel_buttonsLayout);
+        jPanel_buttonsLayout.setHorizontalGroup(
+            jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Lochwerkzeug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Niederhalterplatte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Säulengestell, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Schnitt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Schriftzug, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_STAL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Stanzblech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Segment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Materialtyp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap()))
+        );
+        jPanel_buttonsLayout.setVerticalGroup(
+            jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsLayout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(btn_open_dataMaintenance_Säulengestell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Lochwerkzeug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_STAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Materialtyp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Stanzblech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(btn_open_dataMaintenance_Niederhalterplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Schnitt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Schriftzug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Segment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(576, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
         jPanel_main.setLayout(jPanel_mainLayout);
@@ -65,24 +268,20 @@ public class ManagerFrame extends javax.swing.JFrame {
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_open_dataMaintenance_werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_stanzblech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_segment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_mainLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel_mainLayout.setVerticalGroup(
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_open_dataMaintenance_segment, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_open_dataMaintenance_stanzblech, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_open_dataMaintenance_werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -105,7 +304,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_close)
                 .addContainerGap())
         );
@@ -120,27 +319,159 @@ public class ManagerFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_open_dataMaintenance_segmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_segmentActionPerformed
+    private void btn_open_dataMaintenance_SegmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SegmentActionPerformed
         // TODO add your handling code here:
         Frame_DataMaintenance_Segment myDMSegment = new Frame_DataMaintenance_Segment();
-        myDMSegment.setTitle("Daten-Pflege Tabelle: Segment");
+        myDMSegment.setTitle("Stammdaten-Pflege: Segment");
+        myDMSegment.setSize(949, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
         myDMSegment.setLocation(245, 0);
+//        if (myDMSegment.isShowing()) {
+//            myDMSegment.toFront();
+//        }
+//        else {myDMSegment.setVisible(true);}
         myDMSegment.setVisible(true);
-    }//GEN-LAST:event_btn_open_dataMaintenance_segmentActionPerformed
+    }//GEN-LAST:event_btn_open_dataMaintenance_SegmentActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_closeActionPerformed
+
+    private void btn_open_dataMaintenance_StanzblechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StanzblechActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Stanzblech myDMStanzblech = new Frame_DataMaintenance_Stanzblech();
+        myDMStanzblech.setTitle("Stammdaten-Pflege: Stanzblech");
+        myDMStanzblech.setSize(1024, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMStanzblech.setLocation(245, 0);
+        myDMStanzblech.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_StanzblechActionPerformed
+
+    private void btn_open_dataMaintenance_GrundformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_GrundformActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Grundform myDMGrundform = new Frame_DataMaintenance_Grundform();
+        myDMGrundform.setTitle("Stammdaten-Pflege: Grundform");
+        myDMGrundform.setSize(Toolkit.getDefaultToolkit().getScreenSize().width - 245, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMGrundform.setLocation(245, 0);
+        myDMGrundform.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_GrundformActionPerformed
+
+    private void btn_open_dataMaintenance_AusbrechstempelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_AusbrechstempelActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Ausbrechstempel myDMAusbrechstempel = new Frame_DataMaintenance_Ausbrechstempel();
+        myDMAusbrechstempel.setTitle("Stammdaten-Pflege: Ausbrechstempel");
+        myDMAusbrechstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMAusbrechstempel.setLocation(245, 0);
+        myDMAusbrechstempel.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_AusbrechstempelActionPerformed
+
+    private void btn_open_dataMaintenance_FührungskäfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_FührungskäfigActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Führungskäfig myDMFührungskäfig = new Frame_DataMaintenance_Führungskäfig();
+        myDMFührungskäfig.setTitle("Stammdaten-Pflege: Führungskäfig");
+        myDMFührungskäfig.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMFührungskäfig.setLocation(245, 0);
+        myDMFührungskäfig.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_FührungskäfigActionPerformed
+
+    private void btn_open_dataMaintenance_LochwerkzeugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_LochwerkzeugActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Lochwerkzeug myDMLochwerkzeug = new Frame_DataMaintenance_Lochwerkzeug();
+        myDMLochwerkzeug.setTitle("Stammdaten-Pflege: Lochwerkzeug");
+        myDMLochwerkzeug.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+//        myDMLochwerkzeug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMLochwerkzeug.setLocation(245, 0);
+        myDMLochwerkzeug.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_LochwerkzeugActionPerformed
+
+    private void btn_open_dataMaintenance_NiederhalterplatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_NiederhalterplatteActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Niederhalterplatte myDMNiederhalterplatte = new Frame_DataMaintenance_Niederhalterplatte();
+        myDMNiederhalterplatte.setTitle("Stammdaten-Pflege: Niederhalterplatte");
+        myDMNiederhalterplatte.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMNiederhalterplatte.setLocation(245, 0);
+        myDMNiederhalterplatte.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_NiederhalterplatteActionPerformed
+
+    private void btn_open_dataMaintenance_SäulengestellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SäulengestellActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Säulengestell myDMSäulengestell = new Frame_DataMaintenance_Säulengestell();
+        myDMSäulengestell.setTitle("Stammdaten-Pflege: Säulengestell");
+        myDMSäulengestell.setSize(767, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMSäulengestell.setLocation(245, 0);
+        myDMSäulengestell.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_SäulengestellActionPerformed
+
+    private void btn_open_dataMaintenance_SchnittActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SchnittActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Schnitt myDMSchnitt = new Frame_DataMaintenance_Schnitt();
+        myDMSchnitt.setTitle("Stammdaten-Pflege: Schnitt");
+        myDMSchnitt.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMSchnitt.setLocation(245, 0);
+        myDMSchnitt.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_SchnittActionPerformed
+
+    private void btn_open_dataMaintenance_SchriftzugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SchriftzugActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Schriftzug myDMSchriftzug = new Frame_DataMaintenance_Schriftzug();
+        myDMSchriftzug.setTitle("Stammdaten-Pflege: Schriftzug");
+        myDMSchriftzug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMSchriftzug.setLocation(245, 0);
+        myDMSchriftzug.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_SchriftzugActionPerformed
+
+    private void btn_open_dataMaintenance_STALActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_STALActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_STAL myDMSTAL = new Frame_DataMaintenance_STAL();
+        myDMSTAL.setTitle("Stammdaten-Pflege: STAL");
+        myDMSTAL.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+//        myDMLochwerkzeug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMSTAL.setLocation(245, 0);
+        myDMSTAL.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_STALActionPerformed
+
+    private void btn_open_dataMaintenance_StanzbrilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StanzbrilleActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Stanzbrille myDMStanzbrille = new Frame_DataMaintenance_Stanzbrille();
+        myDMStanzbrille.setTitle("Stammdaten-Pflege: Stanzbrille");
+        myDMStanzbrille.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMStanzbrille.setLocation(245, 0);
+        myDMStanzbrille.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_StanzbrilleActionPerformed
+
+    private void btn_open_dataMaintenance_StapelungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StapelungActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Stapelung myDMStapelung = new Frame_DataMaintenance_Stapelung();
+        myDMStapelung.setTitle("Stammdaten-Pflege: Stapelung");
+        myDMStapelung.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMStapelung.setLocation(245, 0);
+        myDMStapelung.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_StapelungActionPerformed
+
+    private void btn_open_dataMaintenance_VorstempelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_VorstempelActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Vorstempel myDMVorstempel = new Frame_DataMaintenance_Vorstempel();
+        myDMVorstempel.setTitle("Stammdaten-Pflege: Vorstempel");
+        myDMVorstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMVorstempel.setLocation(245, 0);
+        myDMVorstempel.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_VorstempelActionPerformed
+
+    private void btn_open_dataMaintenance_MaterialtypActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_MaterialtypActionPerformed
+        // TODO add your handling code here:
+        Frame_DataMaintenance_Materialtyp myDMMaterialtyp = new Frame_DataMaintenance_Materialtyp();
+        myDMMaterialtyp.setTitle("Stammdaten-Pflege: Materialtyp");
+        myDMMaterialtyp.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+        myDMMaterialtyp.setLocation(245, 0);
+        myDMMaterialtyp.setVisible(true);
+    }//GEN-LAST:event_btn_open_dataMaintenance_MaterialtypActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,6 +501,9 @@ public class ManagerFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+//        ManagerFrame managerFrame = new ManagerFrame();
+//        managerFrame.setSize(224, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+//        managerFrame.setVisible(true);
         java.awt.EventQueue.invokeLater(() -> {
             new ManagerFrame().setVisible(true);
         });
@@ -177,9 +511,23 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_close;
-    private javax.swing.JButton btn_open_dataMaintenance_segment;
-    private javax.swing.JButton btn_open_dataMaintenance_stanzblech;
-    private javax.swing.JButton btn_open_dataMaintenance_werkzeugstamm;
+    private javax.swing.JButton btn_open_dataMaintenance_Ausbrechstempel;
+    private javax.swing.JButton btn_open_dataMaintenance_Führungskäfig;
+    private javax.swing.JButton btn_open_dataMaintenance_Grundform;
+    private javax.swing.JButton btn_open_dataMaintenance_Lochwerkzeug;
+    private javax.swing.JButton btn_open_dataMaintenance_Materialtyp;
+    private javax.swing.JButton btn_open_dataMaintenance_Niederhalterplatte;
+    private javax.swing.JButton btn_open_dataMaintenance_STAL;
+    private javax.swing.JButton btn_open_dataMaintenance_Schnitt;
+    private javax.swing.JButton btn_open_dataMaintenance_Schriftzug;
+    private javax.swing.JButton btn_open_dataMaintenance_Segment;
+    private javax.swing.JButton btn_open_dataMaintenance_Stanzblech;
+    private javax.swing.JButton btn_open_dataMaintenance_Stanzbrille;
+    private javax.swing.JButton btn_open_dataMaintenance_Stapelung;
+    private javax.swing.JButton btn_open_dataMaintenance_Säulengestell;
+    private javax.swing.JButton btn_open_dataMaintenance_Vorstempel;
+    private javax.swing.JButton btn_open_dataMaintenance_Werkzeugstamm;
+    private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_main;
     private javax.swing.JScrollPane jScrollPane1;
