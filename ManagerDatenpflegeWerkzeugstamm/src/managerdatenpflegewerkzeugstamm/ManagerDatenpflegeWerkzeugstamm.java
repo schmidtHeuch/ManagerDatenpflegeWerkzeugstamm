@@ -5,6 +5,7 @@
  */
 package managerdatenpflegewerkzeugstamm;
 import GUI.ManagerFrame;
+import java.awt.Toolkit;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ManagerDatenpflegeWerkzeugstamm {
         // TODO code application logic here
         ManagerFrame myManager = new ManagerFrame();
         myManager.setTitle("Manager Werkzeugstamm");
+        myManager.setSize(244, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
         myManager.setVisible(true);
     }
     
