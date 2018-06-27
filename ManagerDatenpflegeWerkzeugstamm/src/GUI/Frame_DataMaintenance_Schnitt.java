@@ -275,6 +275,7 @@ public class Frame_DataMaintenance_Schnitt extends javax.swing.JFrame {
 
         jCheckBox_Neu_nach_Produktion.setText("Neu nach Produktion?");
         jCheckBox_Neu_nach_Produktion.setEnabled(false);
+        jCheckBox_Neu_nach_Produktion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jCheckBox_Neu_nach_Produktion.setPreferredSize(new java.awt.Dimension(150, 23));
         jPanel_editTextFields.add(jCheckBox_Neu_nach_Produktion);
 
