@@ -35,7 +35,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         this.Old_Bezeichnung = "";
         this.Old_Länge = "";
         this.Old_Breite = "";
-        this.Old_Eigenschaft = "";
+        this.Old_Materialtyp_ID = "";
+        this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -53,21 +54,22 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     String Old_Bezeichnung;
     String Old_Länge;
     String Old_Breite;
-    String Old_Eigenschaft;
+    String Old_Materialtyp_ID;
     String Old_Bestand;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
     Timestamp Änderungsdatum;
     String Benutzer;
+    String MyDependentValue_Bezeichnung;
+    int TableColumns;
     
-    private void do_preBuild() {
-        
+    private void do_preBuild() {        
         getDBConnection();
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
-        lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));     
-        createRowSorter(myTableModel);       
+        createRowSorter(myTableModel);
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
@@ -80,8 +82,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
     
-    private void do_postBuild() {
-                
+    private void do_postBuild() {                
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
         });   
@@ -147,7 +148,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
-        btn_deleteSearchValue1 = new javax.swing.JButton();
+        btn_deleteSearchValue = new javax.swing.JButton();
         jScrollPane_dbData = new javax.swing.JScrollPane();
         jTable_dbData = new javax.swing.JTable();
         lbl_search1 = new javax.swing.JLabel();
@@ -160,15 +161,18 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         lbl_Bezeichnung = new javax.swing.JLabel();
         lbl_Länge = new javax.swing.JLabel();
         lbl_Breite = new javax.swing.JLabel();
-        lbl_Eigenschaft = new javax.swing.JLabel();
+        lbl_Materialtyp_ID = new javax.swing.JLabel();
+        lbl_Materialtyp_Bezeichnung = new javax.swing.JLabel();
         btn_openDialog_Materialtyp = new javax.swing.JButton();
+        btn_delete_Materialtyp = new javax.swing.JButton();
+        lbl_Bestand = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
         jFormattedTextField_Länge = new javax.swing.JFormattedTextField();
         jFormattedTextField_Breite = new javax.swing.JFormattedTextField();
-        jFormattedTextField_Eigenschaft = new javax.swing.JFormattedTextField();
-        jFormattedTextField_EigenschaftDescription = new javax.swing.JTextField();
+        jFormattedTextField_Materialtyp_ID = new javax.swing.JFormattedTextField();
+        jFormattedTextField_MaterialtypBezeichnung = new javax.swing.JTextField();
         jFormattedTextField_Bestand = new javax.swing.JFormattedTextField();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
@@ -185,23 +189,28 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        jTextField_searchValue.setPreferredSize(new java.awt.Dimension(120, 20));
         jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_searchValueKeyReleased(evt);
             }
         });
 
-        btn_deleteSearchValue1.setText("X");
-        btn_deleteSearchValue1.addActionListener(new java.awt.event.ActionListener() {
+        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_deleteSearchValue.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_deleteSearchValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_deleteSearchValue1ActionPerformed(evt);
+                btn_deleteSearchValueActionPerformed(evt);
             }
         });
 
@@ -210,14 +219,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Stanzblech-ID (Key)", "Stanzblech-Bezeichnung", "Länge", "Breite", "Eigenschaft", "Bezeichnung", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "Stanzblech-ID (Key)", "Stanzblech-Bezeichnung", "Länge", "Breite", "Materialtyp-ID", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -236,18 +245,17 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
             jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(120);
             jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(204);
-            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(96);
-            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(96);
-            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(96);
-            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(96);
-            jTable_dbData.getColumnModel().getColumn(6).setMinWidth(100);
-            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(250);
+            jTable_dbData.getColumnModel().getColumn(5).setMinWidth(100);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(6).setMinWidth(150);
+            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(7).setMinWidth(150);
             jTable_dbData.getColumnModel().getColumn(7).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(8).setMinWidth(150);
-            jTable_dbData.getColumnModel().getColumn(8).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(9).setMinWidth(100);
-            jTable_dbData.getColumnModel().getColumn(9).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(8).setMinWidth(100);
+            jTable_dbData.getColumnModel().getColumn(8).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -275,15 +283,15 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_deleteSearchValue1)
+                                .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_getCurrentDBData))
                             .addComponent(lbl_search1)
                             .addComponent(lbl_tableName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel_tableLayout.setVerticalGroup(
@@ -298,13 +306,13 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_getCurrentDBData)))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -321,18 +329,22 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_Bezeichnung);
 
         lbl_Länge.setText("Länge");
-        lbl_Länge.setPreferredSize(new java.awt.Dimension(96, 14));
+        lbl_Länge.setPreferredSize(new java.awt.Dimension(120, 14));
         jPanel_editLabels.add(lbl_Länge);
 
         lbl_Breite.setText("Breite");
-        lbl_Breite.setPreferredSize(new java.awt.Dimension(96, 14));
+        lbl_Breite.setPreferredSize(new java.awt.Dimension(120, 14));
         jPanel_editLabels.add(lbl_Breite);
 
-        lbl_Eigenschaft.setText("Eigenschaft");
-        lbl_Eigenschaft.setPreferredSize(new java.awt.Dimension(169, 14));
-        jPanel_editLabels.add(lbl_Eigenschaft);
+        lbl_Materialtyp_ID.setText("Materialtyp-ID");
+        lbl_Materialtyp_ID.setPreferredSize(new java.awt.Dimension(100, 14));
+        jPanel_editLabels.add(lbl_Materialtyp_ID);
 
-        btn_openDialog_Materialtyp.setText("...");
+        lbl_Materialtyp_Bezeichnung.setText("Bezeichnung");
+        lbl_Materialtyp_Bezeichnung.setPreferredSize(new java.awt.Dimension(104, 14));
+        jPanel_editLabels.add(lbl_Materialtyp_Bezeichnung);
+
+        btn_openDialog_Materialtyp.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Lupe.png")); // NOI18N
         btn_openDialog_Materialtyp.setEnabled(false);
         btn_openDialog_Materialtyp.setPreferredSize(new java.awt.Dimension(23, 23));
         btn_openDialog_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
@@ -342,9 +354,24 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         });
         jPanel_editLabels.add(btn_openDialog_Materialtyp);
 
+        btn_delete_Materialtyp.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_delete_Materialtyp.setEnabled(false);
+        btn_delete_Materialtyp.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_delete_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_delete_MaterialtypActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_delete_Materialtyp);
+
+        lbl_Bestand.setText("Bestand");
+        lbl_Bestand.setPreferredSize(new java.awt.Dimension(100, 14));
+        jPanel_editLabels.add(lbl_Bestand);
+
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField_key.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_key.setEnabled(false);
         jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
@@ -360,28 +387,28 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jFormattedTextField_Länge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Länge.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Länge.setEnabled(false);
-        jFormattedTextField_Länge.setPreferredSize(new java.awt.Dimension(96, 20));
+        jFormattedTextField_Länge.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Länge);
 
         jFormattedTextField_Breite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Breite.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Breite.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Breite.setEnabled(false);
-        jFormattedTextField_Breite.setPreferredSize(new java.awt.Dimension(96, 20));
+        jFormattedTextField_Breite.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Breite);
 
-        jFormattedTextField_Eigenschaft.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        jFormattedTextField_Eigenschaft.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_Eigenschaft.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_Eigenschaft.setEnabled(false);
-        jFormattedTextField_Eigenschaft.setPreferredSize(new java.awt.Dimension(96, 20));
-        jPanel_editTextFields.add(jFormattedTextField_Eigenschaft);
+        jFormattedTextField_Materialtyp_ID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jFormattedTextField_Materialtyp_ID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Materialtyp_ID.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Materialtyp_ID.setEnabled(false);
+        jFormattedTextField_Materialtyp_ID.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Materialtyp_ID);
 
-        jFormattedTextField_EigenschaftDescription.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField_EigenschaftDescription.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        jFormattedTextField_EigenschaftDescription.setEnabled(false);
-        jFormattedTextField_EigenschaftDescription.setPreferredSize(new java.awt.Dimension(96, 20));
-        jPanel_editTextFields.add(jFormattedTextField_EigenschaftDescription);
+        jFormattedTextField_MaterialtypBezeichnung.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_MaterialtypBezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_MaterialtypBezeichnung.setEnabled(false);
+        jFormattedTextField_MaterialtypBezeichnung.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel_editTextFields.add(jFormattedTextField_MaterialtypBezeichnung);
 
         jFormattedTextField_Bestand.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jFormattedTextField_Bestand.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -592,8 +619,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         }        
     }
    
-    private void get_DBTableData() {   
-        
+    private void get_DBTableData() {        
         try
         { 
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
@@ -603,7 +629,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 //            String myTempSQL = "CREATE TABLE #tempSegment FROM DiafBDE.dbo.T_Segment";
             String mySQL = "SELECT * FROM DiafBDE.dbo.T_Stanzblech"; // ORDER BY T_Segment.pKey_KP"; // WHERE tma_abt='Technik'";
             ResultSet myResultSet = myStatement.executeQuery(mySQL);            
-            int myColumns = myResultSet.getMetaData().getColumnCount();
+            TableColumns = myResultSet.getMetaData().getColumnCount();
             myTableModel = (DefaultTableModel) jTable_dbData.getModel();
             int allOldRows = myTableModel.getRowCount();
             if (allOldRows > 0) {
@@ -611,31 +637,41 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             }
             while (myResultSet.next()) {
                   
-                String[] myValue = new String[myColumns + 1];
+                String[] myValue = new String[TableColumns + 1];
                 SimpleDateFormat myFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-                for (int i = 1; i <= myColumns; i++) {
+                for (int i = 1; i <= TableColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
-//                    System.out.println(myDataSet);
-//                    ---------------------
-                    if (myDataSet != null && i == 5) {
-                        if (myDataSet.equals("1")) {
-                            myValue[5] = "hart";
-                        }
-                        else {myValue[5] = "weich";}
-                    }
-//                    ---------------------
                     if (myDataSet != null && i == 7 || myDataSet != null && i == 8) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
-                    if (i <= 5){myValue[i-1] = myDataSet;}
-                    else {myValue[i] = myDataSet;}
-                }  
+                    myValue[i-1] = myDataSet;
+                }
+//                          
+//                    String myDataSet = myResultSet.getString(i);
+////                    System.out.println(myDataSet);
+////                    ---------------------
+//                    if (myDataSet != null && i == 5) {
+//                        if (myDataSet.equals("1")) {
+//                            myValue[5] = "hart";
+//                        }
+//                        if (myDataSet.equals("2")) {
+//                            myValue[5] = "weich";
+//                        }
+//                        else {myValue[5] = "keine Auswahl";}
+//                    }
+////                    ---------------------
+//                    if (myDataSet != null && i == 6 || myDataSet != null && i == 7) {
+//                        Timestamp ts = Timestamp.valueOf(myDataSet);
+//                        myDataSet = myFormat.format(ts);
+//                    }
+//                    if (i <= 5){myValue[i-1] = myDataSet;}
+//                    else {myValue[i] = myDataSet;}
+//                }  
                 myTableModel.addRow(myValue); 
             }
-            if (!myResultSet.next()) {
-                
+            if (!myResultSet.next()) {                
             } 
         }
         catch (SQLException myException )
@@ -653,20 +689,85 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             }
         }
     }
+   
+    private String get_dependentValueFromDB(String aKey) {        
+        try
+        { 
+            MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
+            MY_DBCM = new DB_ConnectionManager("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "CONNECT");
+            myConnection = MY_DBCM.getConnection();
+            Statement myStatement = myConnection.createStatement();
+            String mySQL = "SELECT * FROM DiafBDE.dbo.T_Materialtyp Where pKey_Materialtyp_ID = '" + aKey + "'";
+            ResultSet myResultSet = myStatement.executeQuery(mySQL);            
+            int myColumns = myResultSet.getMetaData().getColumnCount();
+//            myTableModel = (DefaultTableModel) jTable_dbData.getModel();
+//            int allOldRows = myTableModel.getRowCount();
+//            if (allOldRows > 0) {
+//                myTableModel.setRowCount(0);
+//            }
+            while (myResultSet.next()) {
+                  
+                String[] myValue = new String[myColumns];
+//                SimpleDateFormat myFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                for (int i = 1; i <= myColumns; i++) {
+                          
+                    String myDataSet = myResultSet.getString(i);
+//                    System.out.println(myDataSet);
+//                    ---------------------
+//                    if (myDataSet != null && i == 5) {
+//                        if (myDataSet.equals("1")) {
+//                            myValue[5] = "hart";
+//                        }
+//                        else {myValue[5] = "weich";}
+//                    }
+//                    ---------------------
+//                    if (myDataSet != null && i == 4 || myDataSet != null && i == 5) {
+//                        Timestamp ts = Timestamp.valueOf(myDataSet);
+//                        myDataSet = myFormat.format(ts);
+//                    }
+//                    if (i <= 5){myValue[i-1] = myDataSet;}
+//                    else {myValue[i] = myDataSet;}
+                        myValue[i-1] = myDataSet;
+                }  
+//                myTableModel.addRow(myValue); 
+                MyDependentValue_Bezeichnung = myValue[1];
+            }
+            if (!myResultSet.next()) {
+                
+            } 
+        }
+        catch (SQLException myException )
+        {
+            System.out.println(myException);
+        }
+        finally {
+            try {  
+                if (myConnection != null && !myConnection.isClosed()) {
+                    myConnection.close();
+                }
+            } catch (SQLException myException) {
+                System.out.println(myException);
+            }
+        }
+        return MyDependentValue_Bezeichnung;
+    }
     
-    private void btn_deleteSearchValue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValue1ActionPerformed
+    private void btn_deleteSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValueActionPerformed
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-    }//GEN-LAST:event_btn_deleteSearchValue1ActionPerformed
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+    }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         // TODO add your handling code here:
         if (MY_DBCM.isConnnected()) {
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
         }
-        this.dispose();
-//        }
+        int myReturnValue = test_continueEditing();
+            if (myReturnValue != 0 || DataSet_Mode.equals("clean")) {
+                this.dispose();
+            }
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
@@ -674,6 +775,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         DataSet_Mode = "new";
         set_textFieldsEnabled(true); 
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEmpty();
         jTextField_key.setText("B");
         jTextField_key.requestFocus();
@@ -683,11 +785,11 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
         btn_cancel.setEnabled(true);   
-        btn_openDialog_Materialtyp.setEnabled(true); 
+        btn_openDialog_Materialtyp.setEnabled(true);
+        btn_delete_Materialtyp.setEnabled(true);
     }//GEN-LAST:event_btn_newActionPerformed
 
-    private void set_valuesIntoTextFields() {
-        
+    private void set_valuesIntoTextFields() {        
         OldSelection = jTable_dbData.getSelectedRow();
         if(OldSelection != -1) {
             String tempString;
@@ -715,31 +817,26 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             else {jFormattedTextField_Breite.setValue("");}
             
             if (myTableModel.getValueAt(myRow, 4) != null) {
-                if (myTableModel.getValueAt(myRow, 4).toString().equals("1")) {
-                    jFormattedTextField_EigenschaftDescription.setText("hart");
-                }
-                if (myTableModel.getValueAt(myRow, 4).toString().equals("2")) {
-                    jFormattedTextField_EigenschaftDescription.setText("weich");
-                }
             tempString = myTableModel.getValueAt(myRow, 4).toString();
-            jFormattedTextField_Eigenschaft.setValue(Integer.parseInt(tempString));
+            jFormattedTextField_Materialtyp_ID.setValue(Integer.parseInt(tempString));
+            jFormattedTextField_MaterialtypBezeichnung.setText(this.get_dependentValueFromDB(tempString));
             }
-            else {jFormattedTextField_Eigenschaft.setValue("");}
+            else {jFormattedTextField_Materialtyp_ID.setValue("");}            
             
-            if (myTableModel.getValueAt(myRow, 6) != null) {
-                jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 6).toString().trim());
+            if (myTableModel.getValueAt(myRow, 5) != null) {
+                jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 5).toString().trim());
             }
             else {jFormattedTextField_Bestand.setText("");}
-            if (myTableModel.getValueAt(myRow, 7) != null) {
-                jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 7).toString().trim());
+            if (myTableModel.getValueAt(myRow, 6) != null) {
+                jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 6).toString().trim());
             }
             else {jTextField_Anlagedatum.setText("");}
-            if (myTableModel.getValueAt(myRow, 8) != null) {
-               jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 8).toString().trim());
+            if (myTableModel.getValueAt(myRow, 7) != null) {
+               jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 7).toString().trim());
             }
             else {jTextField_Änderungsdatum.setText("");}
-            if (myTableModel.getValueAt(myRow, 9) != null) {
-                jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 9).toString().trim()); 
+            if (myTableModel.getValueAt(myRow, 8) != null) {
+                jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 8).toString().trim()); 
             }
             else {jTextField_Benutzer.setText("");}
             
@@ -772,7 +869,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                 if (DataSet_Mode.equals("edit")  && !Old_Bezeichnung.equals(jFormattedTextField_Bezeichnung.getText().trim())
                         || !Old_Länge.equals(jFormattedTextField_Länge.getText().trim())
                         || !Old_Breite.equals(jFormattedTextField_Breite.getText().trim())
-                        || !Old_Eigenschaft.equals(jFormattedTextField_Eigenschaft.getText().trim())
+                        || !Old_Materialtyp_ID.equals(jFormattedTextField_Materialtyp_ID.getText().trim())
                         || !Old_Bestand.equals(jFormattedTextField_Bestand.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
@@ -792,7 +889,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             btn_new.setEnabled(true); 
             btn_accept.setEnabled(false);
             btn_cancel.setEnabled(false);   
-            btn_openDialog_Materialtyp.setEnabled(false);   
+            btn_openDialog_Materialtyp.setEnabled(false);
+            btn_delete_Materialtyp.setEnabled(false);
 //            if (jTable_dbData.getSelectedRow() > -1) {
 //                
 //                btn_edit.setEnabled(true);
@@ -804,9 +902,11 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                 btn_duplicate.setEnabled(false);
                 btn_delete.setEnabled(false);
 //            }
+            set_tableEnabled(true);
             get_DBTableData();
-            lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));       
-        }       
+            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));      
+        }
+        DataSet_Mode = "clean";     
     }//GEN-LAST:event_btn_acceptActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
@@ -826,10 +926,11 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                 btn_duplicate.setEnabled(false);
                 btn_delete.setEnabled(false);
                 btn_accept.setEnabled(false);
-                btn_cancel.setEnabled(false);     
-                lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));        
+                btn_cancel.setEnabled(false); 
+                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));       
             }
         }
+        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -844,7 +945,10 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         }
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);    
-        btn_openDialog_Materialtyp.setEnabled(false);  
+        btn_openDialog_Materialtyp.setEnabled(false);
+        btn_delete_Materialtyp.setEnabled(false);
+        set_tableEnabled(true);
+        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_cancelActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -868,6 +972,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         // TODO add your handling code here:
         DataSet_Mode = "edit";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(false);
         jFormattedTextField_Bezeichnung.requestFocus();
         btn_new.setEnabled(false);
@@ -876,13 +981,15 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
         btn_cancel.setEnabled(true);  
-        btn_openDialog_Materialtyp.setEnabled(true);  
+        btn_openDialog_Materialtyp.setEnabled(true);
+        btn_delete_Materialtyp.setEnabled(true);
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "duplicate";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(true);
         jTextField_key.requestFocus();
         btn_new.setEnabled(false);
@@ -891,7 +998,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(true);
         btn_cancel.setEnabled(true); 
-        btn_openDialog_Materialtyp.setEnabled(true);  
+        btn_openDialog_Materialtyp.setEnabled(true);
+        btn_delete_Materialtyp.setEnabled(true);
     }//GEN-LAST:event_btn_duplicateActionPerformed
 
     private void btn_openDialog_MaterialtypActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDialog_MaterialtypActionPerformed
@@ -904,23 +1012,53 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         int resultFromDialog_ID = myDialog.getChoosenMaterialtypID();
         if (resultFromDialog_ID != 0) {
             String resultFromDialog_Descriptiong = myDialog.getChoosenMaterialtypDescription().trim();
-            this.jFormattedTextField_Eigenschaft.setValue(resultFromDialog_ID);
-            this.jFormattedTextField_EigenschaftDescription.setText(resultFromDialog_Descriptiong);
+            this.jFormattedTextField_Materialtyp_ID.setValue(resultFromDialog_ID);
+            this.jFormattedTextField_MaterialtypBezeichnung.setText(resultFromDialog_Descriptiong);
         }
     }//GEN-LAST:event_btn_openDialog_MaterialtypActionPerformed
 
     private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
+    private void btn_delete_MaterialtypActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete_MaterialtypActionPerformed
+        // TODO add your handling code here:
+        jFormattedTextField_Materialtyp_ID.setText("0"); 
+        jFormattedTextField_MaterialtypBezeichnung.setText("");
+    }//GEN-LAST:event_btn_delete_MaterialtypActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        int myReturnValue = test_continueEditing();
+            if (myReturnValue != 0) {
+                this.dispose();
+            }
+    }//GEN-LAST:event_formWindowClosing
+
+    private int test_continueEditing() {
+        int myAnswer = 0;
+        if (!DataSet_Mode.equals("clean")) {
+
+            myAnswer = JOptionPane.showOptionDialog(null, 
+            "Es existieren noch ungespeicherte Änderungenn. \n Möchten Sie die Bearbeitung fortsetzen oder das Fenster schließen?", 
+            "Bearbeitung fortsetzen?", 
+            JOptionPane.OK_CANCEL_OPTION, 
+            JOptionPane.INFORMATION_MESSAGE, 
+            null, 
+            new String[]{"Bearbeitung fortsetzen", "Fenster schließen"},
+            "default");
+            }
+        return myAnswer;
+    }
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
         jFormattedTextField_Bezeichnung.setText("");
         jFormattedTextField_Länge.setText("");
         jFormattedTextField_Breite.setText("");
-        jFormattedTextField_Eigenschaft.setText(""); 
-        jFormattedTextField_EigenschaftDescription.setText("");
+        jFormattedTextField_Materialtyp_ID.setText(""); 
+        jFormattedTextField_MaterialtypBezeichnung.setText("");
         jFormattedTextField_Bestand.setText("");
         jTextField_Anlagedatum.setText("");
         jTextField_Änderungsdatum.setText("");
@@ -932,7 +1070,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
         Old_Länge = jFormattedTextField_Länge.getText().trim();
         Old_Breite = jFormattedTextField_Breite.getText().trim();
-        Old_Eigenschaft = jFormattedTextField_Eigenschaft.getText().trim();
+        Old_Materialtyp_ID = jFormattedTextField_Materialtyp_ID.getText().trim();
         Old_Bestand = jFormattedTextField_Bestand.getText().trim();
     }
     
@@ -941,15 +1079,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung); 
         jFormattedTextField_Länge.setText(Old_Länge); 
         jFormattedTextField_Breite.setText(Old_Breite); 
-        jFormattedTextField_Eigenschaft.setText(Old_Eigenschaft);
-        if (Old_Eigenschaft.isEmpty()) {
-            jFormattedTextField_EigenschaftDescription.setText("");
+        jFormattedTextField_Materialtyp_ID.setText(Old_Materialtyp_ID);
+        if (Old_Materialtyp_ID.isEmpty()) {
+            jFormattedTextField_MaterialtypBezeichnung.setText("");
         }
         jFormattedTextField_Bestand.setText(Old_Bestand);
     }
     
-    private void set_textFieldsEnabled(boolean aBoolean) {
-        
+    private void set_textFieldsEnabled(boolean aBoolean) {        
         jTextField_key.setEnabled(aBoolean);
         jFormattedTextField_Bezeichnung.setEnabled(true); 
         jFormattedTextField_Länge.setEnabled(true); 
@@ -957,8 +1094,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jFormattedTextField_Bestand.setEnabled(true);
     }
     
-    private void set_textFieldsDisabled() {
-        
+    private void set_textFieldsDisabled() {        
         jTextField_key.setEnabled(false);
         jFormattedTextField_Bezeichnung.setEnabled(false);
         jFormattedTextField_Länge.setEnabled(false); 
@@ -979,15 +1115,15 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             String result = myFormat.format(Anlagedatum);
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblech (pKey_B, Bezeichnung, Länge, Breite, Eigenschaft, Bestand, Anlagedatum, Benutzer)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblech (pKey_B, Bezeichnung, Länge, Breite, Materialtyp_ID, Bestand, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
                     + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
                     + jFormattedTextField_Länge.getText().trim() + "', '" 
                     + jFormattedTextField_Breite.getText().trim() + "', '" 
-                    + jFormattedTextField_Eigenschaft.getText().trim() + "', '" 
+                    + jFormattedTextField_Materialtyp_ID.getText().trim() + "', '" 
                     + jFormattedTextField_Bestand.getText().trim() + "', '" 
                     + result + "', '" 
-                    + Benutzer +"')");               
+                    + Benutzer +"')");
             } 
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -1019,7 +1155,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Stanzblech SET Bezeichnung = '" + jFormattedTextField_Bezeichnung.getText().trim() + 
                     "', Länge = '" + jFormattedTextField_Länge.getText().trim() + 
                     "', Breite = '" + jFormattedTextField_Breite.getText().trim() +
-                    "', Eigenschaft = '" + jFormattedTextField_Eigenschaft.getText().trim() +
+                    "', Materialtyp_ID = '" + jFormattedTextField_Materialtyp_ID.getText().trim() +
                     "', Bestand = '" + jFormattedTextField_Bestand.getText().trim() +
                     "', Änderungsdatum = '" + result +
                     "', Benutzer = '" + Benutzer +
@@ -1048,7 +1184,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             { 
             myConnection = MY_DBCM.getConnection();
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Stanzblech WHERE pKey_B = '" + jTextField_key.getText() + "'");             
+            myStatement.executeUpdate("DELETE FROM DiafBDE.dbo.T_Stanzblech WHERE pKey_B = '" + jTextField_key.getText() + "'");  
             }   
         }
         catch (/*ClassNotFoundException |*/ SQLException myException )
@@ -1065,11 +1201,21 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     }
     private boolean test_isDataSetInDB(String aString) {
         boolean myAnswer = false;
-        for (int myRow = 0; myRow < jTable_dbData.getRowCount(); ++myRow ) {
+        for (int i = 0; i < jTable_dbData.getRowCount(); ++i ) {
+            int myRow = jTable_dbData.convertRowIndexToModel(i);
             if (myTableModel.getValueAt(myRow, 0).toString().trim().equals(aString))
                 myAnswer = true;           
         }
         return myAnswer;
+    }
+    private void set_tableEnabled(boolean aBoolean) {
+        jTextField_searchValue.setEnabled(aBoolean);
+        btn_deleteSearchValue.setEnabled(aBoolean);
+        btn_getCurrentDBData.setEnabled(aBoolean);
+        jTable_dbData.setEnabled(aBoolean);
+        for (int i = 0; i < TableColumns; i ++) {
+            mySorter.setSortable(i, aBoolean);
+        }
     }
     /**
      * @param args the command line arguments
@@ -1098,6 +1244,12 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -1110,7 +1262,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_delete;
-    private javax.swing.JButton btn_deleteSearchValue1;
+    private javax.swing.JButton btn_deleteSearchValue;
+    private javax.swing.JButton btn_delete_Materialtyp;
     private javax.swing.JButton btn_duplicate;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
@@ -1119,9 +1272,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField_Bestand;
     private javax.swing.JFormattedTextField jFormattedTextField_Bezeichnung;
     private javax.swing.JFormattedTextField jFormattedTextField_Breite;
-    private javax.swing.JFormattedTextField jFormattedTextField_Eigenschaft;
-    private javax.swing.JTextField jFormattedTextField_EigenschaftDescription;
     private javax.swing.JFormattedTextField jFormattedTextField_Länge;
+    private javax.swing.JTextField jFormattedTextField_MaterialtypBezeichnung;
+    private javax.swing.JFormattedTextField jFormattedTextField_Materialtyp_ID;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
     private javax.swing.JPanel jPanel_editTextFields;
@@ -1136,10 +1289,12 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Änderungsdatum;
     private javax.swing.JLabel lbl_Anlagedatum;
     private javax.swing.JLabel lbl_Benutzer;
+    private javax.swing.JLabel lbl_Bestand;
     private javax.swing.JLabel lbl_Bezeichnung;
     private javax.swing.JLabel lbl_Breite;
-    private javax.swing.JLabel lbl_Eigenschaft;
     private javax.swing.JLabel lbl_Länge;
+    private javax.swing.JLabel lbl_Materialtyp_Bezeichnung;
+    private javax.swing.JLabel lbl_Materialtyp_ID;
     private javax.swing.JLabel lbl_key;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
