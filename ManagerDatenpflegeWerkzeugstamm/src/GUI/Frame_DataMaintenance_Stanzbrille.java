@@ -31,6 +31,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
      */
     public Frame_DataMaintenance_Stanzbrille() {
         this.Old_Bezeichnung = "";
+        this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
@@ -51,14 +52,14 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
     Timestamp Anlagedatum;
     Timestamp Änderungsdatum;
     String Benutzer;
+    int TableColumns;
     
-    private void do_preBuild() {
-                
+    private void do_preBuild() {                
         getDBConnection();
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
-        lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));        
         createRowSorter(myTableModel);
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
@@ -71,8 +72,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
     
-    private void do_postBuild() {
-                
+    private void do_postBuild() {                
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
         });
@@ -89,7 +89,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
 
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
-        btn_deleteSearchValue1 = new javax.swing.JButton();
+        btn_deleteSearchValue = new javax.swing.JButton();
         jScrollPane_dbData = new javax.swing.JScrollPane();
         jTable_dbData = new javax.swing.JTable();
         lbl_search1 = new javax.swing.JLabel();
@@ -119,8 +119,11 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -133,10 +136,11 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
             }
         });
 
-        btn_deleteSearchValue1.setText("X");
-        btn_deleteSearchValue1.addActionListener(new java.awt.event.ActionListener() {
+        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_deleteSearchValue.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_deleteSearchValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_deleteSearchValue1ActionPerformed(evt);
+                btn_deleteSearchValueActionPerformed(evt);
             }
         });
 
@@ -211,11 +215,11 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_deleteSearchValue1)
+                        .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_getCurrentDBData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel_tableLayout.setVerticalGroup(
@@ -230,7 +234,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_getCurrentDBData)))
                     .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,6 +259,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField_key.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTextField_key.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_key.setEnabled(false);
         jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
@@ -485,8 +490,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
 //            return;
         }        
     }
-    private void get_DBTableData() {  
-        
+    private void get_DBTableData() {        
         try
         { 
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
@@ -495,7 +499,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
             Statement myStatement = myConnection.createStatement();
             String mySQL = "SELECT * FROM DiafBDE.dbo.T_Stanzbrille";
             ResultSet myResultSet = myStatement.executeQuery(mySQL);            
-            int myColumns = myResultSet.getMetaData().getColumnCount();
+            TableColumns = myResultSet.getMetaData().getColumnCount();
             myTableModel = (DefaultTableModel) jTable_dbData.getModel();
             int allOldRows = myTableModel.getRowCount();
             if (allOldRows > 0) {
@@ -503,10 +507,10 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
             }
             while (myResultSet.next()) {
                   
-                String[] myValue = new String[myColumns];
+                String[] myValue = new String[TableColumns];
                 SimpleDateFormat myFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
                 
-                for (int i = 1; i <= myColumns; i++) {
+                for (int i = 1; i <= TableColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
                     if (myDataSet != null && i == 3 || myDataSet != null && i == 4) {
@@ -538,13 +542,15 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
     private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
-    private void btn_deleteSearchValue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValue1ActionPerformed
+    private void btn_deleteSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValueActionPerformed
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-    }//GEN-LAST:event_btn_deleteSearchValue1ActionPerformed
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+    }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_getCurrentDBDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_getCurrentDBDataActionPerformed
         // TODO add your handling code here:
@@ -563,6 +569,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         DataSet_Mode = "new";
         set_textFieldsEnabled(true);
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEmpty();
         jTextField_key.setText("KSB");
         jTextField_key.requestFocus();
@@ -578,6 +585,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         // TODO add your handling code here:
         DataSet_Mode = "edit";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(false);
         jFormattedTextField_Bezeichnung.requestFocus();
         btn_new.setEnabled(false);
@@ -607,15 +615,15 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
                 btn_delete.setEnabled(false);
                 btn_accept.setEnabled(false);
                 btn_cancel.setEnabled(false);
-                lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
+                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
             }
         }
+        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acceptActionPerformed
         // TODO add your handling code here:
         if (jTextField_key.getText().isEmpty() || jTextField_key.getText().equals("KSB")) {
-
             JOptionPane.showMessageDialog(null,
                 "Der Datensatz ist teilweise leer. Erfassen Sie Daten oder klicken Sie auf Abbrechen.",
                 "Fehler",
@@ -662,10 +670,12 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
                 btn_edit.setEnabled(false);
                 btn_duplicate.setEnabled(false);
                 btn_delete.setEnabled(false);
+                set_tableEnabled(true);
                 //            }
             get_DBTableData();
-            lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
+            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
         }
+        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_acceptActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -682,16 +692,18 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
             btn_edit.setEnabled(false);
             btn_duplicate.setEnabled(false);
             btn_delete.setEnabled(false);
-
         }
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
+        set_tableEnabled(true);
+        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_cancelActionPerformed
 
     private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "duplicate";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(true);
         jTextField_key.requestFocus();
         btn_new.setEnabled(false);
@@ -707,8 +719,10 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         if (MY_DBCM.isConnnected()) {
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
         }
-        this.dispose();
-        //        }
+        int myReturnValue = test_continueEditing();
+            if (myReturnValue != 0 || DataSet_Mode.equals("clean")) {
+                this.dispose();
+            }
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -717,8 +731,30 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         do_postBuild();
     }//GEN-LAST:event_formWindowOpened
 
-    private void set_valuesIntoTextFields() {
-        
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        int myReturnValue = test_continueEditing();
+            if (myReturnValue != 0) {
+                this.dispose();
+            }
+    }//GEN-LAST:event_formWindowClosing
+
+    private int test_continueEditing() {
+        int myAnswer = 0;
+        if (!DataSet_Mode.equals("clean")) {
+
+            myAnswer = JOptionPane.showOptionDialog(null, 
+            "Es existieren noch ungespeicherte Änderungenn. \n Möchten Sie die Bearbeitung fortsetzen oder das Fenster schließen?", 
+            "Bearbeitung fortsetzen?", 
+            JOptionPane.OK_CANCEL_OPTION, 
+            JOptionPane.INFORMATION_MESSAGE, 
+            null, 
+            new String[]{"Bearbeitung fortsetzen", "Fenster schließen"},
+            "default");
+            }
+        return myAnswer;
+    }
+    private void set_valuesIntoTextFields() {        
 //        if (!DataSet_Mode.equals("edit")) {
             OldSelection = jTable_dbData.getSelectedRow();
             if(OldSelection != -1) {
@@ -777,8 +813,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
         
         jFormattedTextField_Bezeichnung.setEnabled(true);
     }
-    private void set_textFieldsDisabled() {
-        
+    private void set_textFieldsDisabled() {        
         jTextField_key.setEnabled(false);
         jFormattedTextField_Bezeichnung.setEnabled(false);
     }
@@ -874,11 +909,21 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
     }
     private boolean test_isDataSetInDB(String aString) {
         boolean myAnswer = false;
-        for (int myRow = 0; myRow < jTable_dbData.getRowCount(); ++myRow ) {
+        for (int i = 0; i < jTable_dbData.getRowCount(); ++i ) {
+            int myRow = jTable_dbData.convertRowIndexToModel(i);
             if (myTableModel.getValueAt(myRow, 0).toString().trim().equals(aString))
                 myAnswer = true;           
         }
         return myAnswer;
+    }
+    private void set_tableEnabled(boolean aBoolean) {
+        jTextField_searchValue.setEnabled(aBoolean);
+        btn_deleteSearchValue.setEnabled(aBoolean);
+        btn_getCurrentDBData.setEnabled(aBoolean);
+        jTable_dbData.setEnabled(aBoolean);
+        for (int i = 0; i < TableColumns; i ++) {
+            mySorter.setSortable(i, aBoolean);
+        }
     }
     /**
      * @param args the command line arguments
@@ -918,7 +963,7 @@ public class Frame_DataMaintenance_Stanzbrille extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_delete;
-    private javax.swing.JButton btn_deleteSearchValue1;
+    private javax.swing.JButton btn_deleteSearchValue;
     private javax.swing.JButton btn_duplicate;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
