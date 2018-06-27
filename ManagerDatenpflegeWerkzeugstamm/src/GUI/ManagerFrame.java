@@ -180,7 +180,8 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Grundform.setText("3. Grundform");
+        btn_open_dataMaintenance_Grundform.setText("Grundform");
+        btn_open_dataMaintenance_Grundform.setEnabled(false);
         btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 36));
         btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +189,8 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Werkzeugstamm.setText("3. Werkzeugstamm");
+        btn_open_dataMaintenance_Werkzeugstamm.setText("Werkzeugstamm");
+        btn_open_dataMaintenance_Werkzeugstamm.setEnabled(false);
         btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 36));
 
         javax.swing.GroupLayout jPanel_buttonsLayout = new javax.swing.GroupLayout(jPanel_buttons);
