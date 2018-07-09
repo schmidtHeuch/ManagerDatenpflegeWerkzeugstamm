@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel_main" max="32767" attributes="0"/>
-          <Component id="jPanel_footer" max="32767" attributes="0"/>
+          <Component id="jPanel_footer" alignment="0" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -137,8 +137,8 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                       <Component id="btn_open_dataMaintenance_Säulengestell" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_open_dataMaintenance_Lochwerkzeug" min="-2" max="-2" attributes="0"/>
@@ -162,11 +162,11 @@
                       <Component id="btn_open_dataMaintenance_Stapelung" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_open_dataMaintenance_Vorstempel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                      <EmptySpace pref="100" max="32767" attributes="0"/>
                       <Component id="btn_open_dataMaintenance_Grundform" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_open_dataMaintenance_Werkzeugstamm" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -185,7 +185,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="1. Ausbrechstempel"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -196,7 +196,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="2. F&#xfc;hrungsk&#xe4;fig"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -207,7 +207,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="3. S&#xe4;ulengestell"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -218,7 +218,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="3.1. Lochwerkzeug"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -229,7 +229,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="3.2. STAL"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -240,7 +240,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="4. Materialtyp"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -251,7 +251,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="4.1. Stanzblech"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -262,7 +262,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="5. Niederhalterplatte"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -273,7 +273,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="6. Schnitt"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -284,7 +284,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="7. Schriftzug"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -295,7 +295,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="8. Segment"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -306,7 +306,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="9. Stanzbrille"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -317,7 +317,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="10. Stapelung"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -328,7 +328,7 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="11. Vorstempel"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -338,9 +338,8 @@
             <Component class="javax.swing.JButton" name="btn_open_dataMaintenance_Grundform">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Grundform"/>
-                <Property name="enabled" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -352,7 +351,7 @@
                 <Property name="text" type="java.lang.String" value="Werkzeugstamm"/>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[120, 36]"/>
+                  <Dimension value="[120, 30]"/>
                 </Property>
               </Properties>
             </Component>
@@ -367,7 +366,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_close" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_close" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -376,7 +375,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btn_close" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_close" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

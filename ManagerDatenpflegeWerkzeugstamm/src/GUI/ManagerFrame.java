@@ -19,7 +19,22 @@ public class ManagerFrame extends javax.swing.JFrame {
     public ManagerFrame() {
         initComponents();
     }
-
+    Frame_DataMaintenance_Ausbrechstempel myDMAusbrechstempel;
+    Frame_DataMaintenance_Segment myDMSegment;
+    Frame_DataMaintenance_Stanzblech myDMStanzblech;
+    Frame_DataMaintenance_Grundform myDMGrundform;
+    Frame_DataMaintenance_Führungskäfig myDMFührungskäfig;
+    Frame_DataMaintenance_Lochwerkzeug myDMLochwerkzeug;
+    Frame_DataMaintenance_Niederhalterplatte myDMNiederhalterplatte;
+    Frame_DataMaintenance_Säulengestell myDMSäulengestell;
+    Frame_DataMaintenance_Schnitt myDMSchnitt;
+    Frame_DataMaintenance_Schriftzug myDMSchriftzug;
+    Frame_DataMaintenance_STAL myDMSTAL;
+    Frame_DataMaintenance_Stanzbrille myDMStanzbrille;
+    Frame_DataMaintenance_Stapelung myDMStapelung;
+    Frame_DataMaintenance_Vorstempel myDMVorstempel;
+    Frame_DataMaintenance_Materialtyp myDMMaterialtyp;
+    Frame_Grundform myManagerGrundform;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +84,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         jPanel_buttons.setPreferredSize(new java.awt.Dimension(244, 519));
 
         btn_open_dataMaintenance_Ausbrechstempel.setText("1. Ausbrechstempel");
-        btn_open_dataMaintenance_Ausbrechstempel.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Ausbrechstempel.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Ausbrechstempel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_AusbrechstempelActionPerformed(evt);
@@ -77,7 +92,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Führungskäfig.setText("2. Führungskäfig");
-        btn_open_dataMaintenance_Führungskäfig.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Führungskäfig.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Führungskäfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_FührungskäfigActionPerformed(evt);
@@ -85,7 +100,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Säulengestell.setText("3. Säulengestell");
-        btn_open_dataMaintenance_Säulengestell.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Säulengestell.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Säulengestell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_SäulengestellActionPerformed(evt);
@@ -93,7 +108,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Lochwerkzeug.setText("3.1. Lochwerkzeug");
-        btn_open_dataMaintenance_Lochwerkzeug.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Lochwerkzeug.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Lochwerkzeug.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_LochwerkzeugActionPerformed(evt);
@@ -101,7 +116,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_STAL.setText("3.2. STAL");
-        btn_open_dataMaintenance_STAL.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_STAL.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_STAL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_STALActionPerformed(evt);
@@ -109,7 +124,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Materialtyp.setText("4. Materialtyp");
-        btn_open_dataMaintenance_Materialtyp.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Materialtyp.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Materialtyp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_MaterialtypActionPerformed(evt);
@@ -117,7 +132,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Stanzblech.setText("4.1. Stanzblech");
-        btn_open_dataMaintenance_Stanzblech.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stanzblech.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Stanzblech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_StanzblechActionPerformed(evt);
@@ -125,7 +140,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Niederhalterplatte.setText("5. Niederhalterplatte");
-        btn_open_dataMaintenance_Niederhalterplatte.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Niederhalterplatte.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Niederhalterplatte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_NiederhalterplatteActionPerformed(evt);
@@ -133,7 +148,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Schnitt.setText("6. Schnitt");
-        btn_open_dataMaintenance_Schnitt.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Schnitt.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Schnitt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_SchnittActionPerformed(evt);
@@ -141,7 +156,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Schriftzug.setText("7. Schriftzug");
-        btn_open_dataMaintenance_Schriftzug.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Schriftzug.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Schriftzug.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_SchriftzugActionPerformed(evt);
@@ -149,7 +164,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Segment.setText("8. Segment");
-        btn_open_dataMaintenance_Segment.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Segment.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Segment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_SegmentActionPerformed(evt);
@@ -157,7 +172,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Stanzbrille.setText("9. Stanzbrille");
-        btn_open_dataMaintenance_Stanzbrille.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stanzbrille.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Stanzbrille.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_StanzbrilleActionPerformed(evt);
@@ -165,7 +180,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Stapelung.setText("10. Stapelung");
-        btn_open_dataMaintenance_Stapelung.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Stapelung.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Stapelung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_StapelungActionPerformed(evt);
@@ -173,7 +188,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Vorstempel.setText("11. Vorstempel");
-        btn_open_dataMaintenance_Vorstempel.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Vorstempel.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Vorstempel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_VorstempelActionPerformed(evt);
@@ -181,8 +196,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Grundform.setText("Grundform");
-        btn_open_dataMaintenance_Grundform.setEnabled(false);
-        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_GrundformActionPerformed(evt);
@@ -191,7 +205,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         btn_open_dataMaintenance_Werkzeugstamm.setText("Werkzeugstamm");
         btn_open_dataMaintenance_Werkzeugstamm.setEnabled(false);
-        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 36));
+        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
 
         javax.swing.GroupLayout jPanel_buttonsLayout = new javax.swing.GroupLayout(jPanel_buttons);
         jPanel_buttons.setLayout(jPanel_buttonsLayout);
@@ -225,8 +239,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsLayout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+            .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
                 .addComponent(btn_open_dataMaintenance_Säulengestell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Lochwerkzeug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,11 +264,11 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(78, 78, 78))
             .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_buttonsLayout.createSequentialGroup()
                     .addContainerGap()
@@ -316,7 +330,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,16 +344,18 @@ public class ManagerFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_open_dataMaintenance_SegmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SegmentActionPerformed
-        // TODO add your handling code here:
-        Frame_DataMaintenance_Segment myDMSegment = new Frame_DataMaintenance_Segment();
-        myDMSegment.setTitle("Stammdaten-Pflege: Segment");
-        myDMSegment.setSize(949, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMSegment.setLocation(245, 0);
-//        if (myDMSegment.isShowing()) {
-//            myDMSegment.toFront();
-//        }
-//        else {myDMSegment.setVisible(true);}
-        myDMSegment.setVisible(true);
+        // TODO add your handling code here:        
+        if (myDMSegment != null && myDMSegment.getInstance() >= 1) {
+            myDMSegment.setAlwaysOnTop(true);
+            myDMSegment.setAlwaysOnTop(false);
+        }
+        else {
+            myDMSegment = new Frame_DataMaintenance_Segment();
+            myDMSegment.setTitle("Stammdaten-Pflege: Segment");
+            myDMSegment.setSize(949, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSegment.setLocation(245, 0);
+            myDMSegment.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_SegmentActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -348,131 +364,213 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void btn_open_dataMaintenance_StanzblechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StanzblechActionPerformed
-        // TODO add your handling code here:
-        Frame_DataMaintenance_Stanzblech myDMStanzblech = new Frame_DataMaintenance_Stanzblech();
-        myDMStanzblech.setTitle("Stammdaten-Pflege: Stanzblech");
-        myDMStanzblech.setSize(1024, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMStanzblech.setLocation(245, 0);
-        myDMStanzblech.setVisible(true);
+        // TODO add your handling code here:        
+        if (myDMStanzblech != null && myDMStanzblech.getInstance() >= 1) {
+            myDMStanzblech.setAlwaysOnTop(true);
+            myDMStanzblech.setAlwaysOnTop(false);
+        }
+        else {
+            myDMStanzblech = new Frame_DataMaintenance_Stanzblech();
+            myDMStanzblech.setTitle("Stammdaten-Pflege: Stanzblech");
+            myDMStanzblech.setSize(1024, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStanzblech.setLocation(245, 0);
+            myDMStanzblech.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_StanzblechActionPerformed
 
     private void btn_open_dataMaintenance_GrundformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_GrundformActionPerformed
-        // TODO add your handling code here:
-        Frame_DataMaintenance_Grundform myDMGrundform = new Frame_DataMaintenance_Grundform();
-        myDMGrundform.setTitle("Stammdaten-Pflege: Grundform");
-        myDMGrundform.setSize(Toolkit.getDefaultToolkit().getScreenSize().width - 245, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMGrundform.setLocation(245, 0);
-        myDMGrundform.setVisible(true);
+        // TODO add your handling code here:       
+        if (myManagerGrundform != null && myManagerGrundform.getInstance() >= 1) {
+            myManagerGrundform.setAlwaysOnTop(true);
+            myManagerGrundform.setAlwaysOnTop(false);
+        }
+        else {
+            myManagerGrundform = new Frame_Grundform();
+            myManagerGrundform.setTitle("Stammdaten-Pflege: Manager: Grundform");
+            myManagerGrundform.setSize(244, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+//            myManagerGrundform.setLocation(245, 0);
+            myManagerGrundform.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_GrundformActionPerformed
 
     private void btn_open_dataMaintenance_AusbrechstempelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_AusbrechstempelActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Ausbrechstempel myDMAusbrechstempel = new Frame_DataMaintenance_Ausbrechstempel();
-        myDMAusbrechstempel.setTitle("Stammdaten-Pflege: Ausbrechstempel");
-        myDMAusbrechstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMAusbrechstempel.setLocation(245, 0);
-        myDMAusbrechstempel.setVisible(true);
+        if (myDMAusbrechstempel != null && myDMAusbrechstempel.getInstance() >= 1) {
+            myDMAusbrechstempel.setAlwaysOnTop(true);
+            myDMAusbrechstempel.setAlwaysOnTop(false);
+        }
+        else {
+            myDMAusbrechstempel = new Frame_DataMaintenance_Ausbrechstempel();
+            myDMAusbrechstempel.setTitle("Stammdaten-Pflege: Ausbrechstempel");
+            myDMAusbrechstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMAusbrechstempel.setLocation(245, 0);
+            myDMAusbrechstempel.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_AusbrechstempelActionPerformed
 
     private void btn_open_dataMaintenance_FührungskäfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_FührungskäfigActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Führungskäfig myDMFührungskäfig = new Frame_DataMaintenance_Führungskäfig();
-        myDMFührungskäfig.setTitle("Stammdaten-Pflege: Führungskäfig");
-        myDMFührungskäfig.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMFührungskäfig.setLocation(245, 0);
-        myDMFührungskäfig.setVisible(true);
+        if (myDMFührungskäfig != null && myDMFührungskäfig.getInstance() >= 1) {
+            myDMFührungskäfig.setAlwaysOnTop(true);
+            myDMFührungskäfig.setAlwaysOnTop(false);
+        }
+        else {
+            myDMFührungskäfig = new Frame_DataMaintenance_Führungskäfig();
+            myDMFührungskäfig.setTitle("Stammdaten-Pflege: Führungskäfig");
+            myDMFührungskäfig.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMFührungskäfig.setLocation(245, 0);
+            myDMFührungskäfig.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_FührungskäfigActionPerformed
 
     private void btn_open_dataMaintenance_LochwerkzeugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_LochwerkzeugActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Lochwerkzeug myDMLochwerkzeug = new Frame_DataMaintenance_Lochwerkzeug();
-        myDMLochwerkzeug.setTitle("Stammdaten-Pflege: Lochwerkzeug");
-        myDMLochwerkzeug.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-//        myDMLochwerkzeug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMLochwerkzeug.setLocation(245, 0);
-        myDMLochwerkzeug.setVisible(true);
+        if (myDMLochwerkzeug != null && myDMLochwerkzeug.getInstance() >= 1) {
+            myDMLochwerkzeug.setAlwaysOnTop(true);
+            myDMLochwerkzeug.setAlwaysOnTop(false);
+        }
+        else {
+            myDMLochwerkzeug = new Frame_DataMaintenance_Lochwerkzeug();
+            myDMLochwerkzeug.setTitle("Stammdaten-Pflege: Lochwerkzeug");
+            myDMLochwerkzeug.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMLochwerkzeug.setLocation(245, 0);
+            myDMLochwerkzeug.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_LochwerkzeugActionPerformed
 
     private void btn_open_dataMaintenance_NiederhalterplatteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_NiederhalterplatteActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Niederhalterplatte myDMNiederhalterplatte = new Frame_DataMaintenance_Niederhalterplatte();
-        myDMNiederhalterplatte.setTitle("Stammdaten-Pflege: Niederhalterplatte");
-        myDMNiederhalterplatte.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMNiederhalterplatte.setLocation(245, 0);
-        myDMNiederhalterplatte.setVisible(true);
+        if (myDMNiederhalterplatte != null && myDMNiederhalterplatte.getInstance() >= 1) {
+            myDMNiederhalterplatte.setAlwaysOnTop(true);
+            myDMNiederhalterplatte.setAlwaysOnTop(false);
+        }
+        else {
+            myDMNiederhalterplatte = new Frame_DataMaintenance_Niederhalterplatte();
+            myDMNiederhalterplatte.setTitle("Stammdaten-Pflege: Niederhalterplatte");
+            myDMNiederhalterplatte.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMNiederhalterplatte.setLocation(245, 0);
+            myDMNiederhalterplatte.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_NiederhalterplatteActionPerformed
 
     private void btn_open_dataMaintenance_SäulengestellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SäulengestellActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Säulengestell myDMSäulengestell = new Frame_DataMaintenance_Säulengestell();
-        myDMSäulengestell.setTitle("Stammdaten-Pflege: Säulengestell");
-        myDMSäulengestell.setSize(767, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMSäulengestell.setLocation(245, 0);
-        myDMSäulengestell.setVisible(true);
+        if (myDMSäulengestell != null && myDMSäulengestell.getInstance() >= 1) {
+            myDMSäulengestell.setAlwaysOnTop(true);
+            myDMSäulengestell.setAlwaysOnTop(false);
+        }
+        else {
+            myDMSäulengestell = new Frame_DataMaintenance_Säulengestell();
+            myDMSäulengestell.setTitle("Stammdaten-Pflege: Säulengestell");
+            myDMSäulengestell.setSize(767, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSäulengestell.setLocation(245, 0);
+            myDMSäulengestell.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_SäulengestellActionPerformed
 
     private void btn_open_dataMaintenance_SchnittActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SchnittActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Schnitt myDMSchnitt = new Frame_DataMaintenance_Schnitt();
-        myDMSchnitt.setTitle("Stammdaten-Pflege: Schnitt");
-        myDMSchnitt.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMSchnitt.setLocation(245, 0);
-        myDMSchnitt.setVisible(true);
+        if (myDMSchnitt != null && myDMSchnitt.getInstance() >= 1) {
+            myDMSchnitt.setAlwaysOnTop(true);
+            myDMSchnitt.setAlwaysOnTop(false);
+        }
+        else {
+            myDMSchnitt = new Frame_DataMaintenance_Schnitt();
+            myDMSchnitt.setTitle("Stammdaten-Pflege: Schnitt");
+            myDMSchnitt.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchnitt.setLocation(245, 0);
+            myDMSchnitt.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_SchnittActionPerformed
 
     private void btn_open_dataMaintenance_SchriftzugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_SchriftzugActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Schriftzug myDMSchriftzug = new Frame_DataMaintenance_Schriftzug();
-        myDMSchriftzug.setTitle("Stammdaten-Pflege: Schriftzug");
-        myDMSchriftzug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMSchriftzug.setLocation(245, 0);
-        myDMSchriftzug.setVisible(true);
+        if (myDMSchriftzug != null && myDMSchriftzug.getInstance() >= 1) {
+            myDMSchriftzug.setAlwaysOnTop(true);
+            myDMSchriftzug.setAlwaysOnTop(false);
+        }
+        else {
+            myDMSchriftzug = new Frame_DataMaintenance_Schriftzug();
+            myDMSchriftzug.setTitle("Stammdaten-Pflege: Schriftzug");
+            myDMSchriftzug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchriftzug.setLocation(245, 0);
+            myDMSchriftzug.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_SchriftzugActionPerformed
 
     private void btn_open_dataMaintenance_STALActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_STALActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_STAL myDMSTAL = new Frame_DataMaintenance_STAL();
-        myDMSTAL.setTitle("Stammdaten-Pflege: STAL");
-        myDMSTAL.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-//        myDMLochwerkzeug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMSTAL.setLocation(245, 0);
-        myDMSTAL.setVisible(true);
+        if (myDMSTAL != null && myDMSTAL.getInstance() >= 1) {
+            myDMSTAL.setAlwaysOnTop(true);
+            myDMSTAL.setAlwaysOnTop(false);
+        }
+        else {
+            myDMSTAL = new Frame_DataMaintenance_STAL();
+            myDMSTAL.setTitle("Stammdaten-Pflege: STAL");
+            myDMSTAL.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSTAL.setLocation(245, 0);
+            myDMSTAL.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_STALActionPerformed
 
     private void btn_open_dataMaintenance_StanzbrilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StanzbrilleActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Stanzbrille myDMStanzbrille = new Frame_DataMaintenance_Stanzbrille();
-        myDMStanzbrille.setTitle("Stammdaten-Pflege: Stanzbrille");
-        myDMStanzbrille.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMStanzbrille.setLocation(245, 0);
-        myDMStanzbrille.setVisible(true);
+        if (myDMStanzbrille != null && myDMStanzbrille.getInstance() >= 1) {
+            myDMStanzbrille.setAlwaysOnTop(true);
+            myDMStanzbrille.setAlwaysOnTop(false);
+        }
+        else {
+            myDMStanzbrille = new Frame_DataMaintenance_Stanzbrille();
+            myDMStanzbrille.setTitle("Stammdaten-Pflege: Stanzbrille");
+            myDMStanzbrille.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStanzbrille.setLocation(245, 0);
+            myDMStanzbrille.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_StanzbrilleActionPerformed
 
     private void btn_open_dataMaintenance_StapelungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StapelungActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Stapelung myDMStapelung = new Frame_DataMaintenance_Stapelung();
-        myDMStapelung.setTitle("Stammdaten-Pflege: Stapelung");
-        myDMStapelung.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMStapelung.setLocation(245, 0);
-        myDMStapelung.setVisible(true);
+        if (myDMStapelung != null && myDMStapelung.getInstance() >= 1) {
+            myDMStapelung.setAlwaysOnTop(true);
+            myDMStapelung.setAlwaysOnTop(false);
+        }
+        else {
+            myDMStapelung = new Frame_DataMaintenance_Stapelung();
+            myDMStapelung.setTitle("Stammdaten-Pflege: Stapelung");
+            myDMStapelung.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStapelung.setLocation(245, 0);
+            myDMStapelung.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_StapelungActionPerformed
 
     private void btn_open_dataMaintenance_VorstempelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_VorstempelActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Vorstempel myDMVorstempel = new Frame_DataMaintenance_Vorstempel();
-        myDMVorstempel.setTitle("Stammdaten-Pflege: Vorstempel");
-        myDMVorstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMVorstempel.setLocation(245, 0);
-        myDMVorstempel.setVisible(true);
+        if (myDMVorstempel != null && myDMVorstempel.getInstance() >= 1) {
+            myDMVorstempel.setAlwaysOnTop(true);
+            myDMVorstempel.setAlwaysOnTop(false);
+        }
+        else {
+            myDMVorstempel = new Frame_DataMaintenance_Vorstempel();
+            myDMVorstempel.setTitle("Stammdaten-Pflege: Vorstempel");
+            myDMVorstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMVorstempel.setLocation(245, 0);
+            myDMVorstempel.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_VorstempelActionPerformed
 
     private void btn_open_dataMaintenance_MaterialtypActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_MaterialtypActionPerformed
         // TODO add your handling code here:
-        Frame_DataMaintenance_Materialtyp myDMMaterialtyp = new Frame_DataMaintenance_Materialtyp();
-        myDMMaterialtyp.setTitle("Stammdaten-Pflege: Materialtyp");
-        myDMMaterialtyp.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
-        myDMMaterialtyp.setLocation(245, 0);
-        myDMMaterialtyp.setVisible(true);
+        if (myDMMaterialtyp != null && myDMMaterialtyp.getInstance() >= 1) {
+            myDMMaterialtyp.setAlwaysOnTop(true);
+            myDMMaterialtyp.setAlwaysOnTop(false);
+        }
+        else {
+            myDMMaterialtyp = new Frame_DataMaintenance_Materialtyp();
+            myDMMaterialtyp.setTitle("Stammdaten-Pflege: Materialtyp");
+            myDMMaterialtyp.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMMaterialtyp.setLocation(245, 0);
+            myDMMaterialtyp.setVisible(true);
+        }
     }//GEN-LAST:event_btn_open_dataMaintenance_MaterialtypActionPerformed
 
     /**
