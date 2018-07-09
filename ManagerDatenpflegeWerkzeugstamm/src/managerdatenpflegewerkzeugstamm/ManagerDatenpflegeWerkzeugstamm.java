@@ -19,7 +19,7 @@ public class ManagerDatenpflegeWerkzeugstamm {
     public static void main(String[] args) {
         // TODO code application logic here
         ManagerFrame myManager = new ManagerFrame();
-        myManager.setTitle("Manager Werkzeugstamm");
+        myManager.setTitle("Manager: Werkzeugstamm");
         myManager.setSize(244, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
         myManager.setVisible(true);
     }
