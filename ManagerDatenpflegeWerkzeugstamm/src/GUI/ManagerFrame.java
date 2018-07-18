@@ -35,6 +35,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     Frame_DataMaintenance_Vorstempel myDMVorstempel;
     Frame_DataMaintenance_Materialtyp myDMMaterialtyp;
     Frame_Grundform myManagerGrundform;
+    Frame_DataMaintenance_Werkzeugstamm myWerkzeugstamm;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +45,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_base = new javax.swing.JPanel();
         jPanel_main = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_infoAboutSequence = new javax.swing.JTextArea();
@@ -66,10 +68,17 @@ public class ManagerFrame extends javax.swing.JFrame {
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
+        btn_exitProgram = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel_main.setOpaque(false);
 
         jScrollPane1.setEnabled(false);
+        jScrollPane1.setOpaque(false);
 
         jTextArea_infoAboutSequence.setEditable(false);
         jTextArea_infoAboutSequence.setColumns(20);
@@ -81,6 +90,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         jTextArea_infoAboutSequence.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
 
+        jPanel_buttons.setOpaque(false);
         jPanel_buttons.setPreferredSize(new java.awt.Dimension(244, 519));
 
         btn_open_dataMaintenance_Ausbrechstempel.setText("1. Ausbrechstempel");
@@ -204,8 +214,12 @@ public class ManagerFrame extends javax.swing.JFrame {
         });
 
         btn_open_dataMaintenance_Werkzeugstamm.setText("Werkzeugstamm");
-        btn_open_dataMaintenance_Werkzeugstamm.setEnabled(false);
         btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_buttonsLayout = new javax.swing.GroupLayout(jPanel_buttons);
         jPanel_buttons.setLayout(jPanel_buttonsLayout);
@@ -214,7 +228,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -227,20 +241,19 @@ public class ManagerFrame extends javax.swing.JFrame {
                     .addComponent(btn_open_dataMaintenance_STAL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stanzblech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Segment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Materialtyp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_open_dataMaintenance_Materialtyp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addContainerGap()
+                .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Säulengestell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Lochwerkzeug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,18 +277,11 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78))
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(576, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
@@ -286,9 +292,9 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_mainLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                        .addComponent(jPanel_buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel_mainLayout.setVerticalGroup(
@@ -297,14 +303,24 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        jPanel_footer.setOpaque(false);
 
         btn_close.setText("Schließen");
         btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_closeActionPerformed(evt);
+            }
+        });
+
+        btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
+        btn_exitProgram.setText("Programm beenden");
+        btn_exitProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exitProgramActionPerformed(evt);
             }
         });
 
@@ -314,30 +330,46 @@ public class ManagerFrame extends javax.swing.JFrame {
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_close)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel_footerLayout.createSequentialGroup()
+                        .addComponent(btn_close)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addComponent(btn_close)
-                .addContainerGap())
+                .addGap(17, 17, 17)
+                .addComponent(btn_exitProgram)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
+        jPanel_base.setLayout(jPanel_baseLayout);
+        jPanel_baseLayout.setHorizontalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel_baseLayout.setVerticalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_baseLayout.createSequentialGroup()
+                .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -402,7 +434,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMAusbrechstempel = new Frame_DataMaintenance_Ausbrechstempel();
             myDMAusbrechstempel.setTitle("Stammdaten-Pflege: Ausbrechstempel");
-            myDMAusbrechstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMAusbrechstempel.setSize(780, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMAusbrechstempel.setLocation(245, 0);
             myDMAusbrechstempel.setVisible(true);
         }
@@ -417,7 +449,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMFührungskäfig = new Frame_DataMaintenance_Führungskäfig();
             myDMFührungskäfig.setTitle("Stammdaten-Pflege: Führungskäfig");
-            myDMFührungskäfig.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMFührungskäfig.setSize(780, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMFührungskäfig.setLocation(245, 0);
             myDMFührungskäfig.setVisible(true);
         }
@@ -432,7 +464,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMLochwerkzeug = new Frame_DataMaintenance_Lochwerkzeug();
             myDMLochwerkzeug.setTitle("Stammdaten-Pflege: Lochwerkzeug");
-            myDMLochwerkzeug.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMLochwerkzeug.setSize(950, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMLochwerkzeug.setLocation(245, 0);
             myDMLochwerkzeug.setVisible(true);
         }
@@ -447,7 +479,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMNiederhalterplatte = new Frame_DataMaintenance_Niederhalterplatte();
             myDMNiederhalterplatte.setTitle("Stammdaten-Pflege: Niederhalterplatte");
-            myDMNiederhalterplatte.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMNiederhalterplatte.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMNiederhalterplatte.setLocation(245, 0);
             myDMNiederhalterplatte.setVisible(true);
         }
@@ -462,7 +494,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSäulengestell = new Frame_DataMaintenance_Säulengestell();
             myDMSäulengestell.setTitle("Stammdaten-Pflege: Säulengestell");
-            myDMSäulengestell.setSize(767, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSäulengestell.setSize(875, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSäulengestell.setLocation(245, 0);
             myDMSäulengestell.setVisible(true);
         }
@@ -477,7 +509,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSchnitt = new Frame_DataMaintenance_Schnitt();
             myDMSchnitt.setTitle("Stammdaten-Pflege: Schnitt");
-            myDMSchnitt.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchnitt.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSchnitt.setLocation(245, 0);
             myDMSchnitt.setVisible(true);
         }
@@ -492,7 +524,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSchriftzug = new Frame_DataMaintenance_Schriftzug();
             myDMSchriftzug.setTitle("Stammdaten-Pflege: Schriftzug");
-            myDMSchriftzug.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchriftzug.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSchriftzug.setLocation(245, 0);
             myDMSchriftzug.setVisible(true);
         }
@@ -567,11 +599,31 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMMaterialtyp = new Frame_DataMaintenance_Materialtyp();
             myDMMaterialtyp.setTitle("Stammdaten-Pflege: Materialtyp");
-            myDMMaterialtyp.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMMaterialtyp.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMMaterialtyp.setLocation(245, 0);
             myDMMaterialtyp.setVisible(true);
         }
     }//GEN-LAST:event_btn_open_dataMaintenance_MaterialtypActionPerformed
+
+    private void btn_open_dataMaintenance_WerkzeugstammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_WerkzeugstammActionPerformed
+        // TODO add your handling code here:     
+        if (myWerkzeugstamm != null && myWerkzeugstamm.getInstance() >= 1) {
+            myWerkzeugstamm.setAlwaysOnTop(true);
+            myWerkzeugstamm.setAlwaysOnTop(false);
+        }
+        else {
+            myWerkzeugstamm = new Frame_DataMaintenance_Werkzeugstamm();
+            myWerkzeugstamm.setTitle("Stammdaten-Pflege: Werkzeugstamm");
+            myWerkzeugstamm.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+//            myManagerGrundform.setLocation(245, 0);
+            myWerkzeugstamm.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_open_dataMaintenance_WerkzeugstammActionPerformed
+
+    private void btn_exitProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitProgramActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btn_exitProgramActionPerformed
 
     /**
      * @param args the command line arguments
@@ -611,6 +663,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_exitProgram;
     private javax.swing.JButton btn_open_dataMaintenance_Ausbrechstempel;
     private javax.swing.JButton btn_open_dataMaintenance_Führungskäfig;
     private javax.swing.JButton btn_open_dataMaintenance_Grundform;
@@ -627,6 +680,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_open_dataMaintenance_Säulengestell;
     private javax.swing.JButton btn_open_dataMaintenance_Vorstempel;
     private javax.swing.JButton btn_open_dataMaintenance_Werkzeugstamm;
+    private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_main;
