@@ -40,9 +40,8 @@ public class Frame_Grundform extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_base = new javax.swing.JPanel();
         jPanel_main = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_infoAboutSequence = new javax.swing.JTextArea();
         jPanel_buttons = new javax.swing.JPanel();
         btn_open_dataMaintenance_Druckrahmen = new javax.swing.JButton();
         btn_open_dataMaintenance_Segmentrahmen = new javax.swing.JButton();
@@ -53,22 +52,19 @@ public class Frame_Grundform extends javax.swing.JFrame {
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_close = new javax.swing.JButton();
+        btn_exitProgram = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea_infoAboutSequence = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         setPreferredSize(new java.awt.Dimension(224, 969));
 
-        jScrollPane1.setEnabled(false);
+        jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
 
-        jTextArea_infoAboutSequence.setEditable(false);
-        jTextArea_infoAboutSequence.setColumns(20);
-        jTextArea_infoAboutSequence.setLineWrap(true);
-        jTextArea_infoAboutSequence.setRows(5);
-        jTextArea_infoAboutSequence.setText("Die Pflege der Stammdaten für die Grundform muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
-        jTextArea_infoAboutSequence.setWrapStyleWord(true);
-        jTextArea_infoAboutSequence.setAutoscrolls(false);
-        jTextArea_infoAboutSequence.setFocusable(false);
-        jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
+        jPanel_main.setOpaque(false);
 
+        jPanel_buttons.setOpaque(false);
         jPanel_buttons.setPreferredSize(new java.awt.Dimension(244, 519));
 
         btn_open_dataMaintenance_Druckrahmen.setText("1. Druckrahmen");
@@ -134,24 +130,23 @@ public class Frame_Grundform extends javax.swing.JFrame {
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Kühlplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Unterbauleiste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addContainerGap()
+                .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Unterbauleiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Kühlplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,16 +154,8 @@ public class Frame_Grundform extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(397, 397, 397)
-                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(576, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
@@ -177,25 +164,31 @@ public class Frame_Grundform extends javax.swing.JFrame {
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel_mainLayout.setVerticalGroup(
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_mainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_mainLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jPanel_footer.setOpaque(false);
 
         btn_close.setText("Schließen");
         btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_closeActionPerformed(evt);
+            }
+        });
+
+        btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
+        btn_exitProgram.setText("Programm beenden");
+        btn_exitProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exitProgramActionPerformed(evt);
             }
         });
 
@@ -205,30 +198,68 @@ public class Frame_Grundform extends javax.swing.JFrame {
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_close)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addGroup(jPanel_footerLayout.createSequentialGroup()
+                        .addComponent(btn_close)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_close)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(btn_exitProgram)
                 .addContainerGap())
+        );
+
+        jScrollPane1.setEnabled(false);
+
+        jTextArea_infoAboutSequence.setEditable(false);
+        jTextArea_infoAboutSequence.setColumns(20);
+        jTextArea_infoAboutSequence.setLineWrap(true);
+        jTextArea_infoAboutSequence.setRows(5);
+        jTextArea_infoAboutSequence.setText("Die Pflege der Stammdaten für die Grundform muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
+        jTextArea_infoAboutSequence.setWrapStyleWord(true);
+        jTextArea_infoAboutSequence.setAutoscrolls(false);
+        jTextArea_infoAboutSequence.setFocusable(false);
+        jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
+
+        javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
+        jPanel_base.setLayout(jPanel_baseLayout);
+        jPanel_baseLayout.setHorizontalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_footer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_baseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_baseLayout.setVerticalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_baseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
+                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_baseLayout.createSequentialGroup()
+                    .addComponent(jPanel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 79, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -336,6 +367,11 @@ public class Frame_Grundform extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_open_dataMaintenance_WerkzeugstammActionPerformed
 
+    private void btn_exitProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitProgramActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btn_exitProgramActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -371,6 +407,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_exitProgram;
     private javax.swing.JButton btn_open_dataMaintenance_Druckplatte;
     private javax.swing.JButton btn_open_dataMaintenance_Druckrahmen;
     private javax.swing.JButton btn_open_dataMaintenance_Grundplatte;
@@ -378,6 +415,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
     private javax.swing.JButton btn_open_dataMaintenance_Segmentrahmen;
     private javax.swing.JButton btn_open_dataMaintenance_Unterbauleiste;
     private javax.swing.JButton btn_open_dataMaintenance_Werkzeugstamm;
+    private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_main;
