@@ -8,6 +8,9 @@ package GUI;
 import DBTools.DB_ConnectionManager;
 //import managerdatenpflegewerkzeugstamm.CustomTableCellRenderer;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.Point;
 import java.awt.MouseInfo;
 import java.sql.Connection;
@@ -27,11 +30,13 @@ import javax.swing.table.TableRowSorter;
  * @author schmidtu
  */
 public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
+    static int InstanceCount;
 
     /**
      * Creates new form Frame_DataMaintenance_Lochwerkzeug
      */
     public Frame_DataMaintenance_Lochwerkzeug() {
+        InstanceCount++;
         this.Old_Bezeichnung = "";
         this.Old_Säulengestell_Nr = "";
         this.DataSet_Mode = "clean";
@@ -41,6 +46,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
+    }
+    public int getInstance() {
+        return InstanceCount;
     }
 
     boolean myAnswerIfConnected;
@@ -64,7 +72,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
         createRowSorter(myTableModel);
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
@@ -72,7 +80,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         jTable_dbData.setRowSorter(mySorter);
     }
     
-    public void search() {
+    private void search() {
         String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
@@ -81,6 +89,19 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
         });
+        KeyListener tfKeyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    btn_accept.doClick();
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE)
+                    btn_delete.doClick();
+            }
+        };
+        jTextField_key.addKeyListener(tfKeyListener);
+        jFormattedTextField_Bezeichnung.addKeyListener(tfKeyListener);
+        jFormattedTextField_Säulengestell_Nr.addKeyListener(tfKeyListener);
+        jTable_dbData.addKeyListener(tfKeyListener);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +112,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_base = new javax.swing.JPanel();
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
         btn_deleteSearchValue = new javax.swing.JButton();
@@ -129,6 +151,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -138,13 +161,17 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
             }
         });
 
+        jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel_table.setOpaque(false);
+
         jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_searchValueKeyReleased(evt);
             }
         });
 
-        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
         btn_deleteSearchValue.setPreferredSize(new java.awt.Dimension(23, 23));
         btn_deleteSearchValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +238,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane_dbData)
-                    .addGroup(jPanel_tableLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
                                 .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,20 +246,22 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                                 .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_getCurrentDBData))
-                            .addComponent(lbl_search1)
                             .addComponent(lbl_tableName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_tableLayout.createSequentialGroup()
+                        .addComponent(lbl_search1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_tableLayout.setVerticalGroup(
             jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(lbl_tableName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbl_search1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,12 +272,14 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        jPanel_editData.setOpaque(false);
 
+        jPanel_editLabels.setOpaque(false);
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         lbl_key.setText("LW (Key)");
@@ -267,7 +298,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         jLabel_Saeulengestell_Bezeichnung.setPreferredSize(new java.awt.Dimension(104, 14));
         jPanel_editLabels.add(jLabel_Saeulengestell_Bezeichnung);
 
-        btn_openDialog_Säulengestell.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Lupe.png")); // NOI18N
+        btn_openDialog_Säulengestell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lupe.png"))); // NOI18N
         btn_openDialog_Säulengestell.setEnabled(false);
         btn_openDialog_Säulengestell.setPreferredSize(new java.awt.Dimension(23, 23));
         btn_openDialog_Säulengestell.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +308,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         });
         jPanel_editLabels.add(btn_openDialog_Säulengestell);
 
-        btn_delete_Säulengestell.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_delete_Säulengestell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
         btn_delete_Säulengestell.setEnabled(false);
         btn_delete_Säulengestell.setPreferredSize(new java.awt.Dimension(23, 23));
         btn_delete_Säulengestell.addActionListener(new java.awt.event.ActionListener() {
@@ -287,6 +318,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         });
         jPanel_editLabels.add(btn_delete_Säulengestell);
 
+        jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -372,18 +404,21 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         jTextField_Anlagedatum.setBorder(null);
         jTextField_Anlagedatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Anlagedatum.setEnabled(false);
+        jTextField_Anlagedatum.setOpaque(false);
         jTextField_Anlagedatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Änderungsdatum.setEditable(false);
         jTextField_Änderungsdatum.setBorder(null);
         jTextField_Änderungsdatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Änderungsdatum.setEnabled(false);
+        jTextField_Änderungsdatum.setOpaque(false);
         jTextField_Änderungsdatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Benutzer.setEditable(false);
         jTextField_Benutzer.setBorder(null);
         jTextField_Benutzer.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Benutzer.setEnabled(false);
+        jTextField_Benutzer.setOpaque(false);
         jTextField_Benutzer.setPreferredSize(new java.awt.Dimension(204, 20));
 
         javax.swing.GroupLayout jPanel_editDataLayout = new javax.swing.GroupLayout(jPanel_editData);
@@ -422,9 +457,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                         .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(216, 216, 216))
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
-                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_editDataLayout.setVerticalGroup(
@@ -461,6 +496,8 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel_footer.setOpaque(false);
+
         btn_close.setText("Schließen");
         btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,39 +512,53 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_close)
-                .addContainerGap(713, Short.MAX_VALUE))
+                .addContainerGap(845, Short.MAX_VALUE))
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btn_close)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
+        jPanel_base.setLayout(jPanel_baseLayout);
+        jPanel_baseLayout.setHorizontalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_baseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 907, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
+                .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_baseLayout.setVerticalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
+                .addContainerGap(371, Short.MAX_VALUE)
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_baseLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(187, 187, 187)
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -656,14 +707,14 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
     private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
     private void btn_deleteSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValueActionPerformed
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_getCurrentDBDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_getCurrentDBDataActionPerformed
@@ -744,7 +795,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                 btn_delete.setEnabled(false);
                 btn_accept.setEnabled(false);
                 btn_cancel.setEnabled(false);
-                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
             }
         }
         DataSet_Mode = "clean";
@@ -804,9 +855,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                 set_tableEnabled(true);
                 //            }
             get_DBTableData();
-            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
+            DataSet_Mode = "clean";
         }
-        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_acceptActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -850,6 +901,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         }
         int myReturnValue = test_continueEditing();
             if (myReturnValue != 0 || DataSet_Mode.equals("clean")) {
+                InstanceCount = 0;
                 this.dispose();
             }
     }//GEN-LAST:event_btn_closeActionPerformed
@@ -922,6 +974,11 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                 btn_edit.setEnabled(true);
                 btn_duplicate.setEnabled(true);
                 btn_delete.setEnabled(true); 
+            }
+            else {
+                btn_edit.setEnabled(false);
+                btn_duplicate.setEnabled(false);
+                btn_delete.setEnabled(false);
             }  
 //        }
     }
@@ -968,7 +1025,10 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
             SimpleDateFormat myFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
             Anlagedatum = new Timestamp(System.currentTimeMillis());
             String result = myFormat.format(Anlagedatum);
-            Benutzer = System.getProperty("user.name"); 
+            Benutzer = System.getProperty("user.name");
+            if (jFormattedTextField_Säulengestell_Nr.getText().trim().equals("")) {
+                jFormattedTextField_Säulengestell_Nr.setText("SG0");
+            }
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Lochwerkzeug (pKey_LW, Bezeichnung, Säulengestell_Nr, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
@@ -1118,6 +1178,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
     private javax.swing.JTextField jFormattedTextField_Saeulengestell_Bezeichnung;
     private javax.swing.JFormattedTextField jFormattedTextField_Säulengestell_Nr;
     private javax.swing.JLabel jLabel_Saeulengestell_Bezeichnung;
+    private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
     private javax.swing.JPanel jPanel_editTextFields;
