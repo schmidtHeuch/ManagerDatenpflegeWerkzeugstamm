@@ -8,6 +8,9 @@ package GUI;
 import DBTools.DB_ConnectionManager;
 //import managerdatenpflegewerkzeugstamm.CustomTableCellRenderer;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,13 +28,16 @@ import javax.swing.table.TableRowSorter;
  * @author schmidtu
  */
 public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
+    static int InstanceCount;
     
     /**
      * Creates new form Frame_DataMaintenance_Segment
      */
     public Frame_DataMaintenance_Segment() {
+        InstanceCount++;
         this.Old_Plattenstärke = "";
         this.Old_Segmenttyp = "";
+        this.Old_Zugehörigkeit = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -39,7 +45,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
+        jComboBox_Segmenttyp.insertItemAt("",0);
+        jComboBox_Segmenttyp.insertItemAt("Klappenwerkzeug",1);
+        jComboBox_Segmenttyp.setSelectedIndex(0);
+        jComboBox_Zugehörigkeit.insertItemAt("",0);
+        jComboBox_Zugehörigkeit.insertItemAt("Obertisch",1);
+        jComboBox_Zugehörigkeit.insertItemAt("Untertisch",2);
+        jComboBox_Zugehörigkeit.setSelectedIndex(0);
         }
+    public int getInstance() {
+        return InstanceCount;
+    }
     
     boolean myAnswerIfConnected;
     Connection myConnection;
@@ -49,6 +65,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     String Old_Key;
     String Old_Plattenstärke;
     String Old_Segmenttyp;
+    String Old_Zugehörigkeit;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -61,7 +78,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
         createRowSorter(myTableModel);
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
@@ -69,7 +86,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTable_dbData.setRowSorter(mySorter);
     }
     
-    public void search() {
+    private void search() {
         String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
@@ -77,10 +94,19 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void do_postBuild() {                
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
-        });  
-        jComboBox_Segmenttyp.insertItemAt("",0);
-        jComboBox_Segmenttyp.insertItemAt("Klappenwerkzeug",1);
-        jComboBox_Segmenttyp.setSelectedIndex(-1);
+        }); 
+        KeyListener tfKeyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    btn_accept.doClick();
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE)
+                    btn_delete.doClick();
+            }
+        };
+        jTextField_key.addKeyListener(tfKeyListener);
+        jFormattedTextField_Plattenstärke.addKeyListener(tfKeyListener); 
+        jTable_dbData.addKeyListener(tfKeyListener);       
     }
       
     /**
@@ -92,6 +118,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_base = new javax.swing.JPanel();
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
         btn_deleteSearchValue = new javax.swing.JButton();
@@ -106,10 +133,12 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         lbl_key = new javax.swing.JLabel();
         lbl_Plattenstärke = new javax.swing.JLabel();
         lbl_Segmenttyp = new javax.swing.JLabel();
+        lbl_Zugehörigkeit = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Plattenstärke = new javax.swing.JFormattedTextField();
         jComboBox_Segmenttyp = new javax.swing.JComboBox<>();
+        jComboBox_Zugehörigkeit = new javax.swing.JComboBox<>();
         jPanel_editButtons = new javax.swing.JPanel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
@@ -127,6 +156,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -136,13 +166,17 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             }
         });
 
+        jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel_table.setOpaque(false);
+
         jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField_searchValueKeyReleased(evt);
             }
         });
 
-        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon("U:\\Eigene\\schmidtu\\images\\Löschen.png")); // NOI18N
+        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
         btn_deleteSearchValue.setPreferredSize(new java.awt.Dimension(23, 23));
         btn_deleteSearchValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,14 +189,14 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "KP Artikel-Nr. (Key)", "Plattenstärke", "Segmenttyp", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "KP Artikel-Nr. (Key)", "Plattenstärke", "Segmenttyp", "Zugehörigkeit", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -186,12 +220,13 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(120);
             jTable_dbData.getColumnModel().getColumn(2).setMinWidth(300);
             jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(300);
-            jTable_dbData.getColumnModel().getColumn(3).setMinWidth(150);
-            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(100);
             jTable_dbData.getColumnModel().getColumn(4).setMinWidth(150);
             jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(5).setMinWidth(100);
-            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(5).setMinWidth(150);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(6).setMinWidth(100);
+            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -227,7 +262,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                         .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_getCurrentDBData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -247,12 +282,14 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                             .addComponent(btn_getCurrentDBData)))
                     .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 1077, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        jPanel_editData.setOpaque(false);
 
+        jPanel_editLabels.setOpaque(false);
         jPanel_editLabels.setPreferredSize(new java.awt.Dimension(801, 20));
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -268,6 +305,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         lbl_Segmenttyp.setPreferredSize(new java.awt.Dimension(300, 14));
         jPanel_editLabels.add(lbl_Segmenttyp);
 
+        lbl_Zugehörigkeit.setText("Zugehörigkeit");
+        lbl_Zugehörigkeit.setPreferredSize(new java.awt.Dimension(100, 14));
+        jPanel_editLabels.add(lbl_Zugehörigkeit);
+
+        jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(801, 22));
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -289,6 +331,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jComboBox_Segmenttyp.setPreferredSize(new java.awt.Dimension(300, 20));
         jPanel_editTextFields.add(jComboBox_Segmenttyp);
 
+        jComboBox_Zugehörigkeit.setEnabled(false);
+        jComboBox_Zugehörigkeit.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel_editTextFields.add(jComboBox_Zugehörigkeit);
+
+        jPanel_editButtons.setOpaque(false);
         jPanel_editButtons.setPreferredSize(new java.awt.Dimension(370, 74));
 
         btn_new.setText("Neu");
@@ -385,25 +432,28 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTextField_Anlagedatum.setBorder(null);
         jTextField_Anlagedatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Anlagedatum.setEnabled(false);
+        jTextField_Anlagedatum.setOpaque(false);
         jTextField_Anlagedatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Änderungsdatum.setEditable(false);
         jTextField_Änderungsdatum.setBorder(null);
         jTextField_Änderungsdatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Änderungsdatum.setEnabled(false);
+        jTextField_Änderungsdatum.setOpaque(false);
         jTextField_Änderungsdatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Benutzer.setEditable(false);
         jTextField_Benutzer.setBorder(null);
         jTextField_Benutzer.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Benutzer.setEnabled(false);
+        jTextField_Benutzer.setOpaque(false);
         jTextField_Benutzer.setPreferredSize(new java.awt.Dimension(204, 20));
 
         javax.swing.GroupLayout jPanel_editDataLayout = new javax.swing.GroupLayout(jPanel_editData);
         jPanel_editData.setLayout(jPanel_editDataLayout);
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, 1311, Short.MAX_VALUE)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
                 .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -420,7 +470,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                         .addComponent(lbl_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel_editDataLayout.setVerticalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,6 +497,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel_footer.setOpaque(false);
         jPanel_footer.setPreferredSize(new java.awt.Dimension(97, 23));
 
         btn_close.setText("Schließen");
@@ -463,37 +514,53 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_close)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(822, Short.MAX_VALUE))
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btn_close)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
+        jPanel_base.setLayout(jPanel_baseLayout);
+        jPanel_baseLayout.setHorizontalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 929, Short.MAX_VALUE)
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
+                .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_baseLayout.setVerticalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 575, Short.MAX_VALUE)
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_baseLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel_footer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -534,7 +601,13 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 for (int i = 1; i <= TableColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
-                    if (myDataSet != null && i == 4 || myDataSet != null && i == 5) {
+//                    if (myDataSet == null && i == 3) {
+//                        myDataSet = "0";
+//                    }
+//                    if (myDataSet == null && i == 4) {
+//                        myDataSet = "0";
+//                    }
+                    if (myDataSet != null && i == 5 || myDataSet != null && i == 6) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
@@ -565,7 +638,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -575,6 +648,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         }
         int myReturnValue = test_continueEditing();
             if (myReturnValue != 0 || DataSet_Mode.equals("clean")) {
+                InstanceCount = 0;
                 this.dispose();
             }
     }//GEN-LAST:event_btn_closeActionPerformed
@@ -615,24 +689,35 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                     jComboBox_Segmenttyp.setSelectedItem(myTableModel.getValueAt(myRow, 2));
 //                    jTextField_Segmenttyp.setText(myTableModel.getValueAt(myRow, 2).toString().trim());
                 }
-                else {jComboBox_Segmenttyp.setSelectedIndex(-1); /*jTextField_Segmenttyp.setText("");*/}
+                else {jComboBox_Segmenttyp.setSelectedIndex(0); /*jTextField_Segmenttyp.setText("");*/}
                 
                 if (myTableModel.getValueAt(myRow, 3) != null) {
-                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 3).toString().trim());
+                    jComboBox_Zugehörigkeit.setSelectedItem(myTableModel.getValueAt(myRow, 3));
+//                    jComboBox_Zugehörigkeit.setText(myTableModel.getValueAt(myRow, 2).toString().trim());
+                }
+                else {jComboBox_Zugehörigkeit.setSelectedIndex(0); /*jTextField_Segmenttyp.setText("");*/}
+                
+                if (myTableModel.getValueAt(myRow, 4) != null) {
+                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 4).toString().trim());
                 }
                 else {jTextField_Anlagedatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 4) != null) {
-                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 4).toString().trim());
+                if (myTableModel.getValueAt(myRow, 5) != null) {
+                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 5).toString().trim());
                 }
                 else {jTextField_Änderungsdatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 5) != null) {
-                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 5).toString().trim()); 
+                if (myTableModel.getValueAt(myRow, 6) != null) {
+                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 6).toString().trim()); 
                 }
                 else {jTextField_Benutzer.setText("");}                
                 
                 btn_edit.setEnabled(true);
                 btn_duplicate.setEnabled(true);
                 btn_delete.setEnabled(true); 
+            }
+            else {
+                btn_edit.setEnabled(false);
+                btn_duplicate.setEnabled(false);
+                btn_delete.setEnabled(false);
             }  
 //        }
     }
@@ -658,7 +743,10 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                         return;
                 }
                 if (DataSet_Mode.equals("edit") && !Old_Plattenstärke.equals(jFormattedTextField_Plattenstärke.getText().trim())
-                        || !Old_Segmenttyp.equals(jComboBox_Segmenttyp.getSelectedIndex())) {                    
+                         || Old_Segmenttyp != jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex())
+                         || Old_Zugehörigkeit != jComboBox_Zugehörigkeit.getItemAt(jComboBox_Zugehörigkeit.getSelectedIndex())
+                       /* || !Old_Segmenttyp.equals(jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex()))
+                        || !Old_Zugehörigkeit.equals(jComboBox_Zugehörigkeit.getItemAt(jComboBox_Zugehörigkeit.getSelectedIndex()))*/) {                    
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -690,9 +778,9 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 set_tableEnabled(true);
 //            } 
             get_DBTableData();
-            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));      
+            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
+            DataSet_Mode = "clean";
         }
-        DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_acceptActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
@@ -714,7 +802,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
                 btn_delete.setEnabled(false);
                 btn_accept.setEnabled(false);
                 btn_cancel.setEnabled(false);
-                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));         
+                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));      
             }
         }
         DataSet_Mode = "clean";
@@ -792,7 +880,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -822,7 +910,8 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
         jFormattedTextField_Plattenstärke.setText(""); 
-        jComboBox_Segmenttyp.setSelectedIndex(0-1);
+        jComboBox_Segmenttyp.setSelectedIndex(0);
+        jComboBox_Zugehörigkeit.setSelectedIndex(0);
         jTextField_Anlagedatum.setText("");
         jTextField_Änderungsdatum.setText("");
         jTextField_Benutzer.setText("");      
@@ -832,12 +921,14 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         Old_Key = jTextField_key.getText().trim();
         Old_Plattenstärke = jFormattedTextField_Plattenstärke.getText().trim();
         Old_Segmenttyp = jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex());
+        Old_Zugehörigkeit = jComboBox_Zugehörigkeit.getItemAt(jComboBox_Zugehörigkeit.getSelectedIndex());
     }
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Plattenstärke.setText(Old_Plattenstärke);  
         jComboBox_Segmenttyp.setSelectedItem(Old_Segmenttyp);
+        jComboBox_Zugehörigkeit.setSelectedItem(Old_Zugehörigkeit);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {        
@@ -847,13 +938,15 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
         jTextField_key.setEnabled(aBoolean);
         
         jFormattedTextField_Plattenstärke.setEnabled(true); 
-        jComboBox_Segmenttyp.setEnabled(true);   
+        jComboBox_Segmenttyp.setEnabled(true);
+        jComboBox_Zugehörigkeit.setEnabled(true);
     }
     
     private void set_textFieldsDisabled() {        
         jTextField_key.setEnabled(false);
         jFormattedTextField_Plattenstärke.setEnabled(false);  
-        jComboBox_Segmenttyp.setEnabled(false);        
+        jComboBox_Segmenttyp.setEnabled(false);
+        jComboBox_Zugehörigkeit.setEnabled(false);
     }
     
     private void do_insertDataSet_intoDB() {        
@@ -870,10 +963,11 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             String result = myFormat.format(Anlagedatum);
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Plattenstärke, Segmenttyp, Anlagedatum, Benutzer)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Segment (pKey_KP, Plattenstärke, Segmenttyp, Zugehörigkeit, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
                     + jFormattedTextField_Plattenstärke.getText().trim() + "', '" 
                     + jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex()) + "', '" 
+                    + jComboBox_Zugehörigkeit.getItemAt(jComboBox_Zugehörigkeit.getSelectedIndex()) + "', '" 
                     + result + "', '" 
                     + Benutzer +"')");  
 //                    + ((Number) jFormattedTextField_Segmenthöhe.getValue()).floatValue() +"')");               
@@ -907,6 +1001,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Segment SET Plattenstärke = '" + jFormattedTextField_Plattenstärke.getText().trim() +
                     "', Segmenttyp = '" + jComboBox_Segmenttyp.getItemAt(jComboBox_Segmenttyp.getSelectedIndex()) +
+                    "', Zugehörigkeit = '" + jComboBox_Zugehörigkeit.getItemAt(jComboBox_Zugehörigkeit.getSelectedIndex()) +
                     "', Änderungsdatum = '" + result +
                     "', Benutzer = '" + Benutzer +
                     
@@ -1013,7 +1108,9 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
     private javax.swing.JComboBox<String> jComboBox_Segmenttyp;
+    private javax.swing.JComboBox<String> jComboBox_Zugehörigkeit;
     private javax.swing.JFormattedTextField jFormattedTextField_Plattenstärke;
+    private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_editButtons;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
@@ -1031,6 +1128,7 @@ public class Frame_DataMaintenance_Segment extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Benutzer;
     private javax.swing.JLabel lbl_Plattenstärke;
     private javax.swing.JLabel lbl_Segmenttyp;
+    private javax.swing.JLabel lbl_Zugehörigkeit;
     private javax.swing.JLabel lbl_key;
     private javax.swing.JLabel lbl_rowCount;
     private javax.swing.JLabel lbl_search1;
