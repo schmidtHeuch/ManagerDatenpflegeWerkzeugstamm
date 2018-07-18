@@ -75,7 +75,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         get_DBTableData();
         myTableModel = (DefaultTableModel) jTable_dbData.getModel();
         createRowSorter(myTableModel);
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }
     
     private void createRowSorter(DefaultTableModel aModel) {
@@ -83,7 +83,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         jTable_dbData.setRowSorter(mySorter);
     }
     
-    public void search() {
+    private void search() {
         String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
@@ -116,6 +116,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_base = new javax.swing.JPanel();
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
         btn_deleteSearchValue = new javax.swing.JButton();
@@ -153,6 +154,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -161,6 +163,10 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+
+        jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanel_table.setOpaque(false);
 
         jTextField_searchValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -247,7 +253,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                         .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_getCurrentDBData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -267,12 +273,14 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                             .addComponent(btn_getCurrentDBData)))
                     .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
+        jPanel_editData.setOpaque(false);
 
+        jPanel_editLabels.setOpaque(false);
         jPanel_editLabels.setPreferredSize(new java.awt.Dimension(801, 20));
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -292,6 +300,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         lbl_Bestand.setPreferredSize(new java.awt.Dimension(100, 14));
         jPanel_editLabels.add(lbl_Bestand);
 
+        jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(801, 22));
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -320,6 +329,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         jFormattedTextField_Bestand.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel_editTextFields.add(jFormattedTextField_Bestand);
 
+        jPanel_editButtons.setOpaque(false);
         jPanel_editButtons.setPreferredSize(new java.awt.Dimension(370, 74));
 
         btn_new.setText("Neu");
@@ -387,7 +397,8 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         );
         jPanel_editButtonsLayout.setVerticalGroup(
             jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_editButtonsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editButtonsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_new)
                     .addComponent(btn_edit)
@@ -397,7 +408,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 .addGroup(jPanel_editButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_accept)
                     .addComponent(btn_cancel))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         lbl_Anlagedatum.setText("Anlagedatum:");
@@ -416,42 +427,41 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
         jTextField_Anlagedatum.setBorder(null);
         jTextField_Anlagedatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Anlagedatum.setEnabled(false);
+        jTextField_Anlagedatum.setOpaque(false);
         jTextField_Anlagedatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Änderungsdatum.setEditable(false);
         jTextField_Änderungsdatum.setBorder(null);
         jTextField_Änderungsdatum.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Änderungsdatum.setEnabled(false);
+        jTextField_Änderungsdatum.setOpaque(false);
         jTextField_Änderungsdatum.setPreferredSize(new java.awt.Dimension(204, 20));
 
         jTextField_Benutzer.setEditable(false);
         jTextField_Benutzer.setBorder(null);
         jTextField_Benutzer.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextField_Benutzer.setEnabled(false);
+        jTextField_Benutzer.setOpaque(false);
         jTextField_Benutzer.setPreferredSize(new java.awt.Dimension(204, 20));
 
         javax.swing.GroupLayout jPanel_editDataLayout = new javax.swing.GroupLayout(jPanel_editData);
         jPanel_editData.setLayout(jPanel_editDataLayout);
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
                 .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                        .addComponent(lbl_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                        .addComponent(lbl_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                        .addComponent(lbl_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel_editDataLayout.setVerticalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,23 +471,26 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                        .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel_editButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                    .addComponent(jPanel_editButtons, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                                .addComponent(lbl_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
+                                .addComponent(jTextField_Anlagedatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
 
+        jPanel_footer.setOpaque(false);
         jPanel_footer.setPreferredSize(new java.awt.Dimension(97, 23));
 
         btn_close.setText("Schließen");
@@ -494,40 +507,52 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_close)
-                .addContainerGap(822, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btn_close)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
+        );
+
+        javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
+        jPanel_base.setLayout(jPanel_baseLayout);
+        jPanel_baseLayout.setHorizontalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_baseLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_baseLayout.setVerticalGroup(
+            jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
+                .addGap(0, 417, Short.MAX_VALUE)
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_baseLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(212, 212, 212)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel_table, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel_footer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel_base, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -595,14 +620,14 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
     private void jTextField_searchValueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_searchValueKeyReleased
         // TODO add your handling code here:
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
     private void btn_deleteSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValueActionPerformed
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+        lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
     }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_getCurrentDBDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_getCurrentDBDataActionPerformed
@@ -668,7 +693,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 btn_delete.setEnabled(false);
                 btn_accept.setEnabled(false);
                 btn_cancel.setEnabled(false);
-                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+                lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
             }
         }
         DataSet_Mode = "clean";
@@ -729,7 +754,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 set_tableEnabled(true);
                 //            }
             get_DBTableData();
-            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " / " + String.valueOf(myTableModel.getRowCount()));
+            lbl_rowCount.setText(String.valueOf(mySorter.getViewRowCount()) + " von " + String.valueOf(myTableModel.getRowCount()));
             DataSet_Mode = "clean";
         }
     }//GEN-LAST:event_btn_acceptActionPerformed
@@ -837,6 +862,11 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
                 btn_edit.setEnabled(true);
                 btn_duplicate.setEnabled(true);
                 btn_delete.setEnabled(true); 
+            }
+            else {
+                btn_edit.setEnabled(false);
+                btn_duplicate.setEnabled(false);
+                btn_delete.setEnabled(false);
             }  
 //        }
     }
@@ -1058,6 +1088,7 @@ public class Frame_DataMaintenance_Segmentrahmen extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox_Rahmenart;
     private javax.swing.JFormattedTextField jFormattedTextField_Bestand;
     private javax.swing.JFormattedTextField jFormattedTextField_Höhe;
+    private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_editButtons;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
