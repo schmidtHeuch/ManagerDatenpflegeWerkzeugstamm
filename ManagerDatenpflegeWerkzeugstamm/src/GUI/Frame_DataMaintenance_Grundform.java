@@ -7,6 +7,9 @@ package GUI;
 
 import DBTools.DB_ConnectionManager;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.MouseInfo;
@@ -32,17 +35,22 @@ import javax.swing.table.TableRowSorter;
  * @author schmidtu
  */
 public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
+    static int InstanceCount;
 
     /**
      * Creates new form Frame_DataMaintenance_Grundform
      */
     public Frame_DataMaintenance_Grundform() {
+        InstanceCount++;
         initComponents();
         btn_edit.setEnabled(false);
         btn_duplicate.setEnabled(false);
         btn_delete.setEnabled(false);
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
+    }
+    public int getInstance() {
+        return InstanceCount;
     }
     
     boolean myAnswerIfConnected;
@@ -110,7 +118,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         jTable_dbData.setRowSorter(mySorter);
     }
     
-    public void search() {
+    private void search() {
         String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
     }
@@ -119,6 +127,18 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         jTable_dbData.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             set_valuesIntoTextFields();
         });
+        KeyListener tfKeyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+                    btn_accept.doClick();
+                if (evt.getKeyCode() == KeyEvent.VK_DELETE)
+                    btn_delete.doClick();
+            }
+        };
+        jTextField_key.addKeyListener(tfKeyListener);
+        jTable_dbData.addKeyListener(tfKeyListener);
+//        jFormattedTextField_Bezeichnung.addKeyListener(tfKeyListener);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,7 +151,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
 
         jPanel_table = new javax.swing.JPanel();
         jTextField_searchValue = new javax.swing.JTextField();
-        btn_deleteSearchValue1 = new javax.swing.JButton();
+        btn_deleteSearchValue = new javax.swing.JButton();
         jScrollPane_dbData = new javax.swing.JScrollPane();
         jTable_dbData = new javax.swing.JTable();
         lbl_search1 = new javax.swing.JLabel();
@@ -235,10 +255,11 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
             }
         });
 
-        btn_deleteSearchValue1.setText("X");
-        btn_deleteSearchValue1.addActionListener(new java.awt.event.ActionListener() {
+        btn_deleteSearchValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
+        btn_deleteSearchValue.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_deleteSearchValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_deleteSearchValue1ActionPerformed(evt);
+                btn_deleteSearchValueActionPerformed(evt);
             }
         });
 
@@ -335,18 +356,16 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                     .addComponent(jScrollPane_dbData)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_tableName)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
                                 .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_search1)
-                            .addComponent(lbl_tableName))
+                                .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_getCurrentDBData))
+                            .addComponent(lbl_search1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_rowCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(btn_getCurrentDBData)
-                                .addGap(8, 8, 8)))))
+                        .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel_tableLayout.setVerticalGroup(
@@ -359,13 +378,15 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_search1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_deleteSearchValue1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
+                                .addComponent(btn_getCurrentDBData)
+                                .addGap(3, 3, 3))))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btn_getCurrentDBData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(72, 72, 72)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 1733, Short.MAX_VALUE)
@@ -929,7 +950,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane_editData)
@@ -1013,11 +1034,11 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         search();
     }//GEN-LAST:event_jTextField_searchValueKeyReleased
 
-    private void btn_deleteSearchValue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValue1ActionPerformed
+    private void btn_deleteSearchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteSearchValueActionPerformed
         // TODO add your handling code here:
         jTextField_searchValue.setText("");
         search();
-    }//GEN-LAST:event_btn_deleteSearchValue1ActionPerformed
+    }//GEN-LAST:event_btn_deleteSearchValueActionPerformed
 
     private void btn_getCurrentDBDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_getCurrentDBDataActionPerformed
         // TODO add your handling code here:
@@ -1035,6 +1056,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         DataSet_Mode = "new";
         set_textFieldsEnabled(true);
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEmpty();
         jTextField_key.requestFocus();
         btn_new.setEnabled(false);
@@ -1236,6 +1258,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         // TODO add your handling code here:
         DataSet_Mode = "edit";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(false);
         jFormattedTextField_L1.requestFocus();
         btn_new.setEnabled(false);
@@ -1356,8 +1379,10 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
                 btn_duplicate.setEnabled(false);
                 btn_delete.setEnabled(false);
             }
+            set_tableEnabled(true);
             get_DBTableData();
             lbl_rowCount.setText(String.valueOf(myTableModel.getRowCount()));
+            DataSet_Mode = "clean";
         }
     }//GEN-LAST:event_btn_acceptActionPerformed
 
@@ -1373,12 +1398,14 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         }
         btn_accept.setEnabled(false);
         btn_cancel.setEnabled(false);
+        set_tableEnabled(true);
     }//GEN-LAST:event_btn_cancelActionPerformed
 
     private void btn_duplicateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_duplicateActionPerformed
         // TODO add your handling code here:
         DataSet_Mode = "duplicate";
         set_oldValues();
+        set_tableEnabled(false);
         set_textFieldsEnabled(true);
         jTextField_key.requestFocus();
         btn_new.setEnabled(false);
@@ -1394,6 +1421,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
         if (MY_DBCM.isConnnected()) {
             MY_DBCM.setConnection_CLOSED("jdbc:sqlserver://HV-ABAS-SQL;databaseName=DiafBDE;integratedSecurity=true", "DISCONNECT");
         }
+        InstanceCount = 0;
         this.dispose();
         //        }
     }//GEN-LAST:event_btn_closeActionPerformed
@@ -1808,6 +1836,9 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
 //        jFormattedTextField_Breite.setEnabled(false);
 //        jFormattedTextField_L1.setEnabled(false);      
     }
+    private void set_tableEnabled(boolean aBoolean) {
+        jTable_dbData.setEnabled(aBoolean);
+    }
     /**
      * @param args the command line arguments
      */
@@ -1846,7 +1877,7 @@ public class Frame_DataMaintenance_Grundform extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_delete;
-    private javax.swing.JButton btn_deleteSearchValue1;
+    private javax.swing.JButton btn_deleteSearchValue;
     private javax.swing.JButton btn_duplicate;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
