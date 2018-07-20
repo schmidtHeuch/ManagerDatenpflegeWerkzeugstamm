@@ -37,6 +37,9 @@ public class Frame_DataMaintenance_Schriftzug extends javax.swing.JFrame {
         InstanceCount++;
         this.Old_Bezeichnung = "";
         this.Old_Gravur_Nr = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -57,6 +60,9 @@ public class Frame_DataMaintenance_Schriftzug extends javax.swing.JFrame {
     String Old_Key;
     String Old_Bezeichnung;
     String Old_Gravur_Nr;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -880,11 +886,17 @@ public class Frame_DataMaintenance_Schriftzug extends javax.swing.JFrame {
         Old_Key = jTextField_key.getText().trim();
         Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
         Old_Gravur_Nr = jFormattedTextField_Gravur_Nr.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung);
         jFormattedTextField_Gravur_Nr.setText(Old_Gravur_Nr);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     private void set_textFieldsEnabled(boolean aBoolean) {        
         for (int i=1; i < jPanel_editLabels.getComponentCount(); i++) {
