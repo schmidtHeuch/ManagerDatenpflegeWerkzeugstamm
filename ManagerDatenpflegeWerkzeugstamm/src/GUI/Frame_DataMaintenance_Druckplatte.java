@@ -41,6 +41,9 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         this.Old_Achsmaß_Länge = "";
         this.Old_Achsmaß_Breite = "";
         this.Old_Bestand = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -64,6 +67,9 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
     String Old_Achsmaß_Länge;
     String Old_Achsmaß_Breite;
     String Old_Bestand;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -223,8 +229,8 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
             jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(120);
-            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(120);
-            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(100);
             jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(100);
             jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(100);
@@ -261,8 +267,8 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
                             .addComponent(lbl_search1))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
-                        .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_getCurrentDBData)
@@ -306,11 +312,11 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_Druckplattenstärke);
 
         lbl_Druckplatten_Nut_Länge.setText("Druckplatten Nut Länge");
-        lbl_Druckplatten_Nut_Länge.setPreferredSize(new java.awt.Dimension(120, 14));
+        lbl_Druckplatten_Nut_Länge.setPreferredSize(new java.awt.Dimension(150, 14));
         jPanel_editLabels.add(lbl_Druckplatten_Nut_Länge);
 
         lbl_Druckplatten_Nut_Breite.setText("Druckplatten Nut Breite");
-        lbl_Druckplatten_Nut_Breite.setPreferredSize(new java.awt.Dimension(120, 14));
+        lbl_Druckplatten_Nut_Breite.setPreferredSize(new java.awt.Dimension(150, 14));
         jPanel_editLabels.add(lbl_Druckplatten_Nut_Breite);
 
         lbl_Achsmaß_Länge.setText("Achsmaß Länge");
@@ -347,14 +353,14 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         jFormattedTextField_Druckplatten_Nut_Länge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Druckplatten_Nut_Länge.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Druckplatten_Nut_Länge.setEnabled(false);
-        jFormattedTextField_Druckplatten_Nut_Länge.setPreferredSize(new java.awt.Dimension(120, 20));
+        jFormattedTextField_Druckplatten_Nut_Länge.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Druckplatten_Nut_Länge);
 
         jFormattedTextField_Druckplatten_Nut_Breite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Druckplatten_Nut_Breite.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Druckplatten_Nut_Breite.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Druckplatten_Nut_Breite.setEnabled(false);
-        jFormattedTextField_Druckplatten_Nut_Breite.setPreferredSize(new java.awt.Dimension(120, 20));
+        jFormattedTextField_Druckplatten_Nut_Breite.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Druckplatten_Nut_Breite);
 
         jFormattedTextField_Achsmaß_Länge.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
@@ -497,7 +503,7 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         jPanel_editData.setLayout(jPanel_editDataLayout);
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE)
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
                 .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -573,7 +579,7 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE))
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -972,6 +978,9 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         Old_Achsmaß_Länge = jFormattedTextField_Achsmaß_Länge.getText().trim();
         Old_Achsmaß_Breite = jFormattedTextField_Achsmaß_Breite.getText().trim();
         Old_Bestand = jFormattedTextField_Bestand.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     
     private void get_oldValues() {         
@@ -982,6 +991,9 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         jFormattedTextField_Achsmaß_Länge.setText(Old_Achsmaß_Länge);
         jFormattedTextField_Achsmaß_Breite.setText(Old_Achsmaß_Breite);
         jFormattedTextField_Bestand.setText(Old_Bestand);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {        
