@@ -27,7 +27,8 @@ public class Frame_Grundform extends javax.swing.JFrame {
     Frame_DataMaintenance_Kühlplatte myDMKühlplatte;
     Frame_DataMaintenance_Grundplatte myDMGrundplatte;
     Frame_DataMaintenance_Druckplatte myDMDruckplatte;
-
+    Frame_DataMaintenance_Grundformstamm myGrundformstamm;
+    
     public int getInstance() {
         return InstanceCount;
     }
@@ -49,9 +50,9 @@ public class Frame_Grundform extends javax.swing.JFrame {
         btn_open_dataMaintenance_Kühlplatte = new javax.swing.JButton();
         btn_open_dataMaintenance_Grundplatte = new javax.swing.JButton();
         btn_open_dataMaintenance_Druckplatte = new javax.swing.JButton();
+        btn_open_dataMaintenance_Grundformstamm = new javax.swing.JButton();
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
-        btn_close = new javax.swing.JButton();
         btn_exitProgram = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_infoAboutSequence = new javax.swing.JTextArea();
@@ -115,11 +116,12 @@ public class Frame_Grundform extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Werkzeugstamm.setText("Manager Werkzeugstamm");
-        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
-        btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
+        btn_open_dataMaintenance_Grundformstamm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_open_dataMaintenance_Grundformstamm.setText("Grundformstamm");
+        btn_open_dataMaintenance_Grundformstamm.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Grundformstamm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
+                btn_open_dataMaintenance_GrundformstammActionPerformed(evt);
             }
         });
 
@@ -127,17 +129,21 @@ public class Frame_Grundform extends javax.swing.JFrame {
         jPanel_buttons.setLayout(jPanel_buttonsLayout);
         jPanel_buttonsLayout.setHorizontalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Kühlplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Kühlplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Unterbauleiste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                    .addGap(7, 7, 7)
+                    .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(8, 8, 8)))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,9 +160,21 @@ public class Frame_Grundform extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
-                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(393, Short.MAX_VALUE))
+            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
+                    .addGap(292, 292, 292)
+                    .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(292, Short.MAX_VALUE)))
         );
+
+        btn_open_dataMaintenance_Werkzeugstamm.setText("Manager Werkzeugstamm");
+        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
         jPanel_main.setLayout(jPanel_mainLayout);
@@ -164,25 +182,22 @@ public class Frame_Grundform extends javax.swing.JFrame {
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         jPanel_mainLayout.setVerticalGroup(
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_mainLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel_footer.setOpaque(false);
-
-        btn_close.setText("Schließen");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
-            }
-        });
 
         btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
         btn_exitProgram.setText("Programm beenden");
@@ -198,20 +213,15 @@ public class Frame_Grundform extends javax.swing.JFrame {
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addGroup(jPanel_footerLayout.createSequentialGroup()
-                        .addComponent(btn_close)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addComponent(btn_close)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btn_exitProgram)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setEnabled(false);
@@ -233,7 +243,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
             .addComponent(jPanel_footer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -243,12 +253,12 @@ public class Frame_Grundform extends javax.swing.JFrame {
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 672, Short.MAX_VALUE)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
-                    .addComponent(jPanel_main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 79, Short.MAX_VALUE)))
+                    .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(50, 50, 50)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,17 +359,11 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMDruckplatte = new Frame_DataMaintenance_Druckplatte();
             myDMDruckplatte.setTitle("Stammdaten-Pflege: Druckplatte");
-            myDMDruckplatte.setSize(925, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMDruckplatte.setSize(950, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMDruckplatte.setLocation(245, 0);
             myDMDruckplatte.setVisible(true);
         }
     }//GEN-LAST:event_btn_open_dataMaintenance_DruckplatteActionPerformed
-
-    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
-        // TODO add your handling code here:
-        InstanceCount = 0;
-        this.dispose();
-    }//GEN-LAST:event_btn_closeActionPerformed
 
     private void btn_open_dataMaintenance_WerkzeugstammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_WerkzeugstammActionPerformed
         // TODO add your handling code here:
@@ -371,6 +375,21 @@ public class Frame_Grundform extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btn_exitProgramActionPerformed
+
+    private void btn_open_dataMaintenance_GrundformstammActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_GrundformstammActionPerformed
+        // TODO add your handling code here:
+        if (myGrundformstamm != null && myGrundformstamm.getInstance() >= 1) {
+            myGrundformstamm.setAlwaysOnTop(true);
+            myGrundformstamm.setAlwaysOnTop(false);
+        }
+        else {
+            myGrundformstamm = new Frame_DataMaintenance_Grundformstamm();
+            myGrundformstamm.setTitle("Stammdaten-Pflege: Grundformstamm");
+            myGrundformstamm.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            //            myManagerGrundform.setLocation(245, 0);
+            myGrundformstamm.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_open_dataMaintenance_GrundformstammActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,10 +425,10 @@ public class Frame_Grundform extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_exitProgram;
     private javax.swing.JButton btn_open_dataMaintenance_Druckplatte;
     private javax.swing.JButton btn_open_dataMaintenance_Druckrahmen;
+    private javax.swing.JButton btn_open_dataMaintenance_Grundformstamm;
     private javax.swing.JButton btn_open_dataMaintenance_Grundplatte;
     private javax.swing.JButton btn_open_dataMaintenance_Kühlplatte;
     private javax.swing.JButton btn_open_dataMaintenance_Segmentrahmen;
