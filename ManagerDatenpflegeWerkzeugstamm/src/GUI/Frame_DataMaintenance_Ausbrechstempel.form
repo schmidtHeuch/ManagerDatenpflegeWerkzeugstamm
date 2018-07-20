@@ -92,13 +92,13 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane_dbData" max="32767" attributes="0"/>
+                          <Component id="jScrollPane_dbData" pref="734" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbl_tableName" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_search1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextField_searchValue" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextField_searchValue" min="-2" pref="128" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btn_deleteSearchValue" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -126,10 +126,12 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbl_search1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField_searchValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btn_deleteSearchValue" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btn_getCurrentDBData" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="btn_deleteSearchValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn_getCurrentDBData" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jTextField_searchValue" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="lbl_rowCount" alignment="1" min="-2" pref="18" max="-2" attributes="0"/>
