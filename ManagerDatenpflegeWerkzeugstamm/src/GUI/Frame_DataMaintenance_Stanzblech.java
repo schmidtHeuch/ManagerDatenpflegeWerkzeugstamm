@@ -41,6 +41,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         this.Old_Länge = "";
         this.Old_Breite = "";
         this.Old_Materialtyp_ID = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -64,6 +67,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     String Old_Breite;
     String Old_Materialtyp_ID;
     String Old_Bestand;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -1114,6 +1120,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         Old_Breite = jFormattedTextField_Breite.getText().trim();
         Old_Materialtyp_ID = jFormattedTextField_Materialtyp_ID.getText().trim();
         Old_Bestand = jFormattedTextField_Bestand.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     
     private void get_oldValues() {         
@@ -1126,6 +1135,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             jFormattedTextField_MaterialtypBezeichnung.setText("");
         }
         jFormattedTextField_Bestand.setText(Old_Bestand);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {        
