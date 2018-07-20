@@ -37,6 +37,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         InstanceCount++;
         this.Old_Grundplattenstärke = "";
         this.Old_Bestand = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -56,6 +59,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     String Old_Key;
     String Old_Grundplattenstärke;
     String Old_Bestand;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -231,19 +237,19 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
             .addGroup(jPanel_tableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane_dbData)
+                    .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_tableName)
                             .addComponent(lbl_search1))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
-                        .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_getCurrentDBData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -877,12 +883,18 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         Old_Key = jTextField_key.getText().trim();
         Old_Grundplattenstärke = jFormattedTextField_Grundplattenstärke.getText().trim();
         Old_Bestand = jFormattedTextField_Bestand.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Grundplattenstärke.setText(Old_Grundplattenstärke); 
         jFormattedTextField_Bestand.setText(Old_Bestand);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {        
