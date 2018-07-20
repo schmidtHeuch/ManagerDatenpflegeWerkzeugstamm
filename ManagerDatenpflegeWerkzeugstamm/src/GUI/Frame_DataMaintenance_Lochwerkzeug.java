@@ -39,6 +39,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         InstanceCount++;
         this.Old_Bezeichnung = "";
         this.Old_Säulengestell_Nr = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -59,6 +62,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
     String Old_Key;
     String Old_Bezeichnung;
     String Old_Säulengestell_Nr;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -127,9 +133,9 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         lbl_key = new javax.swing.JLabel();
         lbl_Bezeichnung = new javax.swing.JLabel();
         lbl_Säulengestell_Nr = new javax.swing.JLabel();
-        jLabel_Saeulengestell_Bezeichnung = new javax.swing.JLabel();
         btn_openDialog_Säulengestell = new javax.swing.JButton();
         btn_delete_Säulengestell = new javax.swing.JButton();
+        jLabel_Saeulengestell_Bezeichnung = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
@@ -241,13 +247,13 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_getCurrentDBData))
                             .addComponent(lbl_tableName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 384, Short.MAX_VALUE)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addComponent(lbl_search1)
@@ -287,16 +293,12 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_key);
 
         lbl_Bezeichnung.setText("Bezeichnung");
-        lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(204, 14));
+        lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 14));
         jPanel_editLabels.add(lbl_Bezeichnung);
 
         lbl_Säulengestell_Nr.setText("Säulengestell-Nr.");
-        lbl_Säulengestell_Nr.setPreferredSize(new java.awt.Dimension(150, 14));
+        lbl_Säulengestell_Nr.setPreferredSize(new java.awt.Dimension(104, 14));
         jPanel_editLabels.add(lbl_Säulengestell_Nr);
-
-        jLabel_Saeulengestell_Bezeichnung.setText("Bezeichnung");
-        jLabel_Saeulengestell_Bezeichnung.setPreferredSize(new java.awt.Dimension(104, 14));
-        jPanel_editLabels.add(jLabel_Saeulengestell_Bezeichnung);
 
         btn_openDialog_Säulengestell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lupe.png"))); // NOI18N
         btn_openDialog_Säulengestell.setEnabled(false);
@@ -317,6 +319,10 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
             }
         });
         jPanel_editLabels.add(btn_delete_Säulengestell);
+
+        jLabel_Saeulengestell_Bezeichnung.setText("Bezeichnung");
+        jLabel_Saeulengestell_Bezeichnung.setPreferredSize(new java.awt.Dimension(150, 14));
+        jPanel_editLabels.add(jLabel_Saeulengestell_Bezeichnung);
 
         jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
@@ -527,7 +533,7 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 907, Short.MAX_VALUE)
+                .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
@@ -995,11 +1001,17 @@ public class Frame_DataMaintenance_Lochwerkzeug extends javax.swing.JFrame {
         Old_Key = jTextField_key.getText().trim();
         Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
         Old_Säulengestell_Nr = jFormattedTextField_Säulengestell_Nr.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung);
         jFormattedTextField_Säulengestell_Nr.setText(Old_Säulengestell_Nr);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     private void set_textFieldsEnabled(boolean aBoolean) {        
         for (int i=1; i < jPanel_editLabels.getComponentCount(); i++) {
