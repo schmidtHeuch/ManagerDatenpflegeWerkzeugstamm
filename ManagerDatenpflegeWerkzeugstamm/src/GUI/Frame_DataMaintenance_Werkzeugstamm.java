@@ -11,9 +11,6 @@ import DBTools.DB_ConnectionManager;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.Point;
-import java.awt.MouseInfo;
-import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,6 +51,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         this.Old_Führungskäfig = "";
         this.Old_Säulengestell = "";
         this.Old_Schriftzug = "";
+        this.Old_Anlagedatum = "";
+        this.Old_Änderungsdatum = "";
+        this.Old_Benutzer = "";
         this.DataSet_Mode = "clean";
         initComponents();
         btn_edit.setEnabled(false);
@@ -87,6 +87,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     String Old_Führungskäfig;
     String Old_Säulengestell;
     String Old_Schriftzug;
+    String Old_Anlagedatum;
+    String Old_Änderungsdatum;
+    String Old_Benutzer;
     int OldSelection;
     String DataSet_Mode;
     Timestamp Anlagedatum;
@@ -216,6 +219,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jLabel_Schriftzug = new javax.swing.JLabel();
         btn_openDialog_Schriftzug = new javax.swing.JButton();
         btn_delete_Schriftzug = new javax.swing.JButton();
+        jLabel_placeholder = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
@@ -233,6 +237,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig = new javax.swing.JTextField();
         jFormattedTextField_Säulengestell = new javax.swing.JTextField();
         jFormattedTextField_Schriftzug = new javax.swing.JTextField();
+        jLabel_placeholder2 = new javax.swing.JLabel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
@@ -349,13 +354,13 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_tableLayout.createSequentialGroup()
                         .addGroup(jPanel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_tableLayout.createSequentialGroup()
-                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField_searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_deleteSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_getCurrentDBData))
                             .addComponent(lbl_tableName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1963, Short.MAX_VALUE)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel_tableLayout.createSequentialGroup()
                         .addComponent(lbl_search1)
@@ -763,6 +768,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         });
         jPanel_editLabels.add(btn_delete_Schriftzug);
 
+        jLabel_placeholder.setPreferredSize(new java.awt.Dimension(400, 14));
+        jPanel_editLabels.add(jLabel_placeholder);
+
         jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -862,6 +870,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Schriftzug.setEnabled(false);
         jFormattedTextField_Schriftzug.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Schriftzug);
+
+        jLabel_placeholder2.setPreferredSize(new java.awt.Dimension(400, 14));
+        jPanel_editTextFields.add(jLabel_placeholder2);
 
         btn_new.setText("Neu");
         btn_new.addActionListener(new java.awt.event.ActionListener() {
@@ -969,8 +980,11 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 2518, Short.MAX_VALUE)
-            .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_editDataLayout.createSequentialGroup()
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 387, Short.MAX_VALUE))
         );
         jPanel_editDataLayout.setVerticalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1015,7 +1029,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane_editData)
+                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.DEFAULT_SIZE, 2829, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
@@ -1211,6 +1225,14 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 
     private void btn_openDialog_GrundformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDialog_GrundformActionPerformed
         // TODO add your handling code here:
+        Dialog_DataUse_Grundformstamm myDialog = new Dialog_DataUse_Grundformstamm(this,true); //noch ändern!!!
+        myDialog.setTitle("Grundform");
+        myDialog.setLocationRelativeTo(null);
+        myDialog.setVisible(true);
+        String resultFromDialog_ID = myDialog.getChoosenGrundform_ID();
+        if (!resultFromDialog_ID.equals("")) {
+            this.jFormattedTextField_Führungskäfig.setText(resultFromDialog_ID);
+        }
     }//GEN-LAST:event_btn_openDialog_GrundformActionPerformed
 
     private void btn_delete_GrundformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete_GrundformActionPerformed
@@ -1695,6 +1717,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         Old_Führungskäfig = jFormattedTextField_Führungskäfig.getText().trim();
         Old_Säulengestell = jFormattedTextField_Säulengestell.getText().trim();
         Old_Schriftzug = jFormattedTextField_Schriftzug.getText().trim();
+        Old_Anlagedatum = jTextField_Anlagedatum.getText();
+        Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
+        Old_Benutzer = jTextField_Benutzer.getText();
     }
     
     private void get_oldValues() {         
@@ -1714,6 +1739,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig.setText(Old_Führungskäfig); 
         jFormattedTextField_Säulengestell.setText(Old_Säulengestell); 
         jFormattedTextField_Schriftzug.setText(Old_Schriftzug);
+        jTextField_Anlagedatum.setText(Old_Anlagedatum);
+        jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
+        jTextField_Benutzer.setText(Old_Benutzer);
     }
     
     private void set_textFieldsEnabled(boolean aBoolean) {  
@@ -1855,48 +1883,48 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             Anlagedatum = new Timestamp(System.currentTimeMillis());
             String result = myFormat.format(Anlagedatum);
             Benutzer = System.getProperty("user.name");
-//            if (jFormattedTextField_Segment.getText().trim().equals("")) {
-//                jFormattedTextField_Segment.setText("KP0");
-//            }
-//            if (jFormattedTextField_Grundform.getText().trim().equals("")) {
-//                jFormattedTextField_Grundform.setText("GF0");
-//            }
-//            if (jFormattedTextField_Schnitt.getText().trim().equals("")) {
-//                jFormattedTextField_Schnitt.setText("KWS0");
-//            }
-//            if (jFormattedTextField_Stapelung.getText().trim().equals("")) {
-//                jFormattedTextField_Stapelung.setText("KWR0");
-//            }
-//            if (jFormattedTextField_Stanzblech.getText().trim().equals("")) {
-//                jFormattedTextField_Stanzblech.setText("B0");
-//            }
-//            if (jFormattedTextField_Stanzbrille.getText().trim().equals("")) {
-//                jFormattedTextField_Stanzbrille.setText("KSB0");
-//            }
-//            if (jFormattedTextField_Vorstempel.getText().trim().equals("")) {
-//                jFormattedTextField_Vorstempel.setText("KWV0");
-//            }
-//            if (jFormattedTextField_Niederhalterplatte.getText().trim().equals("")) {
-//                jFormattedTextField_Niederhalterplatte.setText("KWNP0");
-//            }
-//            if (jFormattedTextField_Ausbrechstempel.getText().trim().equals("")) {
-//                jFormattedTextField_Ausbrechstempel.setText("ASB0");
-//            }
-//            if (jFormattedTextField_Lochwerkzeug.getText().trim().equals("")) {
-//                jFormattedTextField_Lochwerkzeug.setText("LW0");
-//            }
-//            if (jFormattedTextField_STAL.getText().trim().equals("")) {
-//                jFormattedTextField_STAL.setText("STAL0");
-//            }
-//            if (jFormattedTextField_Führungskäfig.getText().trim().equals("")) {
-//                jFormattedTextField_Führungskäfig.setText("FK0");
-//            }
-//            if (jFormattedTextField_Säulengestell.getText().trim().equals("")) {
-//                jFormattedTextField_Säulengestell.setText("SG0");
-//            }
-//            if (jFormattedTextField_Schriftzug.getText().trim().equals("")) {
-//                jFormattedTextField_Schriftzug.setText("SZ0");
-//            }
+            if (jFormattedTextField_Segment.getText().trim().equals("")) {
+                jFormattedTextField_Segment.setText("KP0");
+            }
+            if (jFormattedTextField_Grundform.getText().trim().equals("")) {
+                jFormattedTextField_Grundform.setText("GF0");
+            }
+            if (jFormattedTextField_Schnitt.getText().trim().equals("")) {
+                jFormattedTextField_Schnitt.setText("KWS0");
+            }
+            if (jFormattedTextField_Stapelung.getText().trim().equals("")) {
+                jFormattedTextField_Stapelung.setText("KWR0");
+            }
+            if (jFormattedTextField_Stanzblech.getText().trim().equals("")) {
+                jFormattedTextField_Stanzblech.setText("B0");
+            }
+            if (jFormattedTextField_Stanzbrille.getText().trim().equals("")) {
+                jFormattedTextField_Stanzbrille.setText("KSB0");
+            }
+            if (jFormattedTextField_Vorstempel.getText().trim().equals("")) {
+                jFormattedTextField_Vorstempel.setText("KWV0");
+            }
+            if (jFormattedTextField_Niederhalterplatte.getText().trim().equals("")) {
+                jFormattedTextField_Niederhalterplatte.setText("KWNP0");
+            }
+            if (jFormattedTextField_Ausbrechstempel.getText().trim().equals("")) {
+                jFormattedTextField_Ausbrechstempel.setText("ASB0");
+            }
+            if (jFormattedTextField_Lochwerkzeug.getText().trim().equals("")) {
+                jFormattedTextField_Lochwerkzeug.setText("LW0");
+            }
+            if (jFormattedTextField_STAL.getText().trim().equals("")) {
+                jFormattedTextField_STAL.setText("STAL0");
+            }
+            if (jFormattedTextField_Führungskäfig.getText().trim().equals("")) {
+                jFormattedTextField_Führungskäfig.setText("FK0");
+            }
+            if (jFormattedTextField_Säulengestell.getText().trim().equals("")) {
+                jFormattedTextField_Säulengestell.setText("SG0");
+            }
+            if (jFormattedTextField_Schriftzug.getText().trim().equals("")) {
+                jFormattedTextField_Schriftzug.setText("SZ0");
+            }
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Werkzeugstamm (pKey_WKZ, Bezeichnung, Segment, Grundform, Schnitt, Stapelung,"
                     + "Stanzblech, Stanzbrille, Vorstempel, Niederhalterplatte, Ausbrechstempel, Lochwerkzeug, STAL, Führungskäfig,"
@@ -2168,6 +2196,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Stapelung;
     private javax.swing.JLabel jLabel_Säulengestell;
     private javax.swing.JLabel jLabel_Vorstempel;
+    private javax.swing.JLabel jLabel_placeholder;
+    private javax.swing.JLabel jLabel_placeholder2;
     private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_editData;
     private javax.swing.JPanel jPanel_editLabels;
