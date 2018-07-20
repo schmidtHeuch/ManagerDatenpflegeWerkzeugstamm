@@ -91,7 +91,7 @@ public class Dialog_DataUse_Niederhalterplatte extends javax.swing.JDialog {
     private void search() {
         String searchTerm = jTextField_searchValue.getText();
         mySorter.setRowFilter(RowFilter.regexFilter(searchTerm));
-    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -378,7 +378,7 @@ public class Dialog_DataUse_Niederhalterplatte extends javax.swing.JDialog {
                 System.out.println(myException);
             }
         } 
-    }
+}
     /**
      * @param args the command line arguments
      */
