@@ -64,10 +64,9 @@ public class ManagerFrame extends javax.swing.JFrame {
         btn_open_dataMaintenance_Stanzbrille = new javax.swing.JButton();
         btn_open_dataMaintenance_Stapelung = new javax.swing.JButton();
         btn_open_dataMaintenance_Vorstempel = new javax.swing.JButton();
-        btn_open_dataMaintenance_Grundform = new javax.swing.JButton();
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
+        btn_open_dataMaintenance_Grundform = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
-        btn_close = new javax.swing.JButton();
         btn_exitProgram = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -205,14 +204,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Grundform.setText("Grundform");
-        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 30));
-        btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_open_dataMaintenance_GrundformActionPerformed(evt);
-            }
-        });
-
+        btn_open_dataMaintenance_Werkzeugstamm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btn_open_dataMaintenance_Werkzeugstamm.setText("Werkzeugstamm");
         btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +220,6 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -277,12 +268,18 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                .addGap(150, 150, 150))
         );
+
+        btn_open_dataMaintenance_Grundform.setText("Manager Grundform");
+        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_GrundformActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
         jPanel_main.setLayout(jPanel_mainLayout);
@@ -291,10 +288,9 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_mainLayout.createSequentialGroup()
-                        .addComponent(jPanel_buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel_mainLayout.setVerticalGroup(
@@ -303,18 +299,13 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel_footer.setOpaque(false);
-
-        btn_close.setText("Schließen");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
-            }
-        });
 
         btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
         btn_exitProgram.setText("Programm beenden");
@@ -330,18 +321,13 @@ public class ManagerFrame extends javax.swing.JFrame {
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel_footerLayout.createSequentialGroup()
-                        .addComponent(btn_close)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(btn_exitProgram, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addComponent(btn_close)
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addComponent(btn_exitProgram)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -389,11 +375,6 @@ public class ManagerFrame extends javax.swing.JFrame {
             myDMSegment.setVisible(true);
         }
     }//GEN-LAST:event_btn_open_dataMaintenance_SegmentActionPerformed
-
-    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btn_closeActionPerformed
 
     private void btn_open_dataMaintenance_StanzblechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_StanzblechActionPerformed
         // TODO add your handling code here:        
@@ -662,7 +643,6 @@ public class ManagerFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_exitProgram;
     private javax.swing.JButton btn_open_dataMaintenance_Ausbrechstempel;
     private javax.swing.JButton btn_open_dataMaintenance_Führungskäfig;
