@@ -35,6 +35,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
      */
     public Frame_DataMaintenance_Grundplatte() {
         InstanceCount++;
+        this.Old_Bezeichnung = "";
+        this.Old_Beschreibung = "";
         this.Old_Grundplattenstärke = "";
         this.Old_Bestand = "";
         this.Old_Anlagedatum = "";
@@ -57,6 +59,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     TableRowSorter<DefaultTableModel> mySorter;
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
+    String Old_Bezeichnung;
+    String Old_Beschreibung;
     String Old_Grundplattenstärke;
     String Old_Bestand;
     String Old_Anlagedatum;
@@ -128,10 +132,15 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         jPanel_editData = new javax.swing.JPanel();
         jPanel_editLabels = new javax.swing.JPanel();
         lbl_key = new javax.swing.JLabel();
+        lbl_Bezeichnung = new javax.swing.JLabel();
+        lbl_Beschreibung = new javax.swing.JLabel();
         lbl_Grundplattenstärke = new javax.swing.JLabel();
         lbl_Bestand = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
+        jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea_Beschreibung = new javax.swing.JTextArea();
         jFormattedTextField_Grundplattenstärke = new javax.swing.JFormattedTextField();
         jFormattedTextField_Bestand = new javax.swing.JFormattedTextField();
         jPanel_editButtons = new javax.swing.JPanel();
@@ -184,14 +193,14 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Grundplatten-ID (Key)", "Grundplattenstärke", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "Grundplatten-ID (Key)", "Bezeichnung", "Beschreibung", "Grundplattenstärke", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -209,11 +218,13 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         jScrollPane_dbData.setViewportView(jTable_dbData);
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
             jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(120);
-            jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(200);
             jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(7).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -284,6 +295,14 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         lbl_key.setPreferredSize(new java.awt.Dimension(150, 16));
         jPanel_editLabels.add(lbl_key);
 
+        lbl_Bezeichnung.setText("Bezeichnung");
+        lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 14));
+        jPanel_editLabels.add(lbl_Bezeichnung);
+
+        lbl_Beschreibung.setText("Beschreibung");
+        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(200, 14));
+        jPanel_editLabels.add(lbl_Beschreibung);
+
         lbl_Grundplattenstärke.setText("Grundplattenstärke");
         lbl_Grundplattenstärke.setPreferredSize(new java.awt.Dimension(120, 14));
         jPanel_editLabels.add(lbl_Grundplattenstärke);
@@ -294,7 +313,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
 
         jPanel_editTextFields.setOpaque(false);
         jPanel_editTextFields.setPreferredSize(new java.awt.Dimension(801, 22));
-        jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel_editTextFields.setLayout(flowLayout1);
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField_key.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -303,6 +324,25 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         jTextField_key.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jTextField_key);
 
+        jFormattedTextField_Bezeichnung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jFormattedTextField_Bezeichnung.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Bezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Bezeichnung.setEnabled(false);
+        jFormattedTextField_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Bezeichnung);
+
+        jTextArea_Beschreibung.setColumns(18);
+        jTextArea_Beschreibung.setLineWrap(true);
+        jTextArea_Beschreibung.setRows(3);
+        jTextArea_Beschreibung.setWrapStyleWord(true);
+        jTextArea_Beschreibung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jTextArea_Beschreibung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextArea_Beschreibung.setEnabled(false);
+        jScrollPane1.setViewportView(jTextArea_Beschreibung);
+
+        jPanel_editTextFields.add(jScrollPane1);
+
+        jFormattedTextField_Grundplattenstärke.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Grundplattenstärke.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Grundplattenstärke.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Grundplattenstärke.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -310,6 +350,7 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         jFormattedTextField_Grundplattenstärke.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Grundplattenstärke);
 
+        jFormattedTextField_Bestand.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Bestand.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jFormattedTextField_Bestand.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Bestand.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -437,9 +478,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
-                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_editDataLayout.createSequentialGroup()
+                .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_editDataLayout.createSequentialGroup()
                         .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,16 +490,18 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
                         .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField_Anlagedatum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField_Änderungsdatum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTextField_Benutzer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 182, Short.MAX_VALUE))
+                    .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel_editDataLayout.setVerticalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
                 .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_editDataLayout.createSequentialGroup()
@@ -514,7 +556,7 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
                     .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -531,7 +573,7 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(217, 217, 217)))
+                    .addGap(257, 257, 257)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -581,7 +623,7 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
                 for (int i = 1; i <= TableColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
-                    if (myDataSet != null && i == 4 || myDataSet != null && i == 5) {
+                    if (myDataSet != null && i == 6 || myDataSet != null && i == 7) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
@@ -710,7 +752,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (DataSet_Mode.equals("edit") && !Old_Grundplattenstärke.equals(jFormattedTextField_Grundplattenstärke.getText().trim())
+                if (DataSet_Mode.equals("edit") && !Old_Bezeichnung.equals(jFormattedTextField_Bezeichnung.getText().trim())
+                    || !Old_Beschreibung.equals(jTextArea_Beschreibung.getText().trim())
+                    || !Old_Grundplattenstärke.equals(jFormattedTextField_Grundplattenstärke.getText().trim())
                     || !Old_Bestand.equals(jFormattedTextField_Bestand.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
@@ -818,28 +862,40 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
 
                 int myRow = jTable_dbData.convertRowIndexToModel(OldSelection);
                 jTextField_key.setText(myTableModel.getValueAt(myRow, 0).toString().trim());
-                                
+                
                 if (myTableModel.getValueAt(myRow, 1) != null) {
                 tempString = myTableModel.getValueAt(myRow, 1).toString();
+                jFormattedTextField_Bezeichnung.setText(tempString);
+                }
+                else {jFormattedTextField_Bezeichnung.setText("");}
+                
+                if (myTableModel.getValueAt(myRow, 2) != null) {
+                tempString = myTableModel.getValueAt(myRow, 2).toString();
+                jTextArea_Beschreibung.setText(tempString);
+                }
+                else {jTextArea_Beschreibung.setText("");}
+                                
+                if (myTableModel.getValueAt(myRow, 3) != null) {
+                tempString = myTableModel.getValueAt(myRow, 3).toString();
                 jFormattedTextField_Grundplattenstärke.setValue(Float.parseFloat(tempString));
                 }
                 else {jFormattedTextField_Grundplattenstärke.setValue("");}                
                 
-                if (myTableModel.getValueAt(myRow, 2) != null) {
-                    jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 2).toString().trim());
+                if (myTableModel.getValueAt(myRow, 4) != null) {
+                    jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 4).toString().trim());
                 }
                 else {jFormattedTextField_Bestand.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 3) != null) {
-                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 3).toString().trim());
+                if (myTableModel.getValueAt(myRow, 5) != null) {
+                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 5).toString().trim());
                 }
                 else {jTextField_Anlagedatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 4) != null) {
-                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 4).toString().trim());
+                if (myTableModel.getValueAt(myRow, 6) != null) {
+                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 6).toString().trim());
                 }
                 else {jTextField_Änderungsdatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 5) != null) {
-                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 5).toString().trim()); 
+                if (myTableModel.getValueAt(myRow, 7) != null) {
+                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 7).toString().trim()); 
                 }
                 else {jTextField_Benutzer.setText("");}                
                 
@@ -872,6 +928,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
+        jFormattedTextField_Bezeichnung.setText("");
+        jTextArea_Beschreibung.setText("");
         jFormattedTextField_Grundplattenstärke.setText(""); 
         jFormattedTextField_Bestand.setText(""); 
         jTextField_Anlagedatum.setText("");
@@ -881,6 +939,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     
     private void set_oldValues() {        
         Old_Key = jTextField_key.getText().trim();
+        Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
+        Old_Beschreibung = jTextArea_Beschreibung.getText().trim();
         Old_Grundplattenstärke = jFormattedTextField_Grundplattenstärke.getText().trim();
         Old_Bestand = jFormattedTextField_Bestand.getText().trim();
         Old_Anlagedatum = jTextField_Anlagedatum.getText();
@@ -890,6 +950,8 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
+        jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung);
+        jTextArea_Beschreibung.setText(Old_Beschreibung);
         jFormattedTextField_Grundplattenstärke.setText(Old_Grundplattenstärke); 
         jFormattedTextField_Bestand.setText(Old_Bestand);
         jTextField_Anlagedatum.setText(Old_Anlagedatum);
@@ -903,12 +965,16 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
         }
         jTextField_key.setEnabled(aBoolean);
         
+        jFormattedTextField_Bezeichnung.setEnabled(true);
+        jTextArea_Beschreibung.setEnabled(true);
         jFormattedTextField_Grundplattenstärke.setEnabled(true);
         jFormattedTextField_Bestand.setEnabled(true);
     }
     
     private void set_textFieldsDisabled() {        
         jTextField_key.setEnabled(false);
+        jFormattedTextField_Bezeichnung.setEnabled(false);
+        jTextArea_Beschreibung.setEnabled(false);
         jFormattedTextField_Grundplattenstärke.setEnabled(false);
         jFormattedTextField_Bestand.setEnabled(false);
     }
@@ -927,8 +993,10 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
             String result = myFormat.format(Anlagedatum);
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Grundplatte (pKey_GPL, Grundplattenstärke, Bestand, Anlagedatum, Benutzer)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Grundplatte (pKey_GPL, Bezeichnung, Beschreibung, Grundplattenstärke, Bestand, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '"
+                    + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
+                    + jTextArea_Beschreibung.getText().trim() + "', '" 
                     + jFormattedTextField_Grundplattenstärke.getText().trim() + "', '"
                     + jFormattedTextField_Bestand.getText().trim() + "', '" 
                     + result + "', '" 
@@ -961,7 +1029,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
             String result = myFormat.format(Änderungsdatum);
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundplatte SET Grundplattenstärke = '" + jFormattedTextField_Grundplattenstärke.getText().trim() +
+            myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Grundplatte SET Bezeichnung = '" + jFormattedTextField_Bezeichnung.getText().trim() +
+                    "', Beschreibung = '" + jTextArea_Beschreibung.getText().trim() +
+                    "', Grundplattenstärke = '" + jFormattedTextField_Grundplattenstärke.getText().trim() +
                     "', Bestand = '" + jFormattedTextField_Bestand.getText().trim() +
                     "', Änderungsdatum = '" + result +
                     "', Benutzer = '" + Benutzer +
@@ -1069,6 +1139,7 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
     private javax.swing.JFormattedTextField jFormattedTextField_Bestand;
+    private javax.swing.JFormattedTextField jFormattedTextField_Bezeichnung;
     private javax.swing.JFormattedTextField jFormattedTextField_Grundplattenstärke;
     private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_editButtons;
@@ -1077,8 +1148,10 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_editTextFields;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_table;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JTable jTable_dbData;
+    private javax.swing.JTextArea jTextArea_Beschreibung;
     private javax.swing.JTextField jTextField_Anlagedatum;
     private javax.swing.JTextField jTextField_Benutzer;
     private javax.swing.JTextField jTextField_key;
@@ -1086,7 +1159,9 @@ public class Frame_DataMaintenance_Grundplatte extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Änderungsdatum;
     private javax.swing.JLabel lbl_Anlagedatum;
     private javax.swing.JLabel lbl_Benutzer;
+    private javax.swing.JLabel lbl_Beschreibung;
     private javax.swing.JLabel lbl_Bestand;
+    private javax.swing.JLabel lbl_Bezeichnung;
     private javax.swing.JLabel lbl_Grundplattenstärke;
     private javax.swing.JLabel lbl_key;
     private javax.swing.JLabel lbl_rowCount;
