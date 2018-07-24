@@ -315,16 +315,18 @@ public class Frame_DataMaintenance_Säulengestell extends javax.swing.JFrame {
         jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jTextField_key);
 
+        jFormattedTextField_Bezeichnung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Bezeichnung.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Bezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Bezeichnung.setEnabled(false);
         jFormattedTextField_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel_editTextFields.add(jFormattedTextField_Bezeichnung);
 
-        jTextArea_Beschreibung.setColumns(35);
+        jTextArea_Beschreibung.setColumns(18);
         jTextArea_Beschreibung.setLineWrap(true);
         jTextArea_Beschreibung.setRows(3);
         jTextArea_Beschreibung.setWrapStyleWord(true);
+        jTextArea_Beschreibung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jTextArea_Beschreibung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jTextArea_Beschreibung.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea_Beschreibung);
@@ -536,7 +538,7 @@ public class Frame_DataMaintenance_Säulengestell extends javax.swing.JFrame {
         jPanel_baseLayout.setVerticalGroup(
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
-                .addGap(0, 413, Short.MAX_VALUE)
+                .addGap(0, 351, Short.MAX_VALUE)
                 .addComponent(jPanel_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
