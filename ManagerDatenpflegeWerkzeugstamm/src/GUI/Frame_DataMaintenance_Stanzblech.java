@@ -38,6 +38,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     public Frame_DataMaintenance_Stanzblech() {
         InstanceCount++;
         this.Old_Bezeichnung = "";
+        this.Old_Beschreibung = "";
         this.Old_Länge = "";
         this.Old_Breite = "";
         this.Old_Materialtyp_ID = "";
@@ -63,6 +64,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
     String Old_Bezeichnung;
+    String Old_Beschreibung;
     String Old_Länge;
     String Old_Breite;
     String Old_Materialtyp_ID;
@@ -190,6 +192,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_editLabels = new javax.swing.JPanel();
         lbl_key = new javax.swing.JLabel();
         lbl_Bezeichnung = new javax.swing.JLabel();
+        lbl_Beschreibung = new javax.swing.JLabel();
         lbl_Länge = new javax.swing.JLabel();
         lbl_Breite = new javax.swing.JLabel();
         lbl_Materialtyp_ID = new javax.swing.JLabel();
@@ -200,6 +203,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
+        jScrollPane_Beschreibung = new javax.swing.JScrollPane();
+        jTextArea_Beschreibung = new javax.swing.JTextArea();
         jFormattedTextField_Länge = new javax.swing.JFormattedTextField();
         jFormattedTextField_Breite = new javax.swing.JFormattedTextField();
         jFormattedTextField_Materialtyp_ID = new javax.swing.JFormattedTextField();
@@ -255,14 +260,14 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Stanzblech-ID (Key)", "Stanzblech-Bezeichnung", "Länge", "Breite", "Materialtyp-ID", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "Stanzblech-ID (Key)", "Bezeichnung", "Beschreibung", "Länge", "Breite", "Materialtyp-ID", "Bestand", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -281,17 +286,18 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
             jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(120);
             jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(204);
-            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(200);
             jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(120);
-            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(250);
-            jTable_dbData.getColumnModel().getColumn(5).setMinWidth(100);
-            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(100);
-            jTable_dbData.getColumnModel().getColumn(6).setMinWidth(150);
-            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(120);
+            jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(250);
+            jTable_dbData.getColumnModel().getColumn(6).setMinWidth(100);
+            jTable_dbData.getColumnModel().getColumn(6).setPreferredWidth(100);
             jTable_dbData.getColumnModel().getColumn(7).setMinWidth(150);
             jTable_dbData.getColumnModel().getColumn(7).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(8).setMinWidth(100);
-            jTable_dbData.getColumnModel().getColumn(8).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(8).setMinWidth(150);
+            jTable_dbData.getColumnModel().getColumn(8).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(9).setMinWidth(100);
+            jTable_dbData.getColumnModel().getColumn(9).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -362,9 +368,13 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         lbl_key.setPreferredSize(new java.awt.Dimension(120, 14));
         jPanel_editLabels.add(lbl_key);
 
-        lbl_Bezeichnung.setText("Stanzblech-Bezeichnung");
+        lbl_Bezeichnung.setText("Bezeichnung");
         lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(204, 14));
         jPanel_editLabels.add(lbl_Bezeichnung);
+
+        lbl_Beschreibung.setText("Beschreibung");
+        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(200, 14));
+        jPanel_editLabels.add(lbl_Beschreibung);
 
         lbl_Länge.setText("Länge");
         lbl_Länge.setPreferredSize(new java.awt.Dimension(120, 14));
@@ -407,7 +417,9 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_Bestand);
 
         jPanel_editTextFields.setOpaque(false);
-        jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel_editTextFields.setLayout(flowLayout1);
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField_key.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -416,12 +428,25 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jTextField_key.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jTextField_key);
 
+        jFormattedTextField_Bezeichnung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Bezeichnung.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jFormattedTextField_Bezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Bezeichnung.setEnabled(false);
         jFormattedTextField_Bezeichnung.setPreferredSize(new java.awt.Dimension(204, 20));
         jPanel_editTextFields.add(jFormattedTextField_Bezeichnung);
 
+        jTextArea_Beschreibung.setColumns(18);
+        jTextArea_Beschreibung.setLineWrap(true);
+        jTextArea_Beschreibung.setRows(3);
+        jTextArea_Beschreibung.setWrapStyleWord(true);
+        jTextArea_Beschreibung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jTextArea_Beschreibung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextArea_Beschreibung.setEnabled(false);
+        jScrollPane_Beschreibung.setViewportView(jTextArea_Beschreibung);
+
+        jPanel_editTextFields.add(jScrollPane_Beschreibung);
+
+        jFormattedTextField_Länge.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Länge.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Länge.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Länge.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -429,6 +454,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jFormattedTextField_Länge.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Länge);
 
+        jFormattedTextField_Breite.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Breite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         jFormattedTextField_Breite.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Breite.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -436,6 +462,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jFormattedTextField_Breite.setPreferredSize(new java.awt.Dimension(120, 20));
         jPanel_editTextFields.add(jFormattedTextField_Breite);
 
+        jFormattedTextField_Materialtyp_ID.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Materialtyp_ID.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jFormattedTextField_Materialtyp_ID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Materialtyp_ID.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -444,11 +471,13 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         jPanel_editTextFields.add(jFormattedTextField_Materialtyp_ID);
 
         jFormattedTextField_MaterialtypBezeichnung.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_MaterialtypBezeichnung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_MaterialtypBezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_MaterialtypBezeichnung.setEnabled(false);
         jFormattedTextField_MaterialtypBezeichnung.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel_editTextFields.add(jFormattedTextField_MaterialtypBezeichnung);
 
+        jFormattedTextField_Bestand.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Bestand.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         jFormattedTextField_Bestand.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Bestand.setDisabledTextColor(new java.awt.Color(102, 102, 102));
@@ -575,7 +604,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_editDataLayout.createSequentialGroup()
@@ -645,7 +674,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
         );
         jPanel_baseLayout.setVerticalGroup(
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 582, Short.MAX_VALUE)
+            .addGap(0, 1101, Short.MAX_VALUE)
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
                     .addContainerGap()
@@ -704,7 +733,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                 for (int i = 1; i <= TableColumns; i++) {
                           
                     String myDataSet = myResultSet.getString(i);
-                    if (myDataSet != null && i == 7 || myDataSet != null && i == 8) {
+                    if (myDataSet != null && i == 8 || myDataSet != null && i == 9) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
@@ -845,40 +874,46 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             jFormattedTextField_Bezeichnung.setValue(tempString);
             }
             else {jFormattedTextField_Bezeichnung.setValue("");}
-            
+
             if (myTableModel.getValueAt(myRow, 2) != null) {
             tempString = myTableModel.getValueAt(myRow, 2).toString();
+            jTextArea_Beschreibung.setText(tempString);
+            }
+            else {jTextArea_Beschreibung.setText("");}
+            
+            if (myTableModel.getValueAt(myRow, 3) != null) {
+            tempString = myTableModel.getValueAt(myRow, 3).toString();
             jFormattedTextField_Länge.setValue(Float.parseFloat(tempString));
             }
             else {jFormattedTextField_Länge.setValue("");}
             
-            if (myTableModel.getValueAt(myRow, 3) != null) {
-            tempString = myTableModel.getValueAt(myRow, 3).toString();
+            if (myTableModel.getValueAt(myRow, 4) != null) {
+            tempString = myTableModel.getValueAt(myRow, 4).toString();
             jFormattedTextField_Breite.setValue(Float.parseFloat(tempString));
             }
             else {jFormattedTextField_Breite.setValue("");}
             
-            if (myTableModel.getValueAt(myRow, 4) != null) {
-            tempString = myTableModel.getValueAt(myRow, 4).toString();
+            if (myTableModel.getValueAt(myRow, 5) != null) {
+            tempString = myTableModel.getValueAt(myRow, 5).toString();
             jFormattedTextField_Materialtyp_ID.setValue(Integer.parseInt(tempString));
             jFormattedTextField_MaterialtypBezeichnung.setText(this.get_dependentValueFromDB(tempString));
             }
             else {jFormattedTextField_Materialtyp_ID.setValue("");}            
             
-            if (myTableModel.getValueAt(myRow, 5) != null) {
-                jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 5).toString().trim());
+            if (myTableModel.getValueAt(myRow, 6) != null) {
+                jFormattedTextField_Bestand.setText(myTableModel.getValueAt(myRow, 6).toString().trim());
             }
             else {jFormattedTextField_Bestand.setText("");}
-            if (myTableModel.getValueAt(myRow, 6) != null) {
-                jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 6).toString().trim());
+            if (myTableModel.getValueAt(myRow, 7) != null) {
+                jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 7).toString().trim());
             }
             else {jTextField_Anlagedatum.setText("");}
-            if (myTableModel.getValueAt(myRow, 7) != null) {
-               jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 7).toString().trim());
+            if (myTableModel.getValueAt(myRow, 8) != null) {
+               jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 8).toString().trim());
             }
             else {jTextField_Änderungsdatum.setText("");}
-            if (myTableModel.getValueAt(myRow, 8) != null) {
-                jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 8).toString().trim()); 
+            if (myTableModel.getValueAt(myRow, 9) != null) {
+                jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 9).toString().trim()); 
             }
             else {jTextField_Benutzer.setText("");}
             
@@ -914,6 +949,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
                         return;
                 }
                 if (DataSet_Mode.equals("edit")  && !Old_Bezeichnung.equals(jFormattedTextField_Bezeichnung.getText().trim())
+                        || !Old_Beschreibung.equals(jTextArea_Beschreibung.getText().trim())
                         || !Old_Länge.equals(jFormattedTextField_Länge.getText().trim())
                         || !Old_Breite.equals(jFormattedTextField_Breite.getText().trim())
                         || !Old_Materialtyp_ID.equals(jFormattedTextField_Materialtyp_ID.getText().trim())
@@ -1103,6 +1139,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
         jFormattedTextField_Bezeichnung.setText("");
+        jTextArea_Beschreibung.setText("");
         jFormattedTextField_Länge.setText("");
         jFormattedTextField_Breite.setText("");
         jFormattedTextField_Materialtyp_ID.setText(""); 
@@ -1116,6 +1153,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void set_oldValues() {        
         Old_Key = jTextField_key.getText().trim();
         Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
+        Old_Beschreibung = jTextArea_Beschreibung.getText().trim();
         Old_Länge = jFormattedTextField_Länge.getText().trim();
         Old_Breite = jFormattedTextField_Breite.getText().trim();
         Old_Materialtyp_ID = jFormattedTextField_Materialtyp_ID.getText().trim();
@@ -1127,7 +1165,8 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
-        jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung); 
+        jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung);
+        jTextArea_Beschreibung.setText(Old_Beschreibung); 
         jFormattedTextField_Länge.setText(Old_Länge); 
         jFormattedTextField_Breite.setText(Old_Breite); 
         jFormattedTextField_Materialtyp_ID.setText(Old_Materialtyp_ID);
@@ -1143,6 +1182,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void set_textFieldsEnabled(boolean aBoolean) {        
         jTextField_key.setEnabled(aBoolean);
         jFormattedTextField_Bezeichnung.setEnabled(true); 
+        jTextArea_Beschreibung.setEnabled(true);
         jFormattedTextField_Länge.setEnabled(true); 
         jFormattedTextField_Breite.setEnabled(true);
         jFormattedTextField_Bestand.setEnabled(true);
@@ -1151,6 +1191,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private void set_textFieldsDisabled() {        
         jTextField_key.setEnabled(false);
         jFormattedTextField_Bezeichnung.setEnabled(false);
+        jTextArea_Beschreibung.setEnabled(false);
         jFormattedTextField_Länge.setEnabled(false); 
         jFormattedTextField_Breite.setEnabled(false);
         jFormattedTextField_Bestand.setEnabled(false);      
@@ -1169,9 +1210,11 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             String result = myFormat.format(Anlagedatum);
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblech (pKey_B, Bezeichnung, Länge, Breite, Materialtyp_ID, Bestand, Anlagedatum, Benutzer)" 
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Stanzblech (pKey_B, Bezeichnung, Beschreibung, Länge, Breite, Materialtyp_ID, "
+                    + "Bestand, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
                     + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
+                    + jTextArea_Beschreibung.getText().trim() + "', '" 
                     + jFormattedTextField_Länge.getText().trim() + "', '" 
                     + jFormattedTextField_Breite.getText().trim() + "', '" 
                     + jFormattedTextField_Materialtyp_ID.getText().trim() + "', '" 
@@ -1207,6 +1250,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
             Benutzer = System.getProperty("user.name");
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Stanzblech SET Bezeichnung = '" + jFormattedTextField_Bezeichnung.getText().trim() + 
+                    "', Beschreibung = '" + jTextArea_Beschreibung.getText().trim() +
                     "', Länge = '" + jFormattedTextField_Länge.getText().trim() + 
                     "', Breite = '" + jFormattedTextField_Breite.getText().trim() +
                     "', Materialtyp_ID = '" + jFormattedTextField_Materialtyp_ID.getText().trim() +
@@ -1335,8 +1379,10 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_editTextFields;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_table;
+    private javax.swing.JScrollPane jScrollPane_Beschreibung;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JTable jTable_dbData;
+    private javax.swing.JTextArea jTextArea_Beschreibung;
     private javax.swing.JTextField jTextField_Anlagedatum;
     private javax.swing.JTextField jTextField_Benutzer;
     private javax.swing.JTextField jTextField_key;
@@ -1344,6 +1390,7 @@ public class Frame_DataMaintenance_Stanzblech extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Änderungsdatum;
     private javax.swing.JLabel lbl_Anlagedatum;
     private javax.swing.JLabel lbl_Benutzer;
+    private javax.swing.JLabel lbl_Beschreibung;
     private javax.swing.JLabel lbl_Bestand;
     private javax.swing.JLabel lbl_Bezeichnung;
     private javax.swing.JLabel lbl_Breite;
