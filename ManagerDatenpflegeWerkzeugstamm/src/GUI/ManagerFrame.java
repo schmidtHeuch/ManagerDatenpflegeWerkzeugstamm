@@ -370,7 +370,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSegment = new Frame_DataMaintenance_Segment();
             myDMSegment.setTitle("Stammdaten-Pflege: Segment");
-            myDMSegment.setSize(949, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSegment.setSize(1200, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSegment.setLocation(245, 0);
             myDMSegment.setVisible(true);
         }
@@ -385,7 +385,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMStanzblech = new Frame_DataMaintenance_Stanzblech();
             myDMStanzblech.setTitle("Stammdaten-Pflege: Stanzblech");
-            myDMStanzblech.setSize(1024, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStanzblech.setSize(1200, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMStanzblech.setLocation(245, 0);
             myDMStanzblech.setVisible(true);
         }
@@ -415,7 +415,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMAusbrechstempel = new Frame_DataMaintenance_Ausbrechstempel();
             myDMAusbrechstempel.setTitle("Stammdaten-Pflege: Ausbrechstempel");
-            myDMAusbrechstempel.setSize(780, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMAusbrechstempel.setSize(985, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMAusbrechstempel.setLocation(245, 0);
             myDMAusbrechstempel.setVisible(true);
         }
@@ -430,7 +430,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMFührungskäfig = new Frame_DataMaintenance_Führungskäfig();
             myDMFührungskäfig.setTitle("Stammdaten-Pflege: Führungskäfig");
-            myDMFührungskäfig.setSize(780, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMFührungskäfig.setSize(970, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMFührungskäfig.setLocation(245, 0);
             myDMFührungskäfig.setVisible(true);
         }
@@ -445,7 +445,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMLochwerkzeug = new Frame_DataMaintenance_Lochwerkzeug();
             myDMLochwerkzeug.setTitle("Stammdaten-Pflege: Lochwerkzeug");
-            myDMLochwerkzeug.setSize(950, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMLochwerkzeug.setSize(1113, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMLochwerkzeug.setLocation(245, 0);
             myDMLochwerkzeug.setVisible(true);
         }
@@ -460,7 +460,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMNiederhalterplatte = new Frame_DataMaintenance_Niederhalterplatte();
             myDMNiederhalterplatte.setTitle("Stammdaten-Pflege: Niederhalterplatte");
-            myDMNiederhalterplatte.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMNiederhalterplatte.setSize(970, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMNiederhalterplatte.setLocation(245, 0);
             myDMNiederhalterplatte.setVisible(true);
         }
@@ -475,7 +475,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSäulengestell = new Frame_DataMaintenance_Säulengestell();
             myDMSäulengestell.setTitle("Stammdaten-Pflege: Säulengestell");
-            myDMSäulengestell.setSize(875, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSäulengestell.setSize(963, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSäulengestell.setLocation(245, 0);
             myDMSäulengestell.setVisible(true);
         }
@@ -490,7 +490,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSchnitt = new Frame_DataMaintenance_Schnitt();
             myDMSchnitt.setTitle("Stammdaten-Pflege: Schnitt");
-            myDMSchnitt.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchnitt.setSize(1128, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSchnitt.setLocation(245, 0);
             myDMSchnitt.setVisible(true);
         }
@@ -505,7 +505,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSchriftzug = new Frame_DataMaintenance_Schriftzug();
             myDMSchriftzug.setTitle("Stammdaten-Pflege: Schriftzug");
-            myDMSchriftzug.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSchriftzug.setSize(1163, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSchriftzug.setLocation(245, 0);
             myDMSchriftzug.setVisible(true);
         }
@@ -520,7 +520,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMSTAL = new Frame_DataMaintenance_STAL();
             myDMSTAL.setTitle("Stammdaten-Pflege: STAL");
-            myDMSTAL.setSize(845, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSTAL.setSize(1116, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSTAL.setLocation(245, 0);
             myDMSTAL.setVisible(true);
         }
@@ -535,7 +535,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMStanzbrille = new Frame_DataMaintenance_Stanzbrille();
             myDMStanzbrille.setTitle("Stammdaten-Pflege: Stanzbrille");
-            myDMStanzbrille.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStanzbrille.setSize(970, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMStanzbrille.setLocation(245, 0);
             myDMStanzbrille.setVisible(true);
         }
@@ -550,7 +550,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMStapelung = new Frame_DataMaintenance_Stapelung();
             myDMStapelung.setTitle("Stammdaten-Pflege: Stapelung");
-            myDMStapelung.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStapelung.setSize(1078, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMStapelung.setLocation(245, 0);
             myDMStapelung.setVisible(true);
         }
@@ -565,7 +565,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMVorstempel = new Frame_DataMaintenance_Vorstempel();
             myDMVorstempel.setTitle("Stammdaten-Pflege: Vorstempel");
-            myDMVorstempel.setSize(770, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMVorstempel.setSize(985, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMVorstempel.setLocation(245, 0);
             myDMVorstempel.setVisible(true);
         }
@@ -580,7 +580,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMMaterialtyp = new Frame_DataMaintenance_Materialtyp();
             myDMMaterialtyp.setTitle("Stammdaten-Pflege: Materialtyp");
-            myDMMaterialtyp.setSize(775, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMMaterialtyp.setSize(965, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMMaterialtyp.setLocation(245, 0);
             myDMMaterialtyp.setVisible(true);
         }
