@@ -284,7 +284,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMDruckrahmen = new Frame_DataMaintenance_Druckrahmen();
             myDMDruckrahmen.setTitle("Stammdaten-Pflege: Druckrahmen");
-            myDMDruckrahmen.setSize(925, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMDruckrahmen.setSize(1080, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMDruckrahmen.setLocation(245, 0);
             myDMDruckrahmen.setVisible(true);
         }
@@ -299,7 +299,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMSegmentrahmen = new Frame_DataMaintenance_Segmentrahmen();
             myDMSegmentrahmen.setTitle("Stammdaten-Pflege: Segmentrahmen");
-            myDMSegmentrahmen.setSize(925, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMSegmentrahmen.setSize(1080, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMSegmentrahmen.setLocation(245, 0);
             myDMSegmentrahmen.setVisible(true);
         }
@@ -329,7 +329,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMKühlplatte = new Frame_DataMaintenance_Kühlplatte();
             myDMKühlplatte.setTitle("Stammdaten-Pflege: Kühlplatte");
-            myDMKühlplatte.setSize(925, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMKühlplatte.setSize(1080, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMKühlplatte.setLocation(245, 0);
             myDMKühlplatte.setVisible(true);
         }
@@ -344,7 +344,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMGrundplatte = new Frame_DataMaintenance_Grundplatte();
             myDMGrundplatte.setTitle("Stammdaten-Pflege: Grundplatte");
-            myDMGrundplatte.setSize(925, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMGrundplatte.setSize(1080, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMGrundplatte.setLocation(245, 0);
             myDMGrundplatte.setVisible(true);
         }
@@ -359,7 +359,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
         else {
             myDMDruckplatte = new Frame_DataMaintenance_Druckplatte();
             myDMDruckplatte.setTitle("Stammdaten-Pflege: Druckplatte");
-            myDMDruckplatte.setSize(950, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMDruckplatte.setSize(1400, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMDruckplatte.setLocation(245, 0);
             myDMDruckplatte.setVisible(true);
         }
