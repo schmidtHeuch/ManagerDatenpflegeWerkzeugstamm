@@ -37,6 +37,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     public Frame_DataMaintenance_Werkzeugstamm() {
         InstanceCount++;
         this.Old_Bezeichnung = "";
+        this.Old_Beschreibung = "";
         this.Old_Segment = "";
         this.Old_Grundform = "";
         this.Old_Schnitt = "";
@@ -73,6 +74,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     DB_ConnectionManager MY_DBCM;
     String Old_Key;
     String Old_Bezeichnung;
+    String Old_Beschreibung;
     String Old_Segment;
     String Old_Grundform;
     String Old_Schnitt;
@@ -177,6 +179,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_editLabels = new javax.swing.JPanel();
         lbl_key = new javax.swing.JLabel();
         lbl_Bezeichnung = new javax.swing.JLabel();
+        lbl_Beschreibung = new javax.swing.JLabel();
         lbl_Segment = new javax.swing.JLabel();
         btn_openDialog_Segment = new javax.swing.JButton();
         btn_delete_Segment = new javax.swing.JButton();
@@ -223,6 +226,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
         jFormattedTextField_Bezeichnung = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea_Beschreibung = new javax.swing.JTextArea();
         jFormattedTextField_Segment = new javax.swing.JFormattedTextField();
         jFormattedTextField_Grundform = new javax.swing.JTextField();
         jFormattedTextField_Schnitt = new javax.swing.JTextField();
@@ -284,14 +289,14 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "WKZ (Key)", "Bezeichnung", "Segment", "Grundform", "Schnitt", "Stapelung", "Stanzblech", "Stanzbrille", "Vorstempel", "Niederhalterplatte", "Ausbrechstempel", "Lochwerkzeug", "STAL", "Führungskäfig", "Säulengestell", "Schriftzug", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "WKZ (Key)", "Bezeichnung", "Beschreibung", "Segment", "Grundform", "Schnitt", "Stapelung", "Stanzblech", "Stanzbrille", "Vorstempel", "Niederhalterplatte", "Ausbrechstempel", "Lochwerkzeug", "STAL", "Führungskäfig", "Säulengestell", "Schriftzug", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -310,7 +315,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         if (jTable_dbData.getColumnModel().getColumnCount() > 0) {
             jTable_dbData.getColumnModel().getColumn(0).setPreferredWidth(100);
             jTable_dbData.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(2).setPreferredWidth(200);
             jTable_dbData.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(5).setPreferredWidth(150);
@@ -326,7 +331,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             jTable_dbData.getColumnModel().getColumn(15).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(16).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(17).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(18).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(18).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(19).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -430,6 +436,10 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         lbl_Bezeichnung.setText("Bezeichnung");
         lbl_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 14));
         jPanel_editLabels.add(lbl_Bezeichnung);
+
+        lbl_Beschreibung.setText("Beschreibung");
+        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(200, 14));
+        jPanel_editLabels.add(lbl_Beschreibung);
 
         lbl_Segment.setText("Segment");
         lbl_Segment.setPreferredSize(new java.awt.Dimension(104, 14));
@@ -772,7 +782,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_editLabels.add(jLabel_placeholder);
 
         jPanel_editTextFields.setOpaque(false);
-        jPanel_editTextFields.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        jPanel_editTextFields.setLayout(flowLayout1);
 
         jTextField_key.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField_key.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -781,12 +793,25 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jTextField_key.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel_editTextFields.add(jTextField_key);
 
+        jFormattedTextField_Bezeichnung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Bezeichnung.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jFormattedTextField_Bezeichnung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Bezeichnung.setEnabled(false);
         jFormattedTextField_Bezeichnung.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel_editTextFields.add(jFormattedTextField_Bezeichnung);
 
+        jTextArea_Beschreibung.setColumns(18);
+        jTextArea_Beschreibung.setLineWrap(true);
+        jTextArea_Beschreibung.setRows(3);
+        jTextArea_Beschreibung.setWrapStyleWord(true);
+        jTextArea_Beschreibung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jTextArea_Beschreibung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jTextArea_Beschreibung.setEnabled(false);
+        jScrollPane1.setViewportView(jTextArea_Beschreibung);
+
+        jPanel_editTextFields.add(jScrollPane1);
+
+        jFormattedTextField_Segment.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Segment.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFormattedTextField_Segment.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Segment.setEnabled(false);
@@ -794,78 +819,91 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_editTextFields.add(jFormattedTextField_Segment);
 
         jFormattedTextField_Grundform.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Grundform.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Grundform.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Grundform.setEnabled(false);
         jFormattedTextField_Grundform.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Grundform);
 
         jFormattedTextField_Schnitt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Schnitt.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Schnitt.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Schnitt.setEnabled(false);
         jFormattedTextField_Schnitt.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Schnitt);
 
         jFormattedTextField_Stapelung.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Stapelung.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Stapelung.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Stapelung.setEnabled(false);
         jFormattedTextField_Stapelung.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Stapelung);
 
         jFormattedTextField_Stanzblech.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Stanzblech.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Stanzblech.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Stanzblech.setEnabled(false);
         jFormattedTextField_Stanzblech.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Stanzblech);
 
         jFormattedTextField_Stanzbrille.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Stanzbrille.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Stanzbrille.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Stanzbrille.setEnabled(false);
         jFormattedTextField_Stanzbrille.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Stanzbrille);
 
         jFormattedTextField_Vorstempel.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Vorstempel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Vorstempel.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Vorstempel.setEnabled(false);
         jFormattedTextField_Vorstempel.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Vorstempel);
 
         jFormattedTextField_Niederhalterplatte.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Niederhalterplatte.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Niederhalterplatte.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Niederhalterplatte.setEnabled(false);
         jFormattedTextField_Niederhalterplatte.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Niederhalterplatte);
 
         jFormattedTextField_Ausbrechstempel.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Ausbrechstempel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Ausbrechstempel.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Ausbrechstempel.setEnabled(false);
         jFormattedTextField_Ausbrechstempel.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Ausbrechstempel);
 
         jFormattedTextField_Lochwerkzeug.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Lochwerkzeug.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Lochwerkzeug.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Lochwerkzeug.setEnabled(false);
         jFormattedTextField_Lochwerkzeug.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Lochwerkzeug);
 
         jFormattedTextField_STAL.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_STAL.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_STAL.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_STAL.setEnabled(false);
         jFormattedTextField_STAL.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_STAL);
 
         jFormattedTextField_Führungskäfig.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Führungskäfig.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Führungskäfig.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Führungskäfig.setEnabled(false);
         jFormattedTextField_Führungskäfig.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Führungskäfig);
 
         jFormattedTextField_Säulengestell.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Säulengestell.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Säulengestell.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Säulengestell.setEnabled(false);
         jFormattedTextField_Säulengestell.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Säulengestell);
 
         jFormattedTextField_Schriftzug.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Schriftzug.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
         jFormattedTextField_Schriftzug.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         jFormattedTextField_Schriftzug.setEnabled(false);
         jFormattedTextField_Schriftzug.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -992,7 +1030,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel_editLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_editTextFields, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1107,7 +1145,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 //                        else {myValue[5] = "weich";}
 //                    }
 //                    ---------------------
-                    if (myDataSet != null && i == 17 || myDataSet != null && i == 18) {
+                    if (myDataSet != null && i == 18 || myDataSet != null && i == 19) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
@@ -1320,6 +1358,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     return;
                 }
                 if (DataSet_Mode.equals("edit")  && !Old_Bezeichnung.equals(jFormattedTextField_Bezeichnung.getText().trim())
+                    || !Old_Beschreibung.equals(jTextArea_Beschreibung.getText().trim())
                     || !Old_Segment.equals(jFormattedTextField_Segment.getText().trim())
                     || !Old_Grundform.equals(jFormattedTextField_Grundform.getText().trim())
                     || !Old_Grundform.equals(jFormattedTextField_Schnitt.getText().trim())
@@ -1681,6 +1720,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private void set_textFieldsEmpty() {
         jTextField_key.setText("");
         jFormattedTextField_Bezeichnung.setText("");
+        jTextArea_Beschreibung.setText("");
         jFormattedTextField_Segment.setText("");
         jFormattedTextField_Grundform.setText("");
         jFormattedTextField_Schnitt.setText("");
@@ -1703,6 +1743,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private void set_oldValues() {         
         Old_Key = jTextField_key.getText().trim();
         Old_Bezeichnung = jFormattedTextField_Bezeichnung.getText().trim();
+        Old_Beschreibung = jTextArea_Beschreibung.getText().trim();
         Old_Segment = jFormattedTextField_Segment.getText().trim();
         Old_Grundform = jFormattedTextField_Grundform.getText().trim();
         Old_Schnitt = jFormattedTextField_Schnitt.getText().trim();
@@ -1725,6 +1766,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private void get_oldValues() {         
         jTextField_key.setText(Old_Key);
         jFormattedTextField_Bezeichnung.setText(Old_Bezeichnung);
+        jTextArea_Beschreibung.setText(Old_Beschreibung);
         jFormattedTextField_Segment.setText(Old_Segment); 
         jFormattedTextField_Grundform.setText(Old_Grundform); 
         jFormattedTextField_Schnitt.setText(Old_Schnitt); 
@@ -1837,6 +1879,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             Benutzer = System.getProperty("user.name"); 
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("UPDATE DiafBDE.dbo.T_Werkzeugstamm SET Bezeichnung = '" + jFormattedTextField_Bezeichnung.getText().trim() +
+                    "', Beschreibung = '" + jTextArea_Beschreibung.getText().trim() +
                     "', Segment = '" + jFormattedTextField_Segment.getText().trim() +
                     "', Grundform = '" + jFormattedTextField_Grundform.getText().trim() +
                     "', Schnitt = '" + jFormattedTextField_Schnitt.getText().trim() +
@@ -1926,11 +1969,12 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                 jFormattedTextField_Schriftzug.setText("SZ0");
             }
             Statement myStatement = myConnection.createStatement();
-            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Werkzeugstamm (pKey_WKZ, Bezeichnung, Segment, Grundform, Schnitt, Stapelung,"
+            myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Werkzeugstamm (pKey_WKZ, Bezeichnung, Beschreibung, Segment, Grundform, Schnitt, Stapelung,"
                     + "Stanzblech, Stanzbrille, Vorstempel, Niederhalterplatte, Ausbrechstempel, Lochwerkzeug, STAL, Führungskäfig,"
                     + "Säulengestell, Schriftzug, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
                     + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
+                    + jTextArea_Beschreibung.getText().trim() + "', '" 
                     + jFormattedTextField_Segment.getText().trim() + "', '" 
                     + jFormattedTextField_Grundform.getText().trim() + "', '" 
                     + jFormattedTextField_Schnitt.getText().trim() + "', '" 
@@ -1980,99 +2024,105 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                 
                 if (myTableModel.getValueAt(myRow, 2) != null) {
                 tempString = myTableModel.getValueAt(myRow, 2).toString();
+                jTextArea_Beschreibung.setText(tempString);
+                }
+                else {jTextArea_Beschreibung.setText("");}
+                 
+                if (myTableModel.getValueAt(myRow, 3) != null) {
+                tempString = myTableModel.getValueAt(myRow, 3).toString();
                 jFormattedTextField_Segment.setText(tempString);
 //                jFormattedTextField_Saeulengestell_Bezeichnung.setText(this.get_dependentValueFromDB(tempString));
                 }
                 else {jFormattedTextField_Segment.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 3) != null) {
-                tempString = myTableModel.getValueAt(myRow, 3).toString();
+                if (myTableModel.getValueAt(myRow, 4) != null) {
+                tempString = myTableModel.getValueAt(myRow, 4).toString();
                 jFormattedTextField_Grundform.setText(tempString);
                 }
                 else {jFormattedTextField_Grundform.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 4) != null) {
-                tempString = myTableModel.getValueAt(myRow, 4).toString();
+                if (myTableModel.getValueAt(myRow, 5) != null) {
+                tempString = myTableModel.getValueAt(myRow, 5).toString();
                 jFormattedTextField_Schnitt.setText(tempString);
                 }
                 else {jFormattedTextField_Schnitt.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 5) != null) {
-                tempString = myTableModel.getValueAt(myRow, 5).toString();
+                if (myTableModel.getValueAt(myRow, 6) != null) {
+                tempString = myTableModel.getValueAt(myRow, 6).toString();
                 jFormattedTextField_Stapelung.setText(tempString);
                 }
                 else {jFormattedTextField_Stapelung.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 6) != null) {
-                tempString = myTableModel.getValueAt(myRow, 6).toString();
+                if (myTableModel.getValueAt(myRow, 7) != null) {
+                tempString = myTableModel.getValueAt(myRow, 7).toString();
                 jFormattedTextField_Stanzblech.setText(tempString);
                 }
                 else {jFormattedTextField_Stanzblech.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 7) != null) {
-                tempString = myTableModel.getValueAt(myRow, 7).toString();
+                if (myTableModel.getValueAt(myRow, 8) != null) {
+                tempString = myTableModel.getValueAt(myRow, 8).toString();
                 jFormattedTextField_Stanzbrille.setText(tempString);
                 }
                 else {jFormattedTextField_Stanzbrille.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 8) != null) {
-                tempString = myTableModel.getValueAt(myRow, 8).toString();
+                if (myTableModel.getValueAt(myRow, 9) != null) {
+                tempString = myTableModel.getValueAt(myRow, 9).toString();
                 jFormattedTextField_Vorstempel.setText(tempString);
                 }
                 else {jFormattedTextField_Vorstempel.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 9) != null) {
-                tempString = myTableModel.getValueAt(myRow, 9).toString();
+                if (myTableModel.getValueAt(myRow, 10) != null) {
+                tempString = myTableModel.getValueAt(myRow, 10).toString();
                 jFormattedTextField_Niederhalterplatte.setText(tempString);
                 }
                 else {jFormattedTextField_Niederhalterplatte.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 10) != null) {
-                tempString = myTableModel.getValueAt(myRow, 10).toString();
+                if (myTableModel.getValueAt(myRow, 11) != null) {
+                tempString = myTableModel.getValueAt(myRow, 11).toString();
                 jFormattedTextField_Ausbrechstempel.setText(tempString);
                 }
                 else {jFormattedTextField_Ausbrechstempel.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 11) != null) {
-                tempString = myTableModel.getValueAt(myRow, 11).toString();
+                if (myTableModel.getValueAt(myRow, 12) != null) {
+                tempString = myTableModel.getValueAt(myRow, 12).toString();
                 jFormattedTextField_Lochwerkzeug.setText(tempString);
                 }
                 else {jFormattedTextField_Lochwerkzeug.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 12) != null) {
-                tempString = myTableModel.getValueAt(myRow, 12).toString();
+                if (myTableModel.getValueAt(myRow, 13) != null) {
+                tempString = myTableModel.getValueAt(myRow, 13).toString();
                 jFormattedTextField_STAL.setText(tempString);
                 }
                 else {jFormattedTextField_STAL.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 13) != null) {
-                tempString = myTableModel.getValueAt(myRow, 13).toString();
+                if (myTableModel.getValueAt(myRow, 14) != null) {
+                tempString = myTableModel.getValueAt(myRow, 14).toString();
                 jFormattedTextField_Führungskäfig.setText(tempString);
                 }
                 else {jFormattedTextField_Führungskäfig.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 14) != null) {
-                tempString = myTableModel.getValueAt(myRow, 14).toString();
+                if (myTableModel.getValueAt(myRow, 15) != null) {
+                tempString = myTableModel.getValueAt(myRow, 15).toString();
                 jFormattedTextField_Säulengestell.setText(tempString);
                 }
                 else {jFormattedTextField_Säulengestell.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 15) != null) {
-                tempString = myTableModel.getValueAt(myRow, 15).toString();
+                if (myTableModel.getValueAt(myRow, 16) != null) {
+                tempString = myTableModel.getValueAt(myRow, 16).toString();
                 jFormattedTextField_Schriftzug.setText(tempString);
                 }
                 else {jFormattedTextField_Schriftzug.setText("");}
                 
-                if (myTableModel.getValueAt(myRow, 16) != null) {
-                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 16).toString().trim());
+                if (myTableModel.getValueAt(myRow, 17) != null) {
+                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 17).toString().trim());
                 }
                 else {jTextField_Anlagedatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 17) != null) {
-                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 17).toString().trim());
+                if (myTableModel.getValueAt(myRow, 18) != null) {
+                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 18).toString().trim());
                 }
                 else {jTextField_Änderungsdatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 18) != null) {
-                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 18).toString().trim()); 
+                if (myTableModel.getValueAt(myRow, 19) != null) {
+                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 19).toString().trim()); 
                 }
                 else {jTextField_Benutzer.setText("");}
                 
@@ -2204,9 +2254,11 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_editTextFields;
     private javax.swing.JPanel jPanel_footer;
     private javax.swing.JPanel jPanel_table;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane_dbData;
     private javax.swing.JScrollPane jScrollPane_editData;
     private javax.swing.JTable jTable_dbData;
+    private javax.swing.JTextArea jTextArea_Beschreibung;
     private javax.swing.JTextField jTextField_Anlagedatum;
     private javax.swing.JTextField jTextField_Benutzer;
     private javax.swing.JTextField jTextField_key;
@@ -2214,6 +2266,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Änderungsdatum;
     private javax.swing.JLabel lbl_Anlagedatum;
     private javax.swing.JLabel lbl_Benutzer;
+    private javax.swing.JLabel lbl_Beschreibung;
     private javax.swing.JLabel lbl_Bezeichnung;
     private javax.swing.JLabel lbl_Segment;
     private javax.swing.JLabel lbl_key;
