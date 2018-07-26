@@ -34,6 +34,8 @@ public class ManagerFrame extends javax.swing.JFrame {
     Frame_DataMaintenance_Stapelung myDMStapelung;
     Frame_DataMaintenance_Vorstempel myDMVorstempel;
     Frame_DataMaintenance_Materialtyp myDMMaterialtyp;
+    Frame_DataMaintenance_Glocke myDMGlocke;
+    Frame_DataMaintenance_Zentrierer myDMZentrierer;
     Frame_Grundform myManagerGrundform;
     Frame_DataMaintenance_Werkzeugstamm myWerkzeugstamm;
     /**
@@ -65,6 +67,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         btn_open_dataMaintenance_Stapelung = new javax.swing.JButton();
         btn_open_dataMaintenance_Vorstempel = new javax.swing.JButton();
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
+        btn_open_dataMaintenance_Glocke = new javax.swing.JButton();
+        btn_open_dataMaintenance_Zentrierer = new javax.swing.JButton();
         btn_open_dataMaintenance_Grundform = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_exitProgram = new javax.swing.JButton();
@@ -204,12 +208,36 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Werkzeugstamm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_open_dataMaintenance_Werkzeugstamm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_open_dataMaintenance_Werkzeugstamm.setText("Werkzeugstamm");
         btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Glocke.setText("12. Glocke");
+        btn_open_dataMaintenance_Glocke.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Glocke.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_GlockeActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Zentrierer.setText("13. Zentrierer");
+        btn_open_dataMaintenance_Zentrierer.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Zentrierer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_ZentriererActionPerformed(evt);
+            }
+        });
+
+        btn_open_dataMaintenance_Grundform.setText("Manager Grundform");
+        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_GrundformActionPerformed(evt);
             }
         });
 
@@ -220,7 +248,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Stanzbrille, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,8 +262,11 @@ public class ManagerFrame extends javax.swing.JFrame {
                     .addComponent(btn_open_dataMaintenance_Segment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Materialtyp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Ausbrechstempel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_open_dataMaintenance_Führungskäfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Glocke, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Zentrierer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,18 +299,16 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Stapelung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Vorstempel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Glocke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_open_dataMaintenance_Zentrierer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
+                .addGap(18, 18, 18)
+                .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
-
-        btn_open_dataMaintenance_Grundform.setText("Manager Grundform");
-        btn_open_dataMaintenance_Grundform.setPreferredSize(new java.awt.Dimension(120, 30));
-        btn_open_dataMaintenance_Grundform.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_open_dataMaintenance_GrundformActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
         jPanel_main.setLayout(jPanel_mainLayout);
@@ -289,7 +318,6 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                     .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -299,16 +327,14 @@ public class ManagerFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_open_dataMaintenance_Grundform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE))
         );
 
         jPanel_footer.setOpaque(false);
 
         btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
         btn_exitProgram.setText("Programm beenden");
+        btn_exitProgram.setPreferredSize(new java.awt.Dimension(125, 30));
         btn_exitProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_exitProgramActionPerformed(evt);
@@ -326,10 +352,10 @@ public class ManagerFrame extends javax.swing.JFrame {
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_exitProgram)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_exitProgram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
@@ -385,7 +411,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         else {
             myDMStanzblech = new Frame_DataMaintenance_Stanzblech();
             myDMStanzblech.setTitle("Stammdaten-Pflege: Stanzblech");
-            myDMStanzblech.setSize(1200, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMStanzblech.setSize(1280, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
             myDMStanzblech.setLocation(245, 0);
             myDMStanzblech.setVisible(true);
         }
@@ -606,6 +632,36 @@ public class ManagerFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btn_exitProgramActionPerformed
 
+    private void btn_open_dataMaintenance_GlockeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_GlockeActionPerformed
+        // TODO add your handling code here:   
+        if (myDMGlocke != null && myDMGlocke.getInstance() >= 1) {
+            myDMGlocke.setAlwaysOnTop(true);
+            myDMGlocke.setAlwaysOnTop(false);
+        }
+        else {
+            myDMGlocke = new Frame_DataMaintenance_Glocke();
+            myDMGlocke.setTitle("Stammdaten-Pflege: Glocke");
+            myDMGlocke.setSize(975, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMGlocke.setLocation(245, 0);
+            myDMGlocke.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_open_dataMaintenance_GlockeActionPerformed
+
+    private void btn_open_dataMaintenance_ZentriererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_open_dataMaintenance_ZentriererActionPerformed
+        // TODO add your handling code here:   
+        if (myDMZentrierer != null && myDMZentrierer.getInstance() >= 1) {
+            myDMZentrierer.setAlwaysOnTop(true);
+            myDMZentrierer.setAlwaysOnTop(false);
+        }
+        else {
+            myDMZentrierer = new Frame_DataMaintenance_Zentrierer();
+            myDMZentrierer.setTitle("Stammdaten-Pflege: Zentrierer");
+            myDMZentrierer.setSize(985, Toolkit.getDefaultToolkit().getScreenSize().height - 30);
+            myDMZentrierer.setLocation(245, 0);
+            myDMZentrierer.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_open_dataMaintenance_ZentriererActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -646,6 +702,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_exitProgram;
     private javax.swing.JButton btn_open_dataMaintenance_Ausbrechstempel;
     private javax.swing.JButton btn_open_dataMaintenance_Führungskäfig;
+    private javax.swing.JButton btn_open_dataMaintenance_Glocke;
     private javax.swing.JButton btn_open_dataMaintenance_Grundform;
     private javax.swing.JButton btn_open_dataMaintenance_Lochwerkzeug;
     private javax.swing.JButton btn_open_dataMaintenance_Materialtyp;
@@ -660,6 +717,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_open_dataMaintenance_Säulengestell;
     private javax.swing.JButton btn_open_dataMaintenance_Vorstempel;
     private javax.swing.JButton btn_open_dataMaintenance_Werkzeugstamm;
+    private javax.swing.JButton btn_open_dataMaintenance_Zentrierer;
     private javax.swing.JPanel jPanel_base;
     private javax.swing.JPanel jPanel_buttons;
     private javax.swing.JPanel jPanel_footer;
