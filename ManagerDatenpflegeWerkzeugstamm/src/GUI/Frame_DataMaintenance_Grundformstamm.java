@@ -145,8 +145,6 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
         lbl_rowCount = new javax.swing.JLabel();
         btn_getCurrentDBData = new javax.swing.JButton();
         lbl_tableName = new javax.swing.JLabel();
-        jPanel_footer = new javax.swing.JPanel();
-        btn_close = new javax.swing.JButton();
         jScrollPane_editData = new javax.swing.JScrollPane();
         jPanel_editData = new javax.swing.JPanel();
         jPanel_editLabels = new javax.swing.JPanel();
@@ -194,8 +192,11 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
         jTextField_Anlagedatum = new javax.swing.JTextField();
         jTextField_Änderungsdatum = new javax.swing.JTextField();
         jTextField_Benutzer = new javax.swing.JTextField();
+        jPanel_footer = new javax.swing.JPanel();
+        btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -322,40 +323,16 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel_footer.setOpaque(false);
-
-        btn_close.setText("Schließen");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
-        jPanel_footer.setLayout(jPanel_footerLayout);
-        jPanel_footerLayout.setHorizontalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_close)
-                .addContainerGap(845, Short.MAX_VALUE))
-        );
-        jPanel_footerLayout.setVerticalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_close)
-                .addGap(23, 23, 23))
-        );
-
+        jScrollPane_editData.setBackground(new java.awt.Color(204, 255, 255));
         jScrollPane_editData.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane_editData.setOpaque(false);
 
+        jPanel_editData.setBackground(new java.awt.Color(204, 255, 255));
         jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
-        jPanel_editData.setOpaque(false);
 
         jPanel_editLabels.setOpaque(false);
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
@@ -369,7 +346,7 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_Bezeichnung);
 
         lbl_Beschreibung.setText("Beschreibung");
-        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(200, 14));
+        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(206, 14));
         jPanel_editLabels.add(lbl_Beschreibung);
 
         lbl_Druckrahmen.setText("Druckrahmen");
@@ -735,6 +712,32 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
 
         jScrollPane_editData.setViewportView(jPanel_editData);
 
+        jPanel_footer.setOpaque(false);
+
+        btn_close.setText("Schließen");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
+        jPanel_footer.setLayout(jPanel_footerLayout);
+        jPanel_footerLayout.setHorizontalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_close)
+                .addContainerGap(845, Short.MAX_VALUE))
+        );
+        jPanel_footerLayout.setVerticalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_close)
+                .addGap(23, 23, 23))
+        );
+
         javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
         jPanel_base.setLayout(jPanel_baseLayout);
         jPanel_baseLayout.setHorizontalGroup(
@@ -753,14 +756,14 @@ public class Frame_DataMaintenance_Grundformstamm extends javax.swing.JFrame {
         jPanel_baseLayout.setVerticalGroup(
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
-                .addContainerGap(378, Short.MAX_VALUE)
-                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(364, Short.MAX_VALUE)
+                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(228, 228, 228)
+                    .addGap(244, 244, 244)
                     .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
