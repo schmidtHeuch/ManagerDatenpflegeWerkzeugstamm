@@ -288,12 +288,13 @@
                           <Component id="lbl_Anlagedatum" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_Änderungsdatum" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jTextField_Anlagedatum" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_Änderungsdatum" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField_Benutzer" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel_editTextFields" alignment="0" max="32767" attributes="0"/>
               </Group>
