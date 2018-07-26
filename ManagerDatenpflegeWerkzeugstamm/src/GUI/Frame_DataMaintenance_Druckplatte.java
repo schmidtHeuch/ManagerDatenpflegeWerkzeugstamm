@@ -303,7 +303,7 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
                             .addComponent(btn_getCurrentDBData)))
                     .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -548,7 +548,7 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
         jPanel_editData.setLayout(jPanel_editDataLayout);
         jPanel_editDataLayout.setHorizontalGroup(
             jPanel_editDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 1673, Short.MAX_VALUE)
+            .addComponent(jPanel_editLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
             .addGroup(jPanel_editDataLayout.createSequentialGroup()
                 .addComponent(jPanel_editButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -624,7 +624,7 @@ public class Frame_DataMaintenance_Druckplatte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel_editData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 1685, Short.MAX_VALUE))
+                    .addComponent(jPanel_footer, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
