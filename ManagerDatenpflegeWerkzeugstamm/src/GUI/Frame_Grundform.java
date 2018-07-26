@@ -42,6 +42,8 @@ public class Frame_Grundform extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel_base = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea_infoAboutSequence = new javax.swing.JTextArea();
         jPanel_main = new javax.swing.JPanel();
         jPanel_buttons = new javax.swing.JPanel();
         btn_open_dataMaintenance_Druckrahmen = new javax.swing.JButton();
@@ -54,14 +56,24 @@ public class Frame_Grundform extends javax.swing.JFrame {
         btn_open_dataMaintenance_Werkzeugstamm = new javax.swing.JButton();
         jPanel_footer = new javax.swing.JPanel();
         btn_exitProgram = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_infoAboutSequence = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
         setPreferredSize(new java.awt.Dimension(224, 969));
 
         jPanel_base.setBackground(new java.awt.Color(204, 255, 255));
+
+        jScrollPane1.setEnabled(false);
+
+        jTextArea_infoAboutSequence.setEditable(false);
+        jTextArea_infoAboutSequence.setColumns(20);
+        jTextArea_infoAboutSequence.setLineWrap(true);
+        jTextArea_infoAboutSequence.setRows(5);
+        jTextArea_infoAboutSequence.setText("Die Pflege der Stammdaten für die Grundform muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
+        jTextArea_infoAboutSequence.setWrapStyleWord(true);
+        jTextArea_infoAboutSequence.setAutoscrolls(false);
+        jTextArea_infoAboutSequence.setFocusable(false);
+        jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
 
         jPanel_main.setOpaque(false);
 
@@ -116,7 +128,7 @@ public class Frame_Grundform extends javax.swing.JFrame {
             }
         });
 
-        btn_open_dataMaintenance_Grundformstamm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btn_open_dataMaintenance_Grundformstamm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_open_dataMaintenance_Grundformstamm.setText("Grundformstamm");
         btn_open_dataMaintenance_Grundformstamm.setPreferredSize(new java.awt.Dimension(120, 30));
         btn_open_dataMaintenance_Grundformstamm.addActionListener(new java.awt.event.ActionListener() {
@@ -125,10 +137,21 @@ public class Frame_Grundform extends javax.swing.JFrame {
             }
         });
 
+        btn_open_dataMaintenance_Werkzeugstamm.setText("Manager Werkzeugstamm");
+        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_buttonsLayout = new javax.swing.GroupLayout(jPanel_buttons);
         jPanel_buttons.setLayout(jPanel_buttonsLayout);
         jPanel_buttonsLayout.setHorizontalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_buttonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,18 +160,14 @@ public class Frame_Grundform extends javax.swing.JFrame {
                     .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addGap(7, 7, 7)
-                    .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(8, 8, 8)))
         );
         jPanel_buttonsLayout.setVerticalGroup(
             jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(163, 163, 163)
                 .addComponent(btn_open_dataMaintenance_Druckrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Segmentrahmen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,21 +179,12 @@ public class Frame_Grundform extends javax.swing.JFrame {
                 .addComponent(btn_open_dataMaintenance_Grundplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_open_dataMaintenance_Druckplatte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(393, Short.MAX_VALUE))
-            .addGroup(jPanel_buttonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_buttonsLayout.createSequentialGroup()
-                    .addGap(292, 292, 292)
-                    .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(292, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                .addComponent(btn_open_dataMaintenance_Grundformstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
-
-        btn_open_dataMaintenance_Werkzeugstamm.setText("Manager Werkzeugstamm");
-        btn_open_dataMaintenance_Werkzeugstamm.setPreferredSize(new java.awt.Dimension(120, 30));
-        btn_open_dataMaintenance_Werkzeugstamm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_open_dataMaintenance_WerkzeugstammActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel_mainLayout = new javax.swing.GroupLayout(jPanel_main);
         jPanel_main.setLayout(jPanel_mainLayout);
@@ -182,25 +192,19 @@ public class Frame_Grundform extends javax.swing.JFrame {
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addGap(14, 14, 14))
         );
         jPanel_mainLayout.setVerticalGroup(
             jPanel_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_mainLayout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jPanel_buttons, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_open_dataMaintenance_Werkzeugstamm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel_buttons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
         );
 
         jPanel_footer.setOpaque(false);
 
         btn_exitProgram.setBackground(new java.awt.Color(255, 153, 153));
         btn_exitProgram.setText("Programm beenden");
+        btn_exitProgram.setPreferredSize(new java.awt.Dimension(125, 30));
         btn_exitProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_exitProgramActionPerformed(evt);
@@ -218,23 +222,11 @@ public class Frame_Grundform extends javax.swing.JFrame {
         );
         jPanel_footerLayout.setVerticalGroup(
             jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_exitProgram)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_exitProgram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        jScrollPane1.setEnabled(false);
-
-        jTextArea_infoAboutSequence.setEditable(false);
-        jTextArea_infoAboutSequence.setColumns(20);
-        jTextArea_infoAboutSequence.setLineWrap(true);
-        jTextArea_infoAboutSequence.setRows(5);
-        jTextArea_infoAboutSequence.setText("Die Pflege der Stammdaten für die Grundform muss in einer bestimmten Reihenfolge vorgenommen werden. Die Reihenfolge ist über die Schaltflächen ersichtlich.");
-        jTextArea_infoAboutSequence.setWrapStyleWord(true);
-        jTextArea_infoAboutSequence.setAutoscrolls(false);
-        jTextArea_infoAboutSequence.setFocusable(false);
-        jScrollPane1.setViewportView(jTextArea_infoAboutSequence);
 
         javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
         jPanel_base.setLayout(jPanel_baseLayout);
@@ -253,12 +245,12 @@ public class Frame_Grundform extends javax.swing.JFrame {
             .addGroup(jPanel_baseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 672, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 636, Short.MAX_VALUE)
                 .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
                     .addComponent(jPanel_main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(50, 50, 50)))
+                    .addGap(59, 59, 59)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
