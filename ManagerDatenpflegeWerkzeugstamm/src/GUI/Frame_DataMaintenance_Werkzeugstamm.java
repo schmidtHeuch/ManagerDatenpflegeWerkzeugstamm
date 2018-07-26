@@ -52,6 +52,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         this.Old_Führungskäfig = "";
         this.Old_Säulengestell = "";
         this.Old_Schriftzug = "";
+        this.Old_Glocke = "";
+        this.Old_Zentrierer = "";
         this.Old_Anlagedatum = "";
         this.Old_Änderungsdatum = "";
         this.Old_Benutzer = "";
@@ -89,6 +91,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     String Old_Führungskäfig;
     String Old_Säulengestell;
     String Old_Schriftzug;
+    String Old_Glocke;
+    String Old_Zentrierer;
     String Old_Anlagedatum;
     String Old_Änderungsdatum;
     String Old_Benutzer;
@@ -150,6 +154,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig.addKeyListener(tfKeyListener);
         jFormattedTextField_Säulengestell.addKeyListener(tfKeyListener);
         jFormattedTextField_Schriftzug.addKeyListener(tfKeyListener);
+        jFormattedTextField_Glocke.addKeyListener(tfKeyListener);
+        jFormattedTextField_Zentrierer.addKeyListener(tfKeyListener);
         jTable_dbData.addKeyListener(tfKeyListener);
     }
 
@@ -172,8 +178,6 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         lbl_rowCount = new javax.swing.JLabel();
         btn_getCurrentDBData = new javax.swing.JButton();
         lbl_tableName = new javax.swing.JLabel();
-        jPanel_footer = new javax.swing.JPanel();
-        btn_close = new javax.swing.JButton();
         jScrollPane_editData = new javax.swing.JScrollPane();
         jPanel_editData = new javax.swing.JPanel();
         jPanel_editLabels = new javax.swing.JPanel();
@@ -222,6 +226,12 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jLabel_Schriftzug = new javax.swing.JLabel();
         btn_openDialog_Schriftzug = new javax.swing.JButton();
         btn_delete_Schriftzug = new javax.swing.JButton();
+        jLabel_Glocke = new javax.swing.JLabel();
+        btn_openDialog_Glocke = new javax.swing.JButton();
+        btn_delete_Glocke = new javax.swing.JButton();
+        jLabel_Zentrierer = new javax.swing.JLabel();
+        btn_openDialog_Zentrierer = new javax.swing.JButton();
+        btn_delete_Zentrierer = new javax.swing.JButton();
         jLabel_placeholder = new javax.swing.JLabel();
         jPanel_editTextFields = new javax.swing.JPanel();
         jTextField_key = new javax.swing.JTextField();
@@ -242,6 +252,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig = new javax.swing.JTextField();
         jFormattedTextField_Säulengestell = new javax.swing.JTextField();
         jFormattedTextField_Schriftzug = new javax.swing.JTextField();
+        jFormattedTextField_Glocke = new javax.swing.JTextField();
+        jFormattedTextField_Zentrierer = new javax.swing.JTextField();
         jLabel_placeholder2 = new javax.swing.JLabel();
         btn_new = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
@@ -255,8 +267,11 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jTextField_Anlagedatum = new javax.swing.JTextField();
         jTextField_Änderungsdatum = new javax.swing.JTextField();
         jTextField_Benutzer = new javax.swing.JTextField();
+        jPanel_footer = new javax.swing.JPanel();
+        btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -289,14 +304,14 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "WKZ (Key)", "Bezeichnung", "Beschreibung", "Segment", "Grundform", "Schnitt", "Stapelung", "Stanzblech", "Stanzbrille", "Vorstempel", "Niederhalterplatte", "Ausbrechstempel", "Lochwerkzeug", "STAL", "Führungskäfig", "Säulengestell", "Schriftzug", "Anlagedatum", "Änderungsdatum", "Benutzer"
+                "WKZ (Key)", "Bezeichnung", "Beschreibung", "Segment", "Grundform", "Schnitt", "Stapelung", "Stanzblech", "Stanzbrille", "Vorstempel", "Niederhalterplatte", "Ausbrechstempel", "Lochwerkzeug", "STAL", "Führungskäfig", "Säulengestell", "Schriftzug", "Glocke", "Zentrierer", "Anlagedatum", "Änderungsdatum", "Benutzer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -332,7 +347,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             jTable_dbData.getColumnModel().getColumn(16).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(17).setPreferredWidth(150);
             jTable_dbData.getColumnModel().getColumn(18).setPreferredWidth(150);
-            jTable_dbData.getColumnModel().getColumn(19).setPreferredWidth(100);
+            jTable_dbData.getColumnModel().getColumn(19).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(20).setPreferredWidth(150);
+            jTable_dbData.getColumnModel().getColumn(21).setPreferredWidth(100);
         }
 
         lbl_search1.setText("Suchen");
@@ -391,40 +408,16 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(lbl_rowCount, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(jScrollPane_dbData, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel_footer.setOpaque(false);
-
-        btn_close.setText("Schließen");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
-        jPanel_footer.setLayout(jPanel_footerLayout);
-        jPanel_footerLayout.setHorizontalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_footerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_close)
-                .addContainerGap(845, Short.MAX_VALUE))
-        );
-        jPanel_footerLayout.setVerticalGroup(
-            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_close)
-                .addGap(23, 23, 23))
-        );
-
+        jScrollPane_editData.setBackground(new java.awt.Color(204, 255, 255));
         jScrollPane_editData.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane_editData.setOpaque(false);
 
+        jPanel_editData.setBackground(new java.awt.Color(204, 255, 255));
         jPanel_editData.setBorder(javax.swing.BorderFactory.createTitledBorder("Bearbeitung"));
-        jPanel_editData.setOpaque(false);
 
         jPanel_editLabels.setOpaque(false);
         jPanel_editLabels.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
@@ -438,7 +431,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_editLabels.add(lbl_Bezeichnung);
 
         lbl_Beschreibung.setText("Beschreibung");
-        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(200, 14));
+        lbl_Beschreibung.setPreferredSize(new java.awt.Dimension(206, 14));
         jPanel_editLabels.add(lbl_Beschreibung);
 
         lbl_Segment.setText("Segment");
@@ -778,6 +771,54 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         });
         jPanel_editLabels.add(btn_delete_Schriftzug);
 
+        jLabel_Glocke.setText("Glocke");
+        jLabel_Glocke.setPreferredSize(new java.awt.Dimension(104, 14));
+        jPanel_editLabels.add(jLabel_Glocke);
+
+        btn_openDialog_Glocke.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lupe.png"))); // NOI18N
+        btn_openDialog_Glocke.setEnabled(false);
+        btn_openDialog_Glocke.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_openDialog_Glocke.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_openDialog_GlockeActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_openDialog_Glocke);
+
+        btn_delete_Glocke.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
+        btn_delete_Glocke.setEnabled(false);
+        btn_delete_Glocke.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_delete_Glocke.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_delete_GlockeActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_delete_Glocke);
+
+        jLabel_Zentrierer.setText("Zentrierer");
+        jLabel_Zentrierer.setPreferredSize(new java.awt.Dimension(104, 14));
+        jPanel_editLabels.add(jLabel_Zentrierer);
+
+        btn_openDialog_Zentrierer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lupe.png"))); // NOI18N
+        btn_openDialog_Zentrierer.setEnabled(false);
+        btn_openDialog_Zentrierer.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_openDialog_Zentrierer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_openDialog_ZentriererActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_openDialog_Zentrierer);
+
+        btn_delete_Zentrierer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Löschen.png"))); // NOI18N
+        btn_delete_Zentrierer.setEnabled(false);
+        btn_delete_Zentrierer.setPreferredSize(new java.awt.Dimension(23, 23));
+        btn_delete_Zentrierer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_delete_ZentriererActionPerformed(evt);
+            }
+        });
+        jPanel_editLabels.add(btn_delete_Zentrierer);
+
         jLabel_placeholder.setPreferredSize(new java.awt.Dimension(400, 14));
         jPanel_editLabels.add(jLabel_placeholder);
 
@@ -908,6 +949,20 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Schriftzug.setEnabled(false);
         jFormattedTextField_Schriftzug.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel_editTextFields.add(jFormattedTextField_Schriftzug);
+
+        jFormattedTextField_Glocke.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Glocke.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jFormattedTextField_Glocke.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Glocke.setEnabled(false);
+        jFormattedTextField_Glocke.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Glocke);
+
+        jFormattedTextField_Zentrierer.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField_Zentrierer.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2)));
+        jFormattedTextField_Zentrierer.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        jFormattedTextField_Zentrierer.setEnabled(false);
+        jFormattedTextField_Zentrierer.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel_editTextFields.add(jFormattedTextField_Zentrierer);
 
         jLabel_placeholder2.setPreferredSize(new java.awt.Dimension(400, 14));
         jPanel_editTextFields.add(jLabel_placeholder2);
@@ -1061,6 +1116,32 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 
         jScrollPane_editData.setViewportView(jPanel_editData);
 
+        jPanel_footer.setOpaque(false);
+
+        btn_close.setText("Schließen");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_footerLayout = new javax.swing.GroupLayout(jPanel_footer);
+        jPanel_footer.setLayout(jPanel_footerLayout);
+        jPanel_footerLayout.setHorizontalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_footerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_close)
+                .addContainerGap(845, Short.MAX_VALUE))
+        );
+        jPanel_footerLayout.setVerticalGroup(
+            jPanel_footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_footerLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_close)
+                .addGap(23, 23, 23))
+        );
+
         javax.swing.GroupLayout jPanel_baseLayout = new javax.swing.GroupLayout(jPanel_base);
         jPanel_base.setLayout(jPanel_baseLayout);
         jPanel_baseLayout.setHorizontalGroup(
@@ -1079,14 +1160,14 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jPanel_baseLayout.setVerticalGroup(
             jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_baseLayout.createSequentialGroup()
-                .addContainerGap(406, Short.MAX_VALUE)
-                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(336, Short.MAX_VALUE)
+                .addComponent(jScrollPane_editData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
             .addGroup(jPanel_baseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel_baseLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel_table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(189, 189, 189)
+                    .addGap(274, 274, 274)
                     .addComponent(jPanel_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -1145,7 +1226,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
 //                        else {myValue[5] = "weich";}
 //                    }
 //                    ---------------------
-                    if (myDataSet != null && i == 18 || myDataSet != null && i == 19) {
+                    if (myDataSet != null && i == 20 || myDataSet != null && i == 21) {
                         Timestamp ts = Timestamp.valueOf(myDataSet);
                         myDataSet = myFormat.format(ts);
                     }
@@ -1372,7 +1453,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     || !Old_Grundform.equals(jFormattedTextField_STAL.getText().trim())
                     || !Old_Grundform.equals(jFormattedTextField_Führungskäfig.getText().trim())
                     || !Old_Grundform.equals(jFormattedTextField_Säulengestell.getText().trim())
-                    || !Old_Grundform.equals(jFormattedTextField_Schriftzug.getText().trim())) {
+                    || !Old_Grundform.equals(jFormattedTextField_Schriftzug.getText().trim())
+                    || !Old_Grundform.equals(jFormattedTextField_Glocke.getText().trim())
+                    || !Old_Grundform.equals(jFormattedTextField_Zentrierer.getText().trim())) {
                     do_updateDataSet_inDB();
                 }
                 if (DataSet_Mode.equals("duplicate")) {
@@ -1700,6 +1783,40 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         set_textFieldsEnabled(false);
         DataSet_Mode = "clean";
     }//GEN-LAST:event_btn_cancelActionPerformed
+
+    private void btn_openDialog_GlockeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDialog_GlockeActionPerformed
+        // TODO add your handling code here:
+        Dialog_DataUse_Glocke myDialog = new Dialog_DataUse_Glocke(this,true); //noch ändern!!!
+        myDialog.setTitle("Glocke");
+        myDialog.setLocationRelativeTo(null);
+        myDialog.setVisible(true);
+        String resultFromDialog_ID = myDialog.getChoosenGlocken_ID();
+        if (!resultFromDialog_ID.equals("")) {
+            this.jFormattedTextField_Glocke.setText(resultFromDialog_ID);
+        }
+    }//GEN-LAST:event_btn_openDialog_GlockeActionPerformed
+
+    private void btn_delete_GlockeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete_GlockeActionPerformed
+        // TODO add your handling code here:
+        jFormattedTextField_Glocke.setText("");
+    }//GEN-LAST:event_btn_delete_GlockeActionPerformed
+
+    private void btn_openDialog_ZentriererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_openDialog_ZentriererActionPerformed
+        // TODO add your handling code here:
+        Dialog_DataUse_Zentrierer myDialog = new Dialog_DataUse_Zentrierer(this,true); //noch ändern!!!
+        myDialog.setTitle("Zentrierer");
+        myDialog.setLocationRelativeTo(null);
+        myDialog.setVisible(true);
+        String resultFromDialog_ID = myDialog.getChoosenZentrierer_ID();
+        if (!resultFromDialog_ID.equals("")) {
+            this.jFormattedTextField_Zentrierer.setText(resultFromDialog_ID);
+        }
+    }//GEN-LAST:event_btn_openDialog_ZentriererActionPerformed
+
+    private void btn_delete_ZentriererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete_ZentriererActionPerformed
+        // TODO add your handling code here:
+        jFormattedTextField_Zentrierer.setText("");
+    }//GEN-LAST:event_btn_delete_ZentriererActionPerformed
    
     private int test_continueEditing() {
         int myAnswer = 0;
@@ -1735,6 +1852,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig.setText("");
         jFormattedTextField_Säulengestell.setText("");
         jFormattedTextField_Schriftzug.setText("");
+        jFormattedTextField_Glocke.setText("");
+        jFormattedTextField_Zentrierer.setText("");
         jTextField_Anlagedatum.setText("");
         jTextField_Änderungsdatum.setText("");
         jTextField_Benutzer.setText("");      
@@ -1758,6 +1877,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         Old_Führungskäfig = jFormattedTextField_Führungskäfig.getText().trim();
         Old_Säulengestell = jFormattedTextField_Säulengestell.getText().trim();
         Old_Schriftzug = jFormattedTextField_Schriftzug.getText().trim();
+        Old_Glocke = jFormattedTextField_Glocke.getText().trim();
+        Old_Zentrierer = jFormattedTextField_Zentrierer.getText().trim();
         Old_Anlagedatum = jTextField_Anlagedatum.getText();
         Old_Änderungsdatum = jTextField_Änderungsdatum.getText();
         Old_Benutzer = jTextField_Benutzer.getText();
@@ -1781,6 +1902,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         jFormattedTextField_Führungskäfig.setText(Old_Führungskäfig); 
         jFormattedTextField_Säulengestell.setText(Old_Säulengestell); 
         jFormattedTextField_Schriftzug.setText(Old_Schriftzug);
+        jFormattedTextField_Glocke.setText(Old_Glocke);
+        jFormattedTextField_Zentrierer.setText(Old_Zentrierer);
         jTextField_Anlagedatum.setText(Old_Anlagedatum);
         jTextField_Änderungsdatum.setText(Old_Änderungsdatum);
         jTextField_Benutzer.setText(Old_Benutzer);
@@ -1829,6 +1952,10 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
         btn_delete_Säulengestell.setEnabled(aBoolean);
         btn_openDialog_Schriftzug.setEnabled(aBoolean);
         btn_delete_Schriftzug.setEnabled(aBoolean);
+        btn_openDialog_Glocke.setEnabled(aBoolean);
+        btn_delete_Glocke.setEnabled(aBoolean);
+        btn_openDialog_Zentrierer.setEnabled(aBoolean);
+        btn_delete_Zentrierer.setEnabled(aBoolean);
     }
     
     private boolean test_isDataSetInDB(String aString) {
@@ -1894,6 +2021,8 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     "', Führungskäfig = '" + jFormattedTextField_Führungskäfig.getText().trim() +
                     "', Säulengestell = '" + jFormattedTextField_Säulengestell.getText().trim() +
                     "', Schriftzug = '" + jFormattedTextField_Schriftzug.getText().trim() +
+                    "', Glocke = '" + jFormattedTextField_Glocke.getText().trim() +
+                    "', Zentrierer = '" + jFormattedTextField_Zentrierer.getText().trim() +
                     "', Änderungsdatum = '" + result +
                     "', Benutzer = '" + Benutzer +
                     
@@ -1968,10 +2097,16 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             if (jFormattedTextField_Schriftzug.getText().trim().equals("")) {
                 jFormattedTextField_Schriftzug.setText("SZ0");
             }
+            if (jFormattedTextField_Glocke.getText().trim().equals("")) {
+                jFormattedTextField_Glocke.setText("GL0");
+            }
+            if (jFormattedTextField_Zentrierer.getText().trim().equals("")) {
+                jFormattedTextField_Zentrierer.setText("ZEN0");
+            }
             Statement myStatement = myConnection.createStatement();
             myStatement.executeUpdate("INSERT INTO DiafBDE.dbo.T_Werkzeugstamm (pKey_WKZ, Bezeichnung, Beschreibung, Segment, Grundform, Schnitt, Stapelung,"
                     + "Stanzblech, Stanzbrille, Vorstempel, Niederhalterplatte, Ausbrechstempel, Lochwerkzeug, STAL, Führungskäfig,"
-                    + "Säulengestell, Schriftzug, Anlagedatum, Benutzer)" 
+                    + "Säulengestell, Schriftzug, Glocke, Zentrierer, Anlagedatum, Benutzer)" 
                     + "VALUES ('" + jTextField_key.getText().trim() + "', '" 
                     + jFormattedTextField_Bezeichnung.getText().trim() + "', '" 
                     + jTextArea_Beschreibung.getText().trim() + "', '" 
@@ -1988,7 +2123,9 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                     + jFormattedTextField_STAL.getText().trim() + "', '" 
                     + jFormattedTextField_Führungskäfig.getText().trim() + "', '" 
                     + jFormattedTextField_Säulengestell.getText().trim() + "', '" 
-                    + jFormattedTextField_Schriftzug.getText().trim() + "', '" 
+                    + jFormattedTextField_Schriftzug.getText().trim() + "', '"
+                    + jFormattedTextField_Glocke.getText().trim() + "', '" 
+                    + jFormattedTextField_Zentrierer.getText().trim() + "', '" 
                     + result + "', '" 
                     + Benutzer +"')");              
             } 
@@ -2114,15 +2251,27 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
                 else {jFormattedTextField_Schriftzug.setText("");}
                 
                 if (myTableModel.getValueAt(myRow, 17) != null) {
-                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 17).toString().trim());
+                tempString = myTableModel.getValueAt(myRow, 17).toString();
+                jFormattedTextField_Glocke.setText(tempString);
+                }
+                else {jFormattedTextField_Glocke.setText("");}
+                
+                if (myTableModel.getValueAt(myRow, 18) != null) {
+                tempString = myTableModel.getValueAt(myRow, 18).toString();
+                jFormattedTextField_Zentrierer.setText(tempString);
+                }
+                else {jFormattedTextField_Zentrierer.setText("");}
+                
+                if (myTableModel.getValueAt(myRow, 19) != null) {
+                    jTextField_Anlagedatum.setText(myTableModel.getValueAt(myRow, 19).toString().trim());
                 }
                 else {jTextField_Anlagedatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 18) != null) {
-                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 18).toString().trim());
+                if (myTableModel.getValueAt(myRow, 20) != null) {
+                   jTextField_Änderungsdatum.setText(myTableModel.getValueAt(myRow, 20).toString().trim());
                 }
                 else {jTextField_Änderungsdatum.setText("");}
-                if (myTableModel.getValueAt(myRow, 19) != null) {
-                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 19).toString().trim()); 
+                if (myTableModel.getValueAt(myRow, 21) != null) {
+                    jTextField_Benutzer.setText(myTableModel.getValueAt(myRow, 21).toString().trim()); 
                 }
                 else {jTextField_Benutzer.setText("");}
                 
@@ -2188,6 +2337,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JButton btn_deleteSearchValue;
     private javax.swing.JButton btn_delete_Ausbrechstempel;
     private javax.swing.JButton btn_delete_Führungskäfig;
+    private javax.swing.JButton btn_delete_Glocke;
     private javax.swing.JButton btn_delete_Grundform;
     private javax.swing.JButton btn_delete_Lochwerkzeug;
     private javax.swing.JButton btn_delete_Niederhalterplatte;
@@ -2200,12 +2350,14 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JButton btn_delete_Stapelung;
     private javax.swing.JButton btn_delete_Säulengestell;
     private javax.swing.JButton btn_delete_Vorstempel;
+    private javax.swing.JButton btn_delete_Zentrierer;
     private javax.swing.JButton btn_duplicate;
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_getCurrentDBData;
     private javax.swing.JButton btn_new;
     private javax.swing.JButton btn_openDialog_Ausbrechstempel;
     private javax.swing.JButton btn_openDialog_Führungskäfig;
+    private javax.swing.JButton btn_openDialog_Glocke;
     private javax.swing.JButton btn_openDialog_Grundform;
     private javax.swing.JButton btn_openDialog_Lochwerkzeug;
     private javax.swing.JButton btn_openDialog_Niederhalterplatte;
@@ -2218,9 +2370,11 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JButton btn_openDialog_Stapelung;
     private javax.swing.JButton btn_openDialog_Säulengestell;
     private javax.swing.JButton btn_openDialog_Vorstempel;
+    private javax.swing.JButton btn_openDialog_Zentrierer;
     private javax.swing.JTextField jFormattedTextField_Ausbrechstempel;
     private javax.swing.JFormattedTextField jFormattedTextField_Bezeichnung;
     private javax.swing.JTextField jFormattedTextField_Führungskäfig;
+    private javax.swing.JTextField jFormattedTextField_Glocke;
     private javax.swing.JTextField jFormattedTextField_Grundform;
     private javax.swing.JTextField jFormattedTextField_Lochwerkzeug;
     private javax.swing.JTextField jFormattedTextField_Niederhalterplatte;
@@ -2233,8 +2387,10 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JTextField jFormattedTextField_Stapelung;
     private javax.swing.JTextField jFormattedTextField_Säulengestell;
     private javax.swing.JTextField jFormattedTextField_Vorstempel;
+    private javax.swing.JTextField jFormattedTextField_Zentrierer;
     private javax.swing.JLabel jLabel_Ausbrechstempel;
     private javax.swing.JLabel jLabel_Führungskäfig;
+    private javax.swing.JLabel jLabel_Glocke;
     private javax.swing.JLabel jLabel_Grundform;
     private javax.swing.JLabel jLabel_Lochwerkzeug;
     private javax.swing.JLabel jLabel_Niederhalterplatte;
@@ -2246,6 +2402,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Stapelung;
     private javax.swing.JLabel jLabel_Säulengestell;
     private javax.swing.JLabel jLabel_Vorstempel;
+    private javax.swing.JLabel jLabel_Zentrierer;
     private javax.swing.JLabel jLabel_placeholder;
     private javax.swing.JLabel jLabel_placeholder2;
     private javax.swing.JPanel jPanel_base;
