@@ -599,10 +599,10 @@ public class Frame_DataMaintenance_Schnitt extends javax.swing.JFrame {
                           
                     String myDataSet = myResultSet.getString(i);
                     if (myDataSet != null) {
-                        if (i == 3 && myDataSet.equals("0")) {
+                        if (i == 4 && myDataSet.equals("0")) {
                             myDataSet = "ja";
                         }
-                        if (i == 3 && myDataSet.equals("1")) {
+                        if (i == 4 && myDataSet.equals("1")) {
                             myDataSet = "nein";
                         }
 
