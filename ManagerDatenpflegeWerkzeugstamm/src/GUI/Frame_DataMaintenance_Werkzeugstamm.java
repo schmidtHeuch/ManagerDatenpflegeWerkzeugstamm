@@ -1915,6 +1915,7 @@ public class Frame_DataMaintenance_Werkzeugstamm extends javax.swing.JFrame {
             jPanel_editTextFields.getComponent(i).setEnabled(aBoolean);
         }
         jTextField_key.setEnabled(aBoolean);
+        jTextArea_Beschreibung.setEnabled(aBoolean);
     }
         
     private void set_buttonsEnabled(boolean aBoolean) {
